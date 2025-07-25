@@ -1,0 +1,551 @@
+body {
+    background: #f8fafc;
+}
+
+.sidebar {
+    min-height: 100vh;
+    background: #343a40;
+    color: #fff;
+}
+
+.sidebar .nav-link {
+    color: #adb5bd;
+}
+
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+    color: #fff;
+    background: #495057;
+}
+
+.text-shadow {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+@media (max-width: 767.98px) {
+    .carousel-caption {
+        font-size: 0.95rem;
+        padding: 0.5rem;
+    }
+
+    .dashboard-mobile-card-spacing > [class^="col-"] {
+        margin-bottom: 1.25rem;
+    }
+}
+@media (max-width: 767.98px) {
+    .table-responsive th, .table-responsive td {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.3rem;
+    }
+    .table-responsive .btn {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.7rem;
+    }
+    .card .card-header, .card .card-body {
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+    }
+    .mb-4, .mb-3 {
+        margin-bottom: 1rem !important;
+    }
+}
+@media (max-width: 575.98px) {
+    .table-responsive th, .table-responsive td {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.2rem;
+    }
+    .fw-bold, h2 {
+        font-size: 1.1rem !important;
+    }
+}
+
+.kompetensi-badge-kategori {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(79,140,255,0.10);
+    padding: 0.45em 1em;
+    backdrop-filter: blur(1.5px);
+}
+
+.modern-card:hover {
+    box-shadow: 0 6px 32px 0 rgba(13,110,253,0.13), 0 1.5px 6px 0 rgba(60,60,60,0.07);
+}
+.modern-card .modern-img:hover {
+    transform: scale(1.045);
+}
+.btn-gradient-primary {
+    background: linear-gradient(90deg, #0d6efd 60%, #0dcaf0 100%);
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 2px 8px 0 rgba(13,110,253,0.08);
+    transition: background .18s, color .18s, box-shadow .18s;
+}
+.btn-gradient-primary:hover, .btn-gradient-primary:focus {
+    background: linear-gradient(90deg, #0dcaf0 0%, #0d6efd 100%);
+    color: #fff !important;
+    box-shadow: 0 4px 16px 0 rgba(13,110,253,0.13);
+}
+
+ @media (max-width: 767.98px) {
+    .desc-td {
+        max-width: 90px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .learning-search-mobile {
+        flex-direction: row !important;
+    }
+    .learning-search-mobile input[type="text"] {
+        flex: 1 1 0%;
+        min-width: 0;
+    }
+    .learning-search-mobile button,
+    .learning-search-mobile a.btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+.kompetensi-badge-level {
+    background: linear-gradient(90deg, #ffe259 0%, #ffa751 100%);
+    color: #6b3e00;
+    font-weight: 500;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(255,193,7,0.10);
+    padding: 0.55em 1.2em;
+    backdrop-filter: blur(1.5px);
+    letter-spacing: 0.01em;
+}
+.kompetensi-exam-modern-card {
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px 0 rgba(0,0,0,0.10), 0 2px 8px 0 rgba(0,0,0,0.06);
+    background: #fff;
+}
+.kompetensi-badge-kategori-gradient {
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(79,140,255,0.10);
+    padding: 0.55em 1.2em;
+    backdrop-filter: blur(1.5px);
+}
+.kompetensi-badge-durasi {
+    background: #f1f6ff;
+    color: #3578e5;
+    font-weight: 500;
+    border-radius: 1rem;
+    padding: 0.45em 1em;
+    font-size: 1rem;
+    box-shadow: 0 1px 4px 0 rgba(79,140,255,0.07);
+}
+.kompetensi-timer-box {
+    background: linear-gradient(90deg, #fffbe6 0%, #e6f7ff 100%);
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(255,193,7,0.07);
+    padding: 1rem 0.5rem;
+    font-size: 1.15rem;
+}
+.kompetensi-timer-text {
+    color: #e67e22;
+    font-size: 1.25em;
+    letter-spacing: 0.03em;
+}
+.kompetensi-soal-modern-card {
+    border-radius: 1.1rem;
+    background: #f8fbff;
+    box-shadow: 0 2px 12px 0 rgba(79,140,255,0.07);
+    border: 1px solid #e3eafc;
+}
+.kompetensi-badge-nomor {
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    border-radius: 1rem;
+    min-width: 2.2rem;
+    text-align: center;
+    box-shadow: 0 1px 4px 0 rgba(79,140,255,0.10);
+}
+.kompetensi-gradient-btn {
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px 0 rgba(79,140,255,0.13);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.kompetensi-gradient-btn:hover, .kompetensi-gradient-btn:focus {
+    background: linear-gradient(90deg, #3578e5 0%, #4fd6ff 100%);
+    color: #fff;
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px 0 rgba(79,140,255,0.18);
+}
+
+/* Modern radio style */
+.kompetensi-radio-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.8rem;
+    background: #f6faff;
+    transition: background 0.18s;
+    cursor: pointer;
+    border: 1.5px solid #e3eafc;
+    margin-bottom: 0.5rem;
+}
+.kompetensi-radio-wrap:hover, .kompetensi-radio-wrap:focus-within {
+    background: #eaf4ff;
+    border-color: #4f8cff;
+}
+.kompetensi-radio {
+    appearance: none;
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid #b5c9f7;
+    border-radius: 50%;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s;
+    position: relative;
+    margin-right: 0.5em;
+    box-shadow: 0 1px 4px 0 rgba(79,140,255,0.07);
+}
+.kompetensi-radio:checked {
+    border-color: #4f8cff;
+    background: #eaf4ff;
+}
+.kompetensi-radio:checked::after {
+    content: '';
+    display: block;
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background 0.18s;
+}
+.kompetensi-radio:focus {
+    box-shadow: 0 0 0 2px #b5c9f7;
+}
+.kompetensi-radio-label {
+    font-size: 1.05rem;
+    color: #2d3a4a;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+@media (max-width: 767.98px) {
+  .user-kompetensi-search-mobile {
+    flex-direction: row !important;
+  }
+  .user-kompetensi-search-mobile input[type="text"] {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+  .user-kompetensi-search-mobile button,
+  .user-kompetensi-search-mobile a.btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+.kompetensi-modern-card {
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08), 0 1.5px 4px 0 rgba(0,0,0,0.04);
+    transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s cubic-bezier(.4,2,.6,1);
+    background: #fff;
+}
+.kompetensi-modern-card:hover {
+    transform: translateY(-6px) scale(1.025);
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13), 0 2px 8px 0 rgba(0,0,0,0.07);
+}
+.kompetensi-gradient-btn {
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px 0 rgba(79,140,255,0.13);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.kompetensi-gradient-btn:hover, .kompetensi-gradient-btn:focus {
+    background: linear-gradient(90deg, #3578e5 0%, #4fd6ff 100%);
+    color: #fff;
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px 0 rgba(79,140,255,0.18);
+}
+.kompetensi-badge {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    backdrop-filter: blur(2px);
+}
+
+.kompetensi-badge-level {
+    background: linear-gradient(90deg, #ffe259 0%, #ffa751 100%);
+    color: #6b3e00;
+    font-weight: 500;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(255,193,7,0.10);
+    padding: 0.55em 1.2em;
+    backdrop-filter: blur(1.5px);
+    letter-spacing: 0.01em;
+}
+.kompetensi-detail-modern-card {
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px 0 rgba(0,0,0,0.10), 0 2px 8px 0 rgba(0,0,0,0.06);
+    background: #fff;
+}
+.kompetensi-badge-kategori-gradient {
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(79,140,255,0.10);
+    padding: 0.55em 1.2em;
+    backdrop-filter: blur(1.5px);
+}
+.kompetensi-badge-durasi {
+    background: #f1f6ff;
+    color: #3578e5;
+    font-weight: 500;
+    border-radius: 1rem;
+    padding: 0.45em 1em;
+    font-size: 1rem;
+    box-shadow: 0 1px 4px 0 rgba(79,140,255,0.07);
+}
+.kompetensi-gradient-btn {
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px 0 rgba(79,140,255,0.13);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.kompetensi-gradient-btn:hover, .kompetensi-gradient-btn:focus {
+    background: linear-gradient(90deg, #3578e5 0%, #4fd6ff 100%);
+    color: #fff;
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px 0 rgba(79,140,255,0.18);
+}
+
+.kompetensi-badge-level {
+    background: linear-gradient(90deg, #ffe259 0%, #ffa751 100%);
+    color: #6b3e00;
+    font-weight: 500;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(255,193,7,0.10);
+    padding: 0.55em 1.2em;
+    backdrop-filter: blur(1.5px);
+    letter-spacing: 0.01em;
+    font-size: 1.05rem;
+}
+.kompetensi-result-modern-card {
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px 0 rgba(0,0,0,0.10), 0 2px 8px 0 rgba(0,0,0,0.06);
+    background: #fff;
+}
+.kompetensi-badge-kategori-gradient {
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(79,140,255,0.10);
+    padding: 0.55em 1.2em;
+    backdrop-filter: blur(1.5px);
+    font-size: 1.05rem;
+}
+.kompetensi-badge-durasi {
+    background: #f1f6ff;
+    color: #3578e5;
+    font-weight: 500;
+    border-radius: 1rem;
+    padding: 0.45em 1em;
+    font-size: 1rem;
+    box-shadow: 0 1px 4px 0 rgba(79,140,255,0.07);
+}
+.kompetensi-score-box {
+    background: linear-gradient(90deg, #f8fbff 0%, #e6f7ff 100%);
+    border-radius: 2.5rem;
+    box-shadow: 0 2px 12px 0 rgba(79,140,255,0.07);
+    padding: 1.2rem 2.5rem 1.2rem 2.5rem;
+    display: inline-flex;
+    align-items: baseline;
+    font-size: 2.7rem;
+    font-weight: 700;
+    color: #3578e5;
+    margin-bottom: 0.5rem;
+}
+.kompetensi-score-main {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: #4f8cff;
+    margin-right: 0.2em;
+}
+.kompetensi-score-total {
+    font-size: 1.7rem;
+    color: #b5c9f7;
+    font-weight: 600;
+}
+.kompetensi-gradient-btn {
+    background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px 0 rgba(79,140,255,0.13);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.kompetensi-gradient-btn:hover, .kompetensi-gradient-btn:focus {
+    background: linear-gradient(90deg, #3578e5 0%, #4fd6ff 100%);
+    color: #fff;
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px 0 rgba(79,140,255,0.18);
+}
+
+.learning-badge-level {
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px 0 rgba(255,193,7,0.13);
+  padding: 0.55em 1.3em 0.55em 1.3em;
+  letter-spacing: 0.01em;
+  opacity: 0.98;
+  backdrop-filter: blur(2px);
+  z-index: 2;
+}
+.learning-badge-level-pemula {
+  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+  color: #fff;
+}
+.learning-badge-level-menengah {
+  background: linear-gradient(90deg, #ffe259 0%, #ffa751 100%);
+  color: #6b3e00;
+}
+.learning-badge-level-ahli {
+  background: linear-gradient(90deg, #ff5858 0%, #ff0000 100%);
+  color: #fff;
+}
+/* Modern Card Hover & Gradient */
+.modern-card {
+  box-shadow: 0 4px 24px 0 rgba(60,60,60,0.13);
+  border-radius: 1.5rem;
+  transition: box-shadow .22s, transform .22s;
+  background: linear-gradient(135deg, #f8fafc 60%, #e0e7ef 100%);
+}
+.modern-card:hover {
+  box-shadow: 0 8px 36px 0 rgba(60,60,60,0.19), 0 1.5px 8px 0 rgba(60,60,60,0.09);
+  transform: translateY(-4px) scale(1.025);
+}
+.modern-card .modern-img {
+  border-radius: 1.5rem 1.5rem 0 0;
+  transition: transform .22s, filter .22s;
+}
+.modern-card:hover .modern-img {
+  transform: scale(1.04) rotate(-1deg);
+  filter: brightness(1.04) saturate(1.08);
+}
+.bg-gradient-primary {
+  background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%) !important;
+}
+.bg-gradient-success {
+  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%) !important;
+}
+.modern-card .btn-gradient-primary {
+  background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 8px 0 rgba(56,189,248,0.08);
+}
+.modern-card .btn-gradient-primary:hover {
+  background: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
+  color: #fff;
+}
+@media (max-width: 767.98px) {
+  .user-learning-search-mobile {
+    flex-direction: row !important;
+  }
+  .user-learning-search-mobile input[type="text"] {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+  .user-learning-search-mobile button,
+  .user-learning-search-mobile a.btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+.learning-badge-skill {
+  background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px 0 rgba(79,140,255,0.13);
+  padding: 0.55em 1.3em 0.55em 1.3em;
+  letter-spacing: 0.01em;
+  opacity: 0.98;
+  backdrop-filter: blur(2px);
+  z-index: 2;
+}
+.learning-badge-level {
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px 0 rgba(255,193,7,0.13);
+  padding: 0.55em 1.3em 0.55em 1.3em;
+  letter-spacing: 0.01em;
+  opacity: 0.98;
+  backdrop-filter: blur(2px);
+  z-index: 2;
+}
+.learning-badge-level-pemula {
+  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+  color: #fff;
+}
+.learning-badge-level-menengah {
+  background: linear-gradient(90deg, #ffe259 0%, #ffa751 100%);
+  color: #6b3e00;
+}
+.learning-badge-level-ahli {
+  background: linear-gradient(90deg, #ff5858 0%, #ff0000 100%);
+  color: #fff;
+}
+
+@media (max-width: 767.98px) {
+.filter-search-mobile {
+    flex-wrap: nowrap !important;
+}
+.filter-search-mobile input[type="text"] {
+    min-width: 0;
+    flex: 1 1 0%;
+}
+.filter-search-mobile .btn {
+    min-width: 38px;
+    padding-left: 0.7em;
+    padding-right: 0.7em;
+}
+}

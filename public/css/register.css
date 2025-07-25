@@ -1,0 +1,71 @@
+body {
+    min-height: 100vh;
+    background: #fff;
+    color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.liquid-glass {
+    background: #fff;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.08);
+    border-radius: 16px;
+    border: 1px solid #e5e5e5;
+    padding: 2.2rem 1.2rem 1.5rem 1.2rem;
+    margin: 0 auto;
+    max-width: 400px;
+    width: 100%;
+    color: #222;
+}
+.liquid-glass .form-control {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: #222;
+}
+.liquid-glass .form-control:focus {
+    background: #fff;
+    box-shadow: 0 0 0 2px #2222;
+    border-color: #222;
+    color: #222;
+}
+.liquid-glass .btn-primary {
+    background: #222;
+    border: none;
+    color: #fff;
+}
+.liquid-glass .btn-primary:hover {
+    background: #111;
+    color: #fff;
+}
+.liquid-glass .btn-outline-danger {
+    color: #d32f2f;
+    border-color: #d32f2f;
+    background: #fff;
+}
+.liquid-glass .btn-outline-danger:hover {
+    background: #d32f2f;
+    color: #fff;
+}
+.liquid-glass .small, .liquid-glass label {
+    color: #222;
+}
+@media (max-width: 576px) {
+    .liquid-glass {
+        padding: 1rem 0.4rem 1rem 0.4rem;
+        max-width: 98vw;
+        border-radius: 10px;
+    }
+    .liquid-glass .form-control {
+        font-size: 0.98rem;
+        padding: 0.6rem 0.9rem;
+    }
+    .liquid-glass .btn {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+    }
+    .liquid-glass img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
