@@ -12,7 +12,7 @@
     <div class="w-100 min-vh-100 d-flex align-items-center justify-content-center" style="background: none;">
         <div class="liquid-glass mx-auto w-100" style="max-width:400px;float:none;">
             <div class="text-center mb-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Logo" width="56" height="56" class="mb-2" style="object-fit:contain;">
+                <img src="{{ asset('images/logo1.png') }}" alt="Logo" width="56" height="56" class="mb-2" style="object-fit:contain;">
                 <h4 class="fw-bold mb-0">Yuk, Masuk Dulu!</h4>
                 <p class="text-black mt-2 mb-0">Belajar skill baru dan siapkan masa depan kariermu.</p>
             </div>

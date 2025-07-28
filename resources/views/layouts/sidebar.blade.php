@@ -1,9 +1,9 @@
 <!-- Navbar (Desktop)-->
 <nav class="col-lg-2 d-none d-lg-block sidebar py-4 position-fixed bg-dark text-white" style="height:100vh;z-index:1040;">
-    <div class="text-center mb-4">
-        <i class="fas fa-chart-line fa-2x"></i>
-        <h4 class="mt-2">MyApp</h4>
-    </div>
+        <div class="text-center mb-4">
+            <img src="{{ asset('images/logo1.png') }}" alt="Logo MyApp" style="height: 60px;">
+            <h4 class="mt-2">PelaonApp</h4>
+        </div>
     <ul class="nav flex-column">
         @if(Auth::user() && Auth::user()->role === 'admin')
             <li class="nav-item">
@@ -13,9 +13,9 @@
                 <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="fas fa-users me-2"></i> Pengguna</a>
             </li>
             <li><hr class="my-3 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fas fa-user me-2"></i> Profile</a>
-            </li>
+            </li> -->
         @elseif(Auth::user() && Auth::user()->role === 'inspektur')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.inspektur') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
@@ -33,9 +33,9 @@
                 <a class="nav-link" href="{{ route('inspektur.sertifikat.index') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
             </li>
             <li><hr class="my-3 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fas fa-user me-2"></i> Profile</a>
-            </li>
+            </li> -->
         @else
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.users') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
@@ -66,7 +66,7 @@
 <nav class="navbar navbar-dark bg-dark d-lg-none">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <i class="fas fa-chart-line fa-lg me-2"></i> MyApp
+            <img src="{{ asset('images/logo1.png') }}" alt="Logo" style="height: 30px;">PelaonApp
         </a>
         <button class="navbar-toggler" type="button" id="sidebarToggle" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -77,7 +77,7 @@
     <div id="mobileSidebar" class="mobile-sidebar bg-dark text-white position-fixed top-0 start-0 vh-100" style="z-index:1050;transform:translateX(-100%);transition:transform 0.3s cubic-bezier(.4,0,.2,1);min-width:220px;max-width:85vw;">
         <div class="d-flex flex-column h-100">
             <div class="d-flex align-items-center justify-content-between p-3 border-bottom border-secondary">
-                <span class="fw-bold"><i class="fas fa-chart-line me-2"></i> MyApp</span>
+                <span class="fw-bold"><img src="{{ asset('images/logo1.png') }}" alt="Logo" style="height: 30px;">PelaonApp</span>
                 <button class="btn btn-link text-white fs-3 p-0" id="sidebarClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
             </div>
             <ul class="navbar-nav px-3 mt-3">
@@ -89,9 +89,9 @@
                         <a class="nav-link text-white" href="{{ route('admin.users.index') }}"><i class="fas fa-users me-2"></i> Pengguna</a>
                     </li>
                     <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
-                    <li class="nav-item mb-2">
+                    <!-- <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="#"><i class="fas fa-user me-2"></i> Profile</a>
-                    </li>
+                    </li> -->
                 @elseif(Auth::user() && Auth::user()->role === 'inspektur')
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="{{ route('dashboard.inspektur') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
@@ -109,9 +109,9 @@
                         <a class="nav-link text-white" href="{{ route('inspektur.sertifikat.index') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
                     </li>
                     <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
-                    <li class="nav-item mb-2">
+                    <!-- <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="#"><i class="fas fa-user me-2"></i> Profile</a>
-                    </li>
+                    </li> -->
                 @else
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="{{ route('dashboard.users') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
@@ -132,7 +132,7 @@
                 @endif
                 <li class="nav-item">
                     <div class="d-flex align-items-center gap-2 py-2 border-top border-secondary" style="border-width:2px !important;">
-                        <img src="https://i.pravatar.cc/40" class="rounded-circle" alt="User">
+                        <img src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=4f8cff&color=fff&size=40' }}" alt="Avatar" class="rounded-circle shadow" style="object-fit:cover;">
                         <span class="me-3">Hello, {{ Auth::user()->name ?? 'User' }}</span>
                         @if(Auth::user())
                             <span class="badge bg-primary text-white" style="font-size:0.85em;">{{ ucfirst(Auth::user()->role) }}</span>

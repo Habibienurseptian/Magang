@@ -97,7 +97,7 @@
                             <span class="badge bg-secondary">Tidak Tersedia</span>
                         @endif
                     </td>
-                    <td>{{ $kompetensi->description }}</td>
+                    <td class="desc-td" style="max-width:220px;word-break:break-word;">{!! \Illuminate\Support\Str::limit(nl2br(e($kompetensi->description)), 30, '...') !!}</td>
                     <td class="d-flex flex-wrap gap-1">
                         <a href="{{ route('inspektur.kompetensi.soal.index', $kompetensi->id) }}" class="btn btn-info btn-sm btn-action" title="Kelola Soal"><i class="fa fa-tasks"></i></a>
                         @php $jumlahSoal = $kompetensi->soals_count ?? ($kompetensi->soals->count() ?? 0); @endphp

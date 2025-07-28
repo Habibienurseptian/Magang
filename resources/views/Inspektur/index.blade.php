@@ -29,17 +29,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-                <div class="bg-white shadow rounded-4 p-3 d-flex align-items-center gap-3 h-100" style="min-width: 0;">
-                    <div class="bg-warning text-white rounded-circle d-flex align-items-center justify-content-center" style="width:48px;height:48px;">
-                        <i class="fas fa-certificate fa-lg"></i>
-                    </div>
-                    <div class="flex-grow-1">
-                        <div class="fw-bold fs-5 mb-0">{{ $sertifikatCount ?? 0 }}</div>
-                        <small class="text-muted">Sertifikat Aktif</small>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -52,7 +41,7 @@
                     <div class="carousel-item active">
                         <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80" class="d-block w-100" style="height:220px;object-fit:cover;" alt="Banner 1">
                         <div class="carousel-caption d-none d-md-block text-start">
-                            <h4 class="fw-bold text-shadow">Selamat Datang di MagangApp</h4>
+                            <h4 class="fw-bold text-shadow">Selamat Datang di PelaonApp</h4>
                             <p class="mb-0 text-shadow">Platform pembelajaran dan sertifikasi modern untuk generasi digital.</p>
                         </div>
                     </div>
@@ -199,15 +188,14 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mb-0">
-                    <li><i class="fas fa-calendar-alt me-2 text-primary"></i> Tahun Akademik: <b>2025/2026</b></li>
+                    <li><i class="fas fa-calendar-alt me-2 text-primary"></i> Tahun: <b>2025/2026</b></li>
                     <li><i class="fas fa-users me-2 text-success"></i> Total User: <b>{{ $totalUser ?? 0 }}</b></li>
                     <li><i class="fas fa-user-tie me-2 text-primary"></i> Total Inspektur: <b>{{ $inspekturCount ?? 0 }}</b></li>
                     <li><i class="fas fa-route me-2 text-warning"></i> Learning Path Aktif: <b>{{ $learningCount ?? 0 }}</b></li>
                     <li><i class="fas fa-clipboard-check me-2 text-info"></i> Uji Kompetensi Aktif: <b>{{ $kompetensiCount ?? 0 }}</b></li>
-                    <li><i class="fas fa-certificate me-2 text-secondary"></i> Sertifikat Diterbitkan: <b>{{ $sertifikatCount ?? 0 }}</b></li>
                 </ul>
                 <hr>
-                <p class="mb-0 small text-muted">Selamat datang di dashboard MagangApp. Pantau perkembangan pembelajaran, uji kompetensi, dan raih sertifikat terbaikmu!</p>
+                <p class="mb-0 small text-muted">Selamat datang di dashboard PelaonApp. Pantau perkembangan pembelajaran, uji kompetensi, dan raih sertifikat terbaikmu!</p>
             </div>
         </div>
     </div>

@@ -81,7 +81,7 @@
         </div>
 
         <div class="footer">
-            MagangApp &mdash; {{ date('Y') }}
+            Pelaon &mdash; {{ date('Y') }}
         </div>
     </div>
 </body>

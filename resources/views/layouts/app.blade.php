@@ -31,7 +31,7 @@
                             <span class="badge {{ $roleColor }} text-white mt-1" style="font-size:0.85em; text-transform:capitalize;">{{ $role }}</span>
                         @endif
                         <span class="me-3">Hello, {{ Auth::user()->name ?? 'User' }}</span>
-                        <img src="https://i.pravatar.cc/40" class="rounded-circle me-2" alt="User">
+                        <img src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=4f8cff&color=fff&size=40' }}" alt="Avatar" class="rounded-circle shadow" style="object-fit:cover;">
                     </div>
                 </nav>
                 {{-- Konten halaman --}}
@@ -40,7 +40,7 @@
         </div>
         <footer class="bg-white border-top py-3 mt-4">
             <div class="container-fluid text-end small text-muted">
-                &copy; {{ date('Y') }} MagangApp. All rights reserved.
+                &copy; {{ date('Y') }} PelaonApp. All rights reserved.
             </div>
         </footer>
     </div>

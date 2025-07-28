@@ -129,7 +129,10 @@ class UserController extends Controller
             $completedAt = \Carbon\Carbon::parse($history->completed_at);
             $taskHistory[] = '<i class="fas fa-tasks text-success me-2"></i> Uji Kompetensi <b>' . e($history->competency->title) . '</b> selesai pada <b>' . $completedAt->format('d M Y H:i') . '</b>';
         }
-        return view('users.index', compact('user', 'recentActivities', 'taskHistory', 'info'));
+
+        $recentUsers = \App\Models\User::orderByDesc('created_at')->take(5)->get();
+
+        return view('users.index', compact('user', 'recentActivities', 'taskHistory', 'info', 'recentUsers'));
     }
 
     /**

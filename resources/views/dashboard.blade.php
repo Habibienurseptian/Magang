@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="text-center mb-5">
-                    <h1 class="fw-bold mb-3" style="font-size:2.5rem;letter-spacing:1px;">Selamat Datang di <span class="text-gradient">MagangApp</span></h1>
+                    <h1 class="fw-bold mb-3" style="font-size:2.5rem;letter-spacing:1px;">Selamat Datang di <span class="text-gradient">PelaonApp</span></h1>
                     <p class="lead text-muted">Platform pembelajaran, uji kompetensi, dan sertifikasi modern untuk generasi digital.</p>
                 </div>
                 <div class="row g-4 mb-4">
@@ -38,7 +38,7 @@
                                     </span>
                                 </div>
                                 <h5 class="card-title fw-bold">Uji Test</h5>
-                                <p class="card-text small">Uji kemampuanmu dan dapatkan sertifikat resmi dari MagangApp.</p>
+                                <p class="card-text small">Uji kemampuanmu dan dapatkan sertifikat resmi dari PelaonApp.</p>
                             </div>
                         </div>
                     </div>
@@ -56,23 +56,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center mt-5">
+                <div class="text-center mt-5 content-padding">
                     <a href="{{ route('login') }}" class="btn btn-gradient btn-lg px-4"><i class="fas fa-route me-2"></i> Mulai Belajar </a>
                 </div>
             </div>
         </div>
     </div>
-    <footer class="mt-5 pt-4 pb-3 bg-white border-top shadow-sm text-center" style="border-radius:1.5rem 1.5rem 0 0;">
+    <footer class="fixed-bottom bg-white border-top shadow-sm text-center py-3" style="border-radius:1.5rem 1.5rem 0 0;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <span class="fw-bold text-gradient">MagangApp</span> &copy; {{ date('Y') }} &mdash; All rights reserved.<br>
-                    <small class="text-muted">Contact: <a href="mailto:support@magangapp.com" class="text-decoration-none text-gradient">support@magangapp.com</a></small>
+                    <span class="fw-bold text-gradient">PelaonApp</span> &copy; {{ date('Y') }} &mdash; All rights reserved.<br>
+                    <small class="text-muted">Contact: 
+                        <a href="mailto:support@pelaonpp.com" class="text-decoration-none text-gradient">support@pelaonapp.com</a>
+                    </small>
                 </div>
             </div>
         </div>
     </footer>
     <style>
+        @media (max-width: 576px) {
+            .content-padding {
+                padding-bottom: 100px; /* Sesuaikan dengan tinggi footer */
+            }
+        }
         @media (max-width: 575.98px) {
             .card-modern { margin-bottom: 1rem; }
         }
