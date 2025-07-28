@@ -10,7 +10,7 @@
     <div class="card mb-4 shadow-sm border-0" style="border-radius:1.2rem;">
         <div class="card-header bg-white fw-bold fs-5">Tambah Bidang Keahlian</div>
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.bidang.store') }}">
+            <form method="POST" action="{{ route('inspektur.bidang.store') }}">
                 @csrf
                 <div class="row g-3 align-items-end">
                     <div class="col-md-8">
@@ -44,7 +44,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $skill->name }}</td>
                             <td>
-                                <form method="POST" action="{{ route('admin.bidang.destroy', $skill->id) }}" class="d-inline" onsubmit="return confirm('Hapus bidang ini?')">
+                                <form method="POST" action="{{ route('inspektur.bidang.destroy', $skill->id) }}" class="d-inline" onsubmit="return confirm('Hapus bidang ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>

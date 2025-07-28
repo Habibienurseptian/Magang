@@ -38,6 +38,8 @@ class LoginController extends Controller
             $user = Auth::user();
             if ($user->role === 'admin') {
                 return redirect()->intended('/admin/dashboard')->with('success', 'Selamat datang, Admin!');
+            } elseif ($user->role === 'inspektur') {
+                return redirect()->intended('/inspektur/dashboard')->with('success', 'Selamat datang, Inspektur!');
             } else {
                 return redirect()->intended('/users/dashboard')->with('success', 'Berhasil login!');
             }

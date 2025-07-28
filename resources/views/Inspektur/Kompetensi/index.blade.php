@@ -10,7 +10,7 @@
     <div class="card mb-4">
         <div class="card-header bg-white fw-bold">Tambah Uji Kompetensi</div>
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.kompetensi.store') }}">
+            <form method="POST" action="{{ route('inspektur.kompetensi.store') }}">
                 @csrf
                 <div class="row g-3">
                     <div class="col-md-4">
@@ -99,9 +99,9 @@
                     </td>
                     <td>{{ $kompetensi->description }}</td>
                     <td class="d-flex flex-wrap gap-1">
-                        <a href="{{ route('admin.kompetensi.soal.index', $kompetensi->id) }}" class="btn btn-info btn-sm btn-action" title="Kelola Soal"><i class="fa fa-tasks"></i></a>
+                        <a href="{{ route('inspektur.kompetensi.soal.index', $kompetensi->id) }}" class="btn btn-info btn-sm btn-action" title="Kelola Soal"><i class="fa fa-tasks"></i></a>
                         @php $jumlahSoal = $kompetensi->soals_count ?? ($kompetensi->soals->count() ?? 0); @endphp
-                        <form method="POST" action="{{ route('admin.kompetensi.toggle', $kompetensi->id) }}" class="d-inline">
+                        <form method="POST" action="{{ route('inspektur.kompetensi.toggle', $kompetensi->id) }}" class="d-inline">
                             @csrf
                             @method('PATCH')
                             @if($kompetensi->is_available)
@@ -110,8 +110,8 @@
                                 <button class="btn btn-success btn-sm btn-action" title="Aktifkan" @if($jumlahSoal == 0) disabled data-bs-toggle="tooltip" data-bs-title="Tambah soal terlebih dahulu" @endif><i class="fa fa-eye"></i></button>
                             @endif
                         </form>
-                        <a href="{{ route('admin.kompetensi.edit', $kompetensi->id) }}" class="btn btn-primary btn-sm btn-action" title="Edit"><i class="fa fa-edit"></i></a>
-                        <form method="POST" action="{{ route('admin.kompetensi.destroy', $kompetensi->id) }}" class="d-inline" onsubmit="return confirm('Hapus uji ini?')">
+                        <a href="{{ route('inspektur.kompetensi.edit', $kompetensi->id) }}" class="btn btn-primary btn-sm btn-action" title="Edit"><i class="fa fa-edit"></i></a>
+                        <form method="POST" action="{{ route('inspektur.kompetensi.destroy', $kompetensi->id) }}" class="d-inline" onsubmit="return confirm('Hapus uji ini?')">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm btn-action" title="Hapus"><i class="fa fa-trash"></i></button>

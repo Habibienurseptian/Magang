@@ -9,7 +9,7 @@
     <!-- Form Tambah -->
     <div class="card mb-4">
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.learning.store') }}">
+            <form method="POST" action="{{ route('inspektur.learning.store') }}">
                 @csrf
                 <div class="row g-3">
                     <div class="col-md-4">
@@ -95,9 +95,9 @@
                     <td><img src="{{ $learning->image }}" alt="" style="width:100px;max-width:100%"></td>
                     <td class="desc-td" style="max-width:220px;word-break:break-word;">{!! \Illuminate\Support\Str::limit(nl2br(e($learning->description)), 60, '...') !!}</td>
                     <td class="d-flex flex-wrap gap-1">
-                        <a href="{{ route('admin.learning.show', $learning->id) }}" class="btn btn-info btn-sm">Detail</a>
-                        <a href="{{ route('admin.learning.edit', $learning->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="{{ route('admin.learning.destroy', $learning->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
+                        <a href="{{ route('inspektur.learning.show', $learning->id) }}" class="btn btn-info btn-sm">Detail</a>
+                        <a href="{{ route('inspektur.learning.edit', $learning->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{{ route('inspektur.learning.destroy', $learning->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm">Hapus</button>

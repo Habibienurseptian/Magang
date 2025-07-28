@@ -153,7 +153,8 @@
             <div class="card-body">
                 <ul class="list-unstyled mb-0">
                     <li><i class="fas fa-calendar-alt me-2 text-primary"></i> Tahun Akademik: <b>{{ $info['tahun_akademik'] ?? '2025/2026' }}</b></li>
-                    <li><i class="fas fa-users me-2 text-success"></i> Total Peserta: <b>{{ $info['total_peserta'] ?? '0' }}</b></li>
+                    <li><i class="fas fa-users me-2 text-success"></i> Total User: <b>{{ $info['total_user'] ?? '0' }}</b></li>
+                    <li><i class="fas fa-user me-2 text-secondary"></i> User Biasa: <b>{{ $info['total_peserta'] ?? '0' }}</b></li>
                     <li><i class="fas fa-route me-2 text-warning"></i> Learning Path Aktif: <b>{{ $info['learning_path_aktif'] ?? '0' }}</b></li>
                     <li><i class="fas fa-clipboard-check me-2 text-info"></i> Uji Kompetensi Aktif: <b>{{ $info['uji_kompetensi_aktif'] ?? '0' }}</b></li>
                     <li><i class="fas fa-certificate me-2 text-secondary"></i> Sertifikat Diterbitkan: <b>{{ $info['sertifikat_diterbitkan'] ?? '0' }}</b></li>

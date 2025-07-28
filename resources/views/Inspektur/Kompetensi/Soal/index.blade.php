@@ -55,7 +55,7 @@
 
     <!-- Tombol Kembali -->
     <div class="mb-3">
-        <a href="{{ route('admin.kompetensi.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left me-1"></i> Kembali ke Daftar Kompetensi</a>
+        <a href="{{ route('inspektur.kompetensi.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left me-1"></i> Kembali ke Daftar Kompetensi</a>
     </div>
     <!-- Daftar Soal -->
     <div class="card shadow-sm mt-3">
@@ -86,10 +86,10 @@
                             <td>{{ $soal->option_d }}</td>
                             <td class="text-uppercase">{{ $soal->answer_key }}</td>
                             <td>
-                                <a href="{{ route('admin.kompetensi.soal.edit', [$competency->id, $soal->id]) }}" class="aksi-btn aksi-btn-info btn-sm" title="Edit">
+                                <a href="{{ route('inspektur.kompetensi.soal.edit', [$competency->id, $soal->id]) }}" class="aksi-btn aksi-btn-info btn-sm" title="Edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.kompetensi.soal.destroy', [$competency->id, $soal->id]) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus soal ini?')">
+                                <form action="{{ route('inspektur.kompetensi.soal.destroy', [$competency->id, $soal->id]) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus soal ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="aksi-btn aksi-btn-danger btn-sm" title="Hapus"><i class="fa fa-trash"></i></button>

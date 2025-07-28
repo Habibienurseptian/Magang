@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Inspektur;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class LearningController extends Controller
     {
         $learning = Learning::findOrFail($id);
         $skills = \App\Models\Skill::orderBy('name')->get();
-        return view('admin.learning.edit', compact('learning', 'skills'));
+        return view('inspektur.learning.edit', compact('learning', 'skills'));
     }
 
     public function update(Request $request, $id)
@@ -32,7 +32,7 @@ class LearningController extends Controller
             'description' => $request->description,
             'image' => $request->image ?? 'https://via.placeholder.com/400',
         ]);
-        return redirect()->route('admin.learning.index')->with('success', 'Learning Path berhasil diupdate.');
+        return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path berhasil diupdate.');
     }
     public function index()
     {
@@ -50,7 +50,7 @@ class LearningController extends Controller
         }
         $learnings = $query->paginate(8);
         $skills = \App\Models\Skill::orderBy('name')->get();
-        return view('admin.learning.index', compact('learnings', 'skills'));
+        return view('inspektur.learning.index', compact('learnings', 'skills'));
     }
 
     public function store(Request $request)
@@ -72,18 +72,18 @@ class LearningController extends Controller
             'image' => $request->image ?? 'https://via.placeholder.com/400', // default gambar
         ]);
 
-        return redirect()->route('admin.learning.index')->with('success', 'Learning Path berhasil ditambahkan.');
+        return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path berhasil ditambahkan.');
     }
 
     public function show($id)
     {
         $learning = Learning::findOrFail($id);
-        return view('admin.learning.show', compact('learning'));
+        return view('inspektur.learning.show', compact('learning'));
     }
 
     public function destroy($id)
     {
         Learning::findOrFail($id)->delete();
-        return redirect()->route('admin.learning.index')->with('success', 'Learning Path dihapus.');
+        return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path dihapus.');
     }
 }

@@ -50,21 +50,6 @@
             <div class="text-end mt-3">
                 <a href="#" class="small">Lupa password?</a>
             </div>
-            <div class="my-4">
-                <div class="d-flex align-items-center">
-                    <hr class="flex-grow-1">
-                    <span class="mx-2 text-secondary small">atau login dengan</span>
-                    <hr class="flex-grow-1">
-                </div>
-                <div class="d-flex justify-content-center gap-2 mt-3">
-                    <a href="{{ url('auth/google') }}" class="btn btn-outline-danger px-3"><i class="fab fa-google me-2"></i>Google</a>
-                    <a href="{{ url('auth/facebook') }}" class="btn btn-outline-primary px-3"><i class="fab fa-facebook-f me-2"></i>Facebook</a>
-                </div>
-            </div>
-            <div class="text-center mt-2">
-                <span class="small text-secondary">Belum punya akun?</span>
-                <a href="{{ route('register') }}" class="small ms-1">Buat akun</a>
-            </div>
         </div>
     </div>
 <script>

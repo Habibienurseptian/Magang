@@ -22,7 +22,13 @@
                     <span class="navbar-brand mb-0 h1">@yield('page_title')</span>
                     <div class="d-flex align-items-center gap-2">
                         @if(Auth::user())
-                            <span class="badge bg-primary text-white mt-1" style="font-size:0.85em;">{{ ucfirst(Auth::user()->role) }}</span>
+                            @php
+                                $role = Auth::user()->role;
+                                $roleColor = 'bg-secondary';
+                                if($role === 'admin') $roleColor = 'bg-danger';
+                                elseif($role === 'inspektur') $roleColor = 'bg-primary';
+                            @endphp
+                            <span class="badge {{ $roleColor }} text-white mt-1" style="font-size:0.85em; text-transform:capitalize;">{{ $role }}</span>
                         @endif
                         <span class="me-3">Hello, {{ Auth::user()->name ?? 'User' }}</span>
                         <img src="https://i.pravatar.cc/40" class="rounded-circle me-2" alt="User">

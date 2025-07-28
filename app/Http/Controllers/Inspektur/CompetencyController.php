@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Inspektur;
 
 use App\Http\Controllers\Controller;
 use App\Models\Competency;
@@ -13,7 +13,7 @@ class CompetencyController extends Controller
     {
         $kompetensi = Competency::findOrFail($id);
         $skills = \App\Models\Skill::orderBy('name')->get();
-        return view('admin.kompetensi.edit', compact('kompetensi', 'skills'));
+        return view('inspektur.kompetensi.edit', compact('kompetensi', 'skills'));
     }
 
     public function update(Request $request, $id)
@@ -33,7 +33,7 @@ class CompetencyController extends Controller
             'duration' => $request->duration,
             'description' => $request->description,
         ]);
-        return redirect()->route('admin.kompetensi.index')->with('success', 'Uji Kompetensi berhasil diupdate!');
+        return redirect()->route('inspektur.kompetensi.index')->with('success', 'Uji Kompetensi berhasil diupdate!');
     }
     public function index(Request $request)
     {
@@ -50,7 +50,7 @@ class CompetencyController extends Controller
         }
         $competencies = $query->paginate(10);
         $skills = \App\Models\Skill::orderBy('name')->get();
-        return view('admin.kompetensi.index', compact('competencies', 'skills'));
+        return view('inspektur.kompetensi.index', compact('competencies', 'skills'));
     }
 
     public function store(Request $request)
@@ -72,7 +72,7 @@ class CompetencyController extends Controller
             'is_available' => false, // Default: belum tersedia
         ]);
 
-        return redirect()->route('admin.kompetensi.index')->with('success', 'Uji Kompetensi berhasil ditambahkan!');
+        return redirect()->route('inspektur.kompetensi.index')->with('success', 'Uji Kompetensi berhasil ditambahkan!');
     }
 
     public function destroy($id)
@@ -80,7 +80,7 @@ class CompetencyController extends Controller
         $competency = Competency::findOrFail($id);
         $competency->delete();
 
-        return redirect()->route('admin.kompetensi.index')->with('success', 'Uji Kompetensi berhasil dihapus!');
+        return redirect()->route('inspektur.kompetensi.index')->with('success', 'Uji Kompetensi berhasil dihapus!');
     }
 
     public function toggle($id)
@@ -88,6 +88,6 @@ class CompetencyController extends Controller
         $competency = Competency::findOrFail($id);
         $competency->is_available = !$competency->is_available;
         $competency->save();
-        return redirect()->route('admin.kompetensi.index')->with('success', 'Status uji kompetensi berhasil diubah.');
+        return redirect()->route('inspektur.kompetensi.index')->with('success', 'Status uji kompetensi berhasil diubah.');
     }
 }

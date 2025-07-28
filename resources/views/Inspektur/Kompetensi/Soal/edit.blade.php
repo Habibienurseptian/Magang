@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-header bg-white fw-bold">Edit Soal</div>
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.kompetensi.soal.update', [$competency->id, $soal->id]) }}">
+            <form method="POST" action="{{ route('inspektur.kompetensi.soal.update', [$competency->id, $soal->id]) }}">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -44,7 +44,7 @@
                     </select>
                 </div>
                 <div class="text-end">
-                    <a href="{{ route('admin.kompetensi.soal.index', $competency->id) }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ route('inspektur.kompetensi.soal.index', $competency->id) }}" class="btn btn-secondary">Batal</a>
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </form>

@@ -9,70 +9,142 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    {{-- Form Tambah User --}}
+    {{-- Form Tambah Akun (User/Admin/Inspektur) --}}
     <div class="card mb-4">
-        <div class="card-header bg-white fw-bold">Tambah Akun User</div>
+        <div class="card-header bg-white fw-bold">
+            <ul class="nav nav-tabs card-header-tabs" id="formTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="user-tab" data-bs-toggle="tab" data-bs-target="#user-form" type="button" role="tab" aria-controls="user-form" aria-selected="true">User</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-form" type="button" role="tab" aria-controls="admin-form" aria-selected="false">Admin</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="inspektur-tab" data-bs-toggle="tab" data-bs-target="#inspektur-form" type="button" role="tab" aria-controls="inspektur-form" aria-selected="false">Inspektur</button>
+                </li>
+            </ul>
+        </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.users.store') }}">
-                @csrf
-                <div class="row g-3">
-                    <div class="col-12 col-md-6">
-                        <label for="nik" class="form-label">NIK</label>
-                        <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ old('nik') }}" required pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
-                        @error('nik')
-                            <div class="invalid-feedback">
-                                @php
-                                    $msg = $message;
-                                @endphp
-                                @if(str_contains($msg, 'digits'))
-                                    NIK harus terdiri dari 16 angka.
-                                @elseif(str_contains($msg, 'unique'))
-                                    NIK sudah terdaftar, gunakan NIK lain.
-                                @else
-                                    NIK sudah terdaftar
-                                @endif
+            <div class="tab-content" id="formTabContent">
+                {{-- Form User --}}
+                <div class="tab-pane fade show active" id="user-form" role="tabpanel" aria-labelledby="user-tab">
+                    <form method="POST" action="{{ route('admin.users.store') }}">
+                        @csrf
+                        <input type="hidden" name="role" value="user">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="nik_user" class="form-label">NIK</label>
+                                <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik_user" name="nik" value="{{ old('nik') }}" required pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
+                                @error('nik')
+                                    <div class="invalid-feedback">
+                                        @php $msg = $message; @endphp
+                                        @if(str_contains($msg, 'digits'))
+                                            NIK harus terdiri dari 16 angka.
+                                        @elseif(str_contains($msg, 'unique'))
+                                            NIK sudah terdaftar, gunakan NIK lain.
+                                        @else
+                                            NIK sudah terdaftar
+                                        @endif
+                                    </div>
+                                @enderror
                             </div>
-                        @enderror
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror"
-                            id="name" name="name" value="{{ old('name') }}" required>
-                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="role" class="form-label">Role</label>
-                        <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
-                            <option value="">Pilih Role</option>
-                            <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
-                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                        </select>
-                        @error('role') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                            id="email" name="email" value="{{ old('email') }}" required>
-                        @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="password" class="form-label">Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="password" name="password" required>
-                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                            <div class="col-12 col-md-6">
+                                <label for="name_user" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name_user" name="name" value="{{ old('name') }}" required>
+                                @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="email_user" class="form-label">Email</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email_user" name="email" value="{{ old('email') }}" required>
+                                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="password_user" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_user" name="password" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_user', this)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                            </div>
                         </div>
-                        @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                    </div>
+                        <div class="row mt-3">
+                            <div class="col-md-8 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary">Buat Akun User</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-8 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary">Buat Akun</button>
-                    </div>
+                {{-- Form Admin --}}
+                <div class="tab-pane fade" id="admin-form" role="tabpanel" aria-labelledby="admin-tab">
+                    <form method="POST" action="{{ route('admin.users.store') }}">
+                        @csrf
+                        <input type="hidden" name="role" value="admin">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="name_admin" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name_admin" name="name" value="{{ old('name') }}" required>
+                                @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="email_admin" class="form-label">Email</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email_admin" name="email" value="{{ old('email') }}" required>
+                                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="password_admin" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_admin" name="password" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_admin', this)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-8 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary">Buat Akun Admin</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+                {{-- Form Inspektur --}}
+                <div class="tab-pane fade" id="inspektur-form" role="tabpanel" aria-labelledby="inspektur-tab">
+                    <form method="POST" action="{{ route('admin.users.store') }}">
+                        @csrf
+                        <input type="hidden" name="role" value="inspektur">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="name_inspektur" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name_inspektur" name="name" value="{{ old('name') }}" required>
+                                @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="email_inspektur" class="form-label">Email</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email_inspektur" name="email" value="{{ old('email') }}" required>
+                                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="password_inspektur" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_inspektur" name="password" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_inspektur', this)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-8 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary">Buat Akun Inspektur</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -140,11 +212,11 @@
     </div>
 </div>
 
-{{-- Show/Hide Password --}}
+{{-- Show/Hide Password (multi form) --}}
 <script>
-    document.getElementById('togglePassword').addEventListener('click', function () {
-        const pwd = document.getElementById('password');
-        const icon = this.querySelector('i');
+    function togglePassword(inputId, btn) {
+        const pwd = document.getElementById(inputId);
+        const icon = btn.querySelector('i');
         if (pwd.type === 'password') {
             pwd.type = 'text';
             icon.classList.remove('fa-eye');
@@ -154,6 +226,6 @@
             icon.classList.remove('fa-eye-slash');
             icon.classList.add('fa-eye');
         }
-    });
+    }
 </script>
 @endsection

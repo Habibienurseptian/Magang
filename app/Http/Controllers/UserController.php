@@ -97,6 +97,7 @@ class UserController extends Controller
         $info = [
             'tahun_akademik' => '2025/2026',
             'total_peserta' => \App\Models\User::where('role', 'user')->count(),
+            'total_user' => \App\Models\User::count(),
             'learning_path_aktif' => \App\Models\Learning::count(),
             'uji_kompetensi_aktif' => $ujiKompetensiAktif,
             'sertifikat_diterbitkan' => 3, // Dummy, sesuaikan jika ada model
@@ -153,23 +154,28 @@ class UserController extends Controller
     {
         // Validasi input
 
-
-        $validated = $request->validate([
-            'nik' => ['required', 'digits:16', 'unique:users,nik'],
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'role' => 'required|in:user,admin',
+            'role' => 'required|in:user,admin,inspektur',
             'password' => 'required|string|min:6',
-        ]);
+        ];
+        if ($request->role === 'user') {
+            $rules['nik'] = ['required', 'digits:16', 'unique:users,nik'];
+        }
+        $validated = $request->validate($rules);
 
-        // Buat user baru (nik disimpan sebagai string agar tidak hilang angka depan)
-        User::create([
-            'nik' => (string) $validated['nik'],
+        $userData = [
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
             'role' => $validated['role'],
-        ]);
+        ];
+        if ($request->role === 'user') {
+            $userData['nik'] = (string) $validated['nik'];
+        }
+
+        User::create($userData);
 
         return redirect()->route('admin.users.index')->with('success', 'User berhasil ditambahkan.');
     }
@@ -191,7 +197,7 @@ class UserController extends Controller
             'nik' => ['required', 'digits:16', 'unique:users,nik,' . $user->id],
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'role' => 'required|in:user,admin',
+            'role' => 'required|in:user,admin,inspektur',
             'password' => 'nullable|string|min:6', // boleh kosong
         ]);
 

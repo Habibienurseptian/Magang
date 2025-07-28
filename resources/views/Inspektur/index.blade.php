@@ -90,13 +90,49 @@
             <div class="card-header bg-white">
                 <h5 class="mb-0">Recent Activity</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="max-height: 300px; overflow-y: auto;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-user-plus text-primary me-2"></i> User <b>John Doe</b> mendaftar pada 21 Juli 2025</li>
-                    <li class="list-group-item"><i class="fas fa-book-open text-success me-2"></i> Learning Path <b>Web Development</b> baru ditambahkan</li>
-                    <li class="list-group-item"><i class="fas fa-clipboard-check text-warning me-2"></i> Uji Kompetensi <b>PHP Dasar</b> telah selesai oleh <b>Jane</b></li>
-                    <li class="list-group-item"><i class="fas fa-certificate text-info me-2"></i> <b>Jane</b> mendapatkan sertifikat <b>Frontend</b></li>
-                    <li class="list-group-item"><i class="fas fa-user-edit text-secondary me-2"></i> Profil <b>John Doe</b> diperbarui</li>
+                    @php
+                        $recentAll = collect();
+                        foreach($recentLearning as $item) {
+                            $recentAll->push([
+                                'type' => 'learning',
+                                'title' => $item->title,
+                                'created_at' => $item->created_at,
+                            ]);
+                        }
+                        foreach($recentKompetensi as $item) {
+                            $recentAll->push([
+                                'type' => 'kompetensi',
+                                'title' => $item->name ?? $item->title,
+                                'created_at' => $item->created_at,
+                            ]);
+                        }
+                        foreach($recentBidang as $item) {
+                            $recentAll->push([
+                                'type' => 'bidang',
+                                'title' => $item->name,
+                                'created_at' => $item->created_at,
+                            ]);
+                        }
+                        $recentAll = $recentAll->sortByDesc('created_at');
+                    @endphp
+                    @forelse($recentAll as $item)
+                        <li class="list-group-item">
+                            @if($item['type'] === 'learning')
+                                <i class="fas fa-book-open text-success me-2"></i>
+                                Learning Path <b>{{ $item['title'] }}</b> ditambahkan pada {{ \Carbon\Carbon::parse($item['created_at'])->format('d M Y') }}
+                            @elseif($item['type'] === 'kompetensi')
+                                <i class="fas fa-clipboard-check text-info me-2"></i>
+                                Uji Kompetensi <b>{{ $item['title'] }}</b> ditambahkan pada {{ \Carbon\Carbon::parse($item['created_at'])->format('d M Y') }}
+                            @elseif($item['type'] === 'bidang')
+                                <i class="fas fa-layer-group text-warning me-2"></i>
+                                Bidang Keahlian <b>{{ $item['title'] }}</b> ditambahkan pada {{ \Carbon\Carbon::parse($item['created_at'])->format('d M Y') }}
+                            @endif
+                        </li>
+                    @empty
+                        <li class="list-group-item text-muted">Belum ada aktivitas terbaru.</li>
+                    @endforelse
                 </ul>
             </div>
         </div>
@@ -110,7 +146,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item bg-light fw-bold">Admin</li>
                     @php $found = false; @endphp
-                    @foreach($usersList ?? [] as $user)
+                    @foreach($recentUsers as $user)
                         @if($user->role === 'admin')
                             @php $found = true; @endphp
                             <li class="list-group-item">
@@ -125,7 +161,7 @@
 
                     <li class="list-group-item bg-light fw-bold">Inspektur</li>
                     @php $found = false; @endphp
-                    @foreach($usersList ?? [] as $user)
+                    @foreach($recentUsers as $user)
                         @if($user->role === 'inspektur')
                             @php $found = true; @endphp
                             <li class="list-group-item">
@@ -140,7 +176,7 @@
 
                     <li class="list-group-item bg-light fw-bold">User</li>
                     @php $found = false; @endphp
-                    @foreach($usersList ?? [] as $user)
+                    @foreach($recentUsers as $user)
                         @if($user->role === 'user')
                             @php $found = true; @endphp
                             <li class="list-group-item">
@@ -163,9 +199,9 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled mb-0">
-                    <li><i class="fas fa-calendar-alt me-2 text-primary"></i> Tahun Akademik: <b>{{ $tahunAkademik ?? '-' }}</b></li>
+                    <li><i class="fas fa-calendar-alt me-2 text-primary"></i> Tahun Akademik: <b>2025/2026</b></li>
                     <li><i class="fas fa-users me-2 text-success"></i> Total User: <b>{{ $totalUser ?? 0 }}</b></li>
-                    <li><i class="fas fa-user-shield me-2 text-danger"></i> Total Admin: <b>{{ $totalAdmin ?? 0 }}</b></li>
+                    <li><i class="fas fa-user-tie me-2 text-primary"></i> Total Inspektur: <b>{{ $inspekturCount ?? 0 }}</b></li>
                     <li><i class="fas fa-route me-2 text-warning"></i> Learning Path Aktif: <b>{{ $learningCount ?? 0 }}</b></li>
                     <li><i class="fas fa-clipboard-check me-2 text-info"></i> Uji Kompetensi Aktif: <b>{{ $kompetensiCount ?? 0 }}</b></li>
                     <li><i class="fas fa-certificate me-2 text-secondary"></i> Sertifikat Diterbitkan: <b>{{ $sertifikatCount ?? 0 }}</b></li>

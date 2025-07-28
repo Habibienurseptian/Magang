@@ -10,19 +10,27 @@
                 <a class="nav-link" href="{{ route('dashboard.admin') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.learning.index') }}"><i class="fas fa-route me-2"></i> Learning Skill</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.kompetensi.index') }}"><i class="fas fa-clipboard-check me-2"></i> Uji Kompetensi</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.bidang.index') }}"><i class="fas fa-layer-group me-2"></i> Bidang Keahlian</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.users.index') }}"><i class="fas fa-users me-2"></i> Pengguna</a>
+            </li>
+            <li><hr class="my-3 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-user me-2"></i> Profile</a>
+            </li>
+        @elseif(Auth::user() && Auth::user()->role === 'inspektur')
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('dashboard.inspektur') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('inspektur.learning.index') }}"><i class="fas fa-route me-2"></i> Learning Skill</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('inspektur.kompetensi.index') }}"><i class="fas fa-clipboard-check me-2"></i> Uji Kompetensi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('inspektur.bidang.index') }}"><i class="fas fa-layer-group me-2"></i> Bidang Keahlian</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('inspektur.sertifikat.index') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
             </li>
             <li><hr class="my-3 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
             <li class="nav-item">
@@ -39,7 +47,7 @@
                 <a class="nav-link" href="{{ route('users.kompetensi.index') }}"><i class="fas fa-clipboard-check me-2"></i> Uji Kompetensi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
+                <a class="nav-link" href="{{ route('user.sertifikat') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
             </li>
             <li><hr class="my-3 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
             <li class="nav-item">
@@ -78,19 +86,27 @@
                         <a class="nav-link text-white" href="{{ route('dashboard.admin') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white" href="{{ route('admin.learning.index') }}"><i class="fas fa-route me-2"></i> Learning Skill</a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white" href="{{ route('admin.kompetensi.index') }}"><i class="fas fa-clipboard-check me-2"></i> Uji Kompetensi</a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white" href="{{ route('admin.bidang.index') }}"><i class="fas fa-layer-group me-2"></i> Bidang Keahlian</a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white" href="#"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
-                    </li>
-                    <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="{{ route('admin.users.index') }}"><i class="fas fa-users me-2"></i> Pengguna</a>
+                    </li>
+                    <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white" href="#"><i class="fas fa-user me-2"></i> Profile</a>
+                    </li>
+                @elseif(Auth::user() && Auth::user()->role === 'inspektur')
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white" href="{{ route('dashboard.inspektur') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white" href="{{ route('inspektur.learning.index') }}"><i class="fas fa-route me-2"></i> Learning Skill</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white" href="{{ route('inspektur.kompetensi.index') }}"><i class="fas fa-clipboard-check me-2"></i> Uji Kompetensi</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white" href="{{ route('inspektur.bidang.index') }}  "><i class="fas fa-layer-group me-2"></i> Bidang Keahlian</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white" href="{{ route('inspektur.sertifikat.index') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
                     </li>
                     <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
                     <li class="nav-item mb-2">
@@ -107,7 +123,7 @@
                         <a class="nav-link text-white" href="{{ route('users.kompetensi.index') }}"><i class="fas fa-clipboard-check me-2"></i> Uji Kompetensi</a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white" href="#"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
+                        <a class="nav-link text-white" href="{{ route('user.sertifikat') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
                     </li>
                     <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
                     <li class="nav-item mb-2">

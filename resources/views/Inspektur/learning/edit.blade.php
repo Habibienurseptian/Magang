@@ -7,7 +7,7 @@
     <h2 class="mb-4 text-center">Edit Learning Path</h2>
     <div class="card mb-4">
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.learning.update', $learning->id) }}">
+            <form method="POST" action="{{ route('inspektur.learning.update', $learning->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="row g-3">
@@ -42,7 +42,7 @@
                         <textarea name="description" class="form-control" rows="2" required>{{ old('description', $learning->description) }}</textarea>
                     </div>
                     <div class="col-12 text-end">
-                        <a href="{{ route('admin.learning.index') }}" class="btn btn-secondary me-2"><i class="fa fa-arrow-left me-1"></i> Batal</a>
+                        <a href="{{ route('inspektur.learning.index') }}" class="btn btn-secondary me-2"><i class="fa fa-arrow-left me-1"></i> Batal</a>
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </div>
