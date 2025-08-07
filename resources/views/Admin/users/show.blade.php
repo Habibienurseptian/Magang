@@ -20,6 +20,10 @@
                         <td>{{ $user->email }}</td>
                     </tr>
                     <tr>
+                        <th>No. Telepon</th>
+                        <td>{{ $user->phone }}</td>
+                    </tr>
+                    <tr>
                         <th>Role</th>
                         <td>{{ ucfirst($user->role) }}</td>
                     </tr>

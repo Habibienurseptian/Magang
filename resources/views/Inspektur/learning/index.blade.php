@@ -6,49 +6,66 @@
 <div class="container py-4">
     <h2 class="mb-4 text-center">Kelola Learning Path</h2>
 
+    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahLearning">
+        Tambah Learning Path
+    </button>
+
     <!-- Form Tambah -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <form method="POST" action="{{ route('inspektur.learning.store') }}">
-                @csrf
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="form-label">Judul</label>
-                        <input type="text" name="title" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Bidang</label>
-                        <select name="skill_id" class="form-select" required>
-                            <option value="">-- Pilih Bidang --</option>
-                            @foreach($skills as $skill)
-                                <option value="{{ $skill->id }}">{{ $skill->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Tingkat Level</label>
-                        <select name="level" class="form-select" required>
-                            <option value="">-- Pilih Level --</option>
-                            <option value="Pemula">Pemula</option>
-                            <option value="Menengah">Menengah</option>
-                            <option value="Ahli">Ahli</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">URL Gambar</label>
-                        <input type="url" name="image" class="form-control">
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Deskripsi</label>
-                        <textarea name="description" class="form-control" rows="2" required></textarea>
-                    </div>
-                    <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-success">Tambah Learning Path</button>
-                    </div>
+    <div class="modal fade" id="modalTambahLearning" tabindex="-1" aria-labelledby="modalTambahLearningLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTambahLearningLabel">Tambah Learning Path</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
-            </form>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('inspektur.learning.store') }}">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Judul</label>
+                                <input type="text" name="title" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Bidang</label>
+                                <select name="skill_id" class="form-select" required>
+                                    <option value="">-- Pilih Bidang --</option>
+                                    @foreach($skills as $skill)
+                                        <option value="{{ $skill->id }}">{{ $skill->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Tingkat Level</label>
+                                <select name="level" class="form-select" required>
+                                    <option value="">-- Pilih Level --</option>
+                                    <option value="Pemula">Pemula</option>
+                                    <option value="Menengah">Menengah</option>
+                                    <option value="Ahli">Ahli</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">URL Gambar</label>
+                                <input type="url" name="image" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Link Video YouTube</label>
+                                <input type="url" name="youtube_url" class="form-control" placeholder="https://www.youtube.com/watch?v=xxxx">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Deskripsi</label>
+                                <textarea name="description" class="form-control" rows="2" required></textarea>
+                            </div>
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-success">Tambah</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
 
     <!-- Form Pencarian -->
     <form method="GET" action="" class="mb-3">
@@ -71,10 +88,10 @@
             <thead class="table-light">
                 <tr>
                     <th>Judul</th>
-                <th>Bidang</th>
-                <th>Level</th>
-                <th>Gambar</th>
-                <th>Deskripsi</th>
+                    <th>Bidang</th>
+                    <th>Level</th>
+                    <th class="d-none d-md-table-cell">Gambar</th>
+                    <th class="d-none d-md-table-cell">Deskripsi</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -92,16 +109,39 @@
                         @endphp
                         <span class="badge px-2 py-1 {{ $levelClass }}" style="font-size:0.85rem;min-width:60px;">{{ $learning->level ?? '-' }}</span>
                     </td>
-                    <td><img src="{{ $learning->image }}" alt="" style="width:100px;max-width:100%"></td>
-                    <td class="desc-td" style="max-width:220px;word-break:break-word;">{!! \Illuminate\Support\Str::limit(nl2br(e($learning->description)), 60, '...') !!}</td>
-                    <td class="d-flex flex-wrap gap-1">
-                        <a href="{{ route('inspektur.learning.show', $learning->id) }}" class="btn btn-info btn-sm">Detail</a>
-                        <a href="{{ route('inspektur.learning.edit', $learning->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="{{ route('inspektur.learning.destroy', $learning->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm">Hapus</button>
-                        </form>
+                    <td class="d-none d-md-table-cell">
+                        <img src="{{ $learning->image }}" alt="" style="width:100px;max-width:100%">
+                    </td>
+                    <td class="desc-td d-none d-md-table-cell" style="max-width:220px;word-break:break-word;">
+                        {!! \Illuminate\Support\Str::limit(nl2br(e($learning->description)), 60, '...') !!}
+                    </td>
+                    <td>
+                        <div class="d-flex flex-wrap gap-2 align-items-center">
+                            <a href="{{ route('inspektur.learning.show', $learning->id) }}"
+                            class="btn btn-success btn-sm btn-action"
+                            title="Lihat Detail">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <a href="{{ route('inspektur.learning.edit', $learning->id) }}"
+                            class="btn btn-primary btn-sm btn-action"
+                            title="Edit Learning Path">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <form action="{{ route('inspektur.learning.destroy', $learning->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Yakin hapus?')"
+                                style="display:inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm btn-action"
+                                        title="Hapus Learning Path">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

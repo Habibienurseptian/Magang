@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('page_title', 'Dashboard')
 @section('content')
-<!-- Main Content -->
 
 <div class="row g-4 mb-4 dashboard-mobile-card-spacing">
     <div class="col-12">
@@ -74,7 +73,7 @@
 </div>
 
 <div class="row mb-4 dashboard-mobile-card-spacing">
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
         <div class="card h-100 mb-3 mb-md-0">
             <div class="card-header bg-white">
                 <h5 class="mb-0">Recent Activity</h5>
@@ -89,9 +88,9 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="col-md-4">
-        <div class="card mb-3 mb-md-0" style="height: max-content;">
+        <!-- <div class="card mb-3 mb-md-0" style="height: max-content;">
             <div class="card-header bg-white">
                 <h5 class="mb-0">Task Sertifikat</h5>
             </div>
@@ -105,11 +104,10 @@
                     </div>
                     <small class="text-muted">{{ $info['kompetensi_selesai'] ?? 0 }} dari {{ $info['kompetensi_total'] ?? 0 }} uji kompetensi bidang & level telah diselesaikan</small>
                 </div>
-                <!-- Tidak ada isi, hanya progress bar dan deskripsi -->
                 <hr>
                 <p class="mb-0 small text-muted">Pantau progress dan pastikan semua task serta persyaratan telah selesai untuk mendapatkan sertifikat.</p>
             </div>
-        </div>
+        </div> -->
         <div class="mb-3"></div>
         <div class="card mb-3 mb-md-0" style="height: max-content;">
             <div class="card-header bg-white">

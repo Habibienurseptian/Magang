@@ -24,6 +24,7 @@ class CompetencyController extends Controller
             'level' => 'required|string',
             'duration' => 'required|integer|min:1',
             'description' => 'required|string',
+            'passing_grade' => 'required|integer|min:0|max:100',
         ]);
         $kompetensi = Competency::findOrFail($id);
         $kompetensi->update([
@@ -32,6 +33,7 @@ class CompetencyController extends Controller
             'level' => $request->level,
             'duration' => $request->duration,
             'description' => $request->description,
+            'passing_grade' => $request->passing_grade,
         ]);
         return redirect()->route('inspektur.kompetensi.index')->with('success', 'Uji Kompetensi berhasil diupdate!');
     }
@@ -61,6 +63,7 @@ class CompetencyController extends Controller
             'level' => 'required|string',
             'duration' => 'required|integer|min:1',
             'description' => 'required|string',
+            'passing_grade' => 'required|integer|min:0|max:100',
         ]);
 
         Competency::create([
@@ -69,6 +72,7 @@ class CompetencyController extends Controller
             'level' => $request->level,
             'duration' => $request->duration,
             'description' => $request->description,
+            'passing_grade' => $request->passing_grade,
             'is_available' => false, // Default: belum tersedia
         ]);
 

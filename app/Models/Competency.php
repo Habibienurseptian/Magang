@@ -15,6 +15,7 @@ class Competency extends Model
         'level',
         'duration',
         'description',
+        'passing_grade',
         'is_available',
     ];
     public function skill()

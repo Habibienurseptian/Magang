@@ -31,10 +31,12 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'required|string|digits_between:10,15',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->phone = $request->phone;
         $user->skill = $request->skill;
         $user->skill_level = $request->skill_level;
         if ($request->filled('password')) {

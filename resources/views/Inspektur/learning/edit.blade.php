@@ -37,6 +37,10 @@
                         <label class="form-label">URL Gambar</label>
                         <input type="url" name="image" class="form-control" value="{{ old('image', $learning->image) }}">
                     </div>
+                    <div class="col-md-4">
+                        <label class="form-label">URL Video YouTube</label>
+                        <input type="url" name="youtube_url" class="form-control" value="{{ old('youtube_url', $learning->youtube_url) }}">
+                    </div>
                     <div class="col-12">
                         <label class="form-label">Deskripsi</label>
                         <textarea name="description" class="form-control" rows="2" required>{{ old('description', $learning->description) }}</textarea>

@@ -6,50 +6,67 @@
 <div class="container py-4">
     <h2 class="mb-4 fw-bold text-center">Kelola Uji Kompetensi</h2>
 
+    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahKompetensi">
+        Tambah Uji Kompetensi
+    </button>
+
     <!-- Form Tambah -->
-    <div class="card mb-4">
-        <div class="card-header bg-white fw-bold">Tambah Uji Kompetensi</div>
-        <div class="card-body">
-            <form method="POST" action="{{ route('inspektur.kompetensi.store') }}">
-                @csrf
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="form-label">Judul</label>
-                        <input type="text" name="title" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Bidang</label>
-                        <select name="skill_id" class="form-select" required>
-                            <option value="">-- Pilih Bidang --</option>
-                            @foreach($skills as $skill)
-                                <option value="{{ $skill->id }}">{{ $skill->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Tingkat Level</label>
-                        <select name="level" class="form-select" required>
-                            <option value="">-- Pilih Level --</option>
-                            <option value="Pemula">Pemula</option>
-                            <option value="Menengah">Menengah</option>
-                            <option value="Ahli">Ahli</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Durasi (menit)</label>
-                        <input type="number" name="duration" class="form-control" min="1" required>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Deskripsi</label>
-                        <textarea name="description" class="form-control" rows="2" required></textarea>
-                    </div>
-                    <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-success">Tambah Uji Kompetensi</button>
-                    </div>
+    <div class="modal fade" id="modalTambahKompetensi" tabindex="-1" aria-labelledby="modalTambahKompetensiLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTambahKompetensiLabel">Tambah Uji Kompetensi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
-            </form>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('inspektur.kompetensi.store') }}">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Judul</label>
+                                <input type="text" name="title" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Bidang</label>
+                                <select name="skill_id" class="form-select" required>
+                                    <option value="">-- Pilih Bidang --</option>
+                                    @foreach($skills as $skill)
+                                        <option value="{{ $skill->id }}">{{ $skill->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Tingkat Level</label>
+                                <select name="level" class="form-select" required>
+                                    <option value="">-- Pilih Level --</option>
+                                    <option value="Pemula">Pemula</option>
+                                    <option value="Menengah">Menengah</option>
+                                    <option value="Ahli">Ahli</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Durasi (menit)</label>
+                                <input type="number" name="duration" class="form-control" min="1" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Passing Grade (%)</label>
+                                <input type="number" name="passing_grade" class="form-control" min="0" max="100" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Deskripsi</label>
+                                <textarea name="description" class="form-control" rows="2" required></textarea>
+                            </div>
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-success">Tambah</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
+
     <!-- Fitur Pencarian -->
     <form method="GET" action="" class="mb-3">
         <div class="row g-2 justify-content-end">
@@ -70,6 +87,7 @@
                 <th>Bidang</th>
                 <th>Level</th>
                 <th>Durasi</th>
+                <th>Passing Grade</th>
                 <th>Status</th>
                 <th>Deskripsi</th>
                 <th>Aksi</th>
@@ -90,6 +108,7 @@
                         <span class="badge px-2 py-1 {{ $levelClass }}" style="font-size:0.85rem;min-width:60px;">{{ $kompetensi->level ?? '-' }}</span>
                     </td>
                     <td>{{ $kompetensi->duration }} menit</td>
+                    <td>{{ $kompetensi->passing_grade }}%</td>
                     <td>
                         @if($kompetensi->is_available)
                             <span class="badge bg-success">Tersedia</span>
@@ -119,9 +138,9 @@
                     </td>
                 </tr>
             @empty
-                <tr>
-                    <td colspan="6" class="text-center text-muted">Belum ada data uji kompetensi.</td>
-                </tr>
+            <tr>
+                <td colspan="8" class="text-center text-muted">Belum ada data uji kompetensi.</td>
+            </tr>
             @endforelse
         </tbody>
     </table>
@@ -131,23 +150,3 @@
     </div>
 </div>
 @endsection
-
-@push('styles')
-<style>
-@media (max-width: 767.98px) {
-  .komp-search-mobile {
-    flex-direction: row !important;
-  }
-  .komp-search-mobile input[type="text"] {
-    flex: 1 1 0%;
-    min-width: 0;
-  }
-  .komp-search-mobile button {
-    flex-shrink: 0;
-    white-space: nowrap;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-}
-</style>
-@endpush

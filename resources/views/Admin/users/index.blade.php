@@ -9,144 +9,80 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    {{-- Form Tambah Akun (User/Admin/Inspektur) --}}
-    <div class="card mb-4">
-        <div class="card-header bg-white fw-bold">
-            <ul class="nav nav-tabs card-header-tabs" id="formTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="user-tab" data-bs-toggle="tab" data-bs-target="#user-form" type="button" role="tab" aria-controls="user-form" aria-selected="true">User</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-form" type="button" role="tab" aria-controls="admin-form" aria-selected="false">Admin</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="inspektur-tab" data-bs-toggle="tab" data-bs-target="#inspektur-form" type="button" role="tab" aria-controls="inspektur-form" aria-selected="false">Inspektur</button>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <div class="tab-content" id="formTabContent">
-                {{-- Form User --}}
-                <div class="tab-pane fade show active" id="user-form" role="tabpanel" aria-labelledby="user-tab">
-                    <form method="POST" action="{{ route('admin.users.store') }}">
-                        @csrf
-                        <input type="hidden" name="role" value="user">
-                        <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                <label for="nik_user" class="form-label">NIK</label>
-                                <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik_user" name="nik" value="{{ old('nik') }}" required pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
-                                @error('nik')
-                                    <div class="invalid-feedback">
-                                        @php $msg = $message; @endphp
-                                        @if(str_contains($msg, 'digits'))
-                                            NIK harus terdiri dari 16 angka.
-                                        @elseif(str_contains($msg, 'unique'))
-                                            NIK sudah terdaftar, gunakan NIK lain.
-                                        @else
-                                            NIK sudah terdaftar
+    <!-- Tombol trigger modal -->
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahAkun">
+        Tambah Akun
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalTambahAkun" tabindex="-1" aria-labelledby="modalTambahAkunLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTambahAkunLabel">Form Tambah Akun</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs mb-3" id="formTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="user-tab" data-bs-toggle="tab" data-bs-target="#user-form" type="button" role="tab" aria-controls="user-form" aria-selected="true">User</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-form" type="button" role="tab" aria-controls="admin-form" aria-selected="false">Admin</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="inspektur-tab" data-bs-toggle="tab" data-bs-target="#inspektur-form" type="button" role="tab" aria-controls="inspektur-form" aria-selected="false">Inspektur</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="formTabContent">
+                        @foreach (['user', 'admin', 'inspektur'] as $role)
+                            <div class="tab-pane fade {{ $role === 'user' ? 'show active' : '' }}" id="{{ $role }}-form" role="tabpanel" aria-labelledby="{{ $role }}-tab">
+                                <form method="POST" action="{{ route('admin.users.store') }}">
+                                    @csrf
+                                    <input type="hidden" name="role" value="{{ $role }}">
+                                    <div class="row g-3">
+                                        @if($role === 'user')
+                                            <div class="col-md-6">
+                                                <label for="nik_{{ $role }}" class="form-label">NIK</label>
+                                                <input type="text" class="form-control" id="nik_{{ $role }}" name="nik" required pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
+                                            </div>
                                         @endif
+                                        <div class="col-md-6">
+                                            <label for="name_{{ $role }}" class="form-label">Nama Lengkap</label>
+                                            <input type="text" class="form-control" id="name_{{ $role }}" name="name" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="email_{{ $role }}" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email_{{ $role }}" name="email" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="phone_{{ $role }}" class="form-label">No. Telepon / WA</label>
+                                            <input type="text" class="form-control" id="phone_{{ $role }}" name="phone" required pattern="[0-9]{10,15}" inputmode="numeric">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="password_{{ $role }}" class="form-label">Password</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" id="password_{{ $role }}" name="password" required>
+                                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_{{ $role }}', this)">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                @enderror
+                                    <div class="mt-3 text-end">
+                                        <button type="submit" class="btn btn-success">Buat Akun {{ ucfirst($role) }}</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="col-12 col-md-6">
-                                <label for="name_user" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name_user" name="name" value="{{ old('name') }}" required>
-                                @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="email_user" class="form-label">Email</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email_user" name="email" value="{{ old('email') }}" required>
-                                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="password_user" class="form-label">Password</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_user" name="password" required>
-                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_user', this)">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-8 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary">Buat Akun User</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                {{-- Form Admin --}}
-                <div class="tab-pane fade" id="admin-form" role="tabpanel" aria-labelledby="admin-tab">
-                    <form method="POST" action="{{ route('admin.users.store') }}">
-                        @csrf
-                        <input type="hidden" name="role" value="admin">
-                        <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                <label for="name_admin" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name_admin" name="name" value="{{ old('name') }}" required>
-                                @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="email_admin" class="form-label">Email</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email_admin" name="email" value="{{ old('email') }}" required>
-                                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="password_admin" class="form-label">Password</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_admin" name="password" required>
-                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_admin', this)">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-8 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary">Buat Akun Admin</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                {{-- Form Inspektur --}}
-                <div class="tab-pane fade" id="inspektur-form" role="tabpanel" aria-labelledby="inspektur-tab">
-                    <form method="POST" action="{{ route('admin.users.store') }}">
-                        @csrf
-                        <input type="hidden" name="role" value="inspektur">
-                        <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                <label for="name_inspektur" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name_inspektur" name="name" value="{{ old('name') }}" required>
-                                @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="email_inspektur" class="form-label">Email</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email_inspektur" name="email" value="{{ old('email') }}" required>
-                                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="password_inspektur" class="form-label">Password</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_inspektur" name="password" required>
-                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_inspektur', this)">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-8 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary">Buat Akun Inspektur</button>
-                            </div>
-                        </div>
-                    </form>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     {{-- Form Filter Pencarian --}}
     <form method="GET" action="{{ route('admin.users.index') }}" class="mb-3">
@@ -173,6 +109,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Email</th>
+                                <th>No. Telepon</th>
                                 <th>Role</th>
                                 <th>Aksi</th>
                             </tr>
@@ -183,6 +120,7 @@
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phone }}</td>
                                     <td>{{ ucfirst($user->role) }}</td>
                                     <td>
                                         <div class="d-flex flex-wrap gap-2 align-items-center aksi-btn-group">

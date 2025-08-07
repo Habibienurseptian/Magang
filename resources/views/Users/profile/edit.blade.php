@@ -29,6 +29,20 @@
                         <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Nomor Telepon</label>
+                        <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
+                            value="{{ old('phone', $user->phone) }}"
+                            placeholder="Contoh: 081234567890"
+                            pattern="[0-9]{10,15}"
+                            inputmode="numeric">
+                        @error('phone')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Bidang Keahlian</label>
                         <select name="skill" class="form-select" required>
                             <option value="">-- Pilih Salah Satu --</option>

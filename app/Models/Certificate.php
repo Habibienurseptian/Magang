@@ -11,7 +11,7 @@ class Certificate extends Model
 
     protected $fillable = [
         'user_id',
-        'competency_id', // gunakan nama kolom sesuai konvensi Laravel
+        'competency_id',
         'certificate_url',
         'completed_at',
     ];

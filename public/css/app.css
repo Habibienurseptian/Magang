@@ -549,3 +549,20 @@ body {
     padding-right: 0.7em;
 }
 }
+
+
+@media (max-width: 767.98px) {
+  .komp-search-mobile {
+    flex-direction: row !important;
+  }
+  .komp-search-mobile input[type="text"] {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+  .komp-search-mobile button {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}

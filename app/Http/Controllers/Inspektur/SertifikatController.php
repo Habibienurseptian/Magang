@@ -51,11 +51,11 @@ class SertifikatController extends Controller
         }
 
         // Generate PDF sertifikat
-        $pdf = PDF::loadView('Inspektur.Sertifikat.certificate', [
+       $pdf = PDF::loadView('Inspektur.Sertifikat.certificate', [
             'user' => $user,
             'kompetensi' => $history->competency,
             'completed_at' => $history->completed_at,
-        ]);
+        ])->setPaper('A4', 'landscape');
 
         $filename = 'sertifikat_' . $user->id . '_' . time() . '.pdf';
         $path = 'certificates/' . $filename;

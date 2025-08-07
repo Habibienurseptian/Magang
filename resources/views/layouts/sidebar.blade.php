@@ -88,7 +88,7 @@
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="{{ route('admin.users.index') }}"><i class="fas fa-users me-2"></i> Pengguna</a>
                     </li>
-                    <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
+                    <!-- <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li> -->
                     <!-- <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="#"><i class="fas fa-user me-2"></i> Profile</a>
                     </li> -->
@@ -108,7 +108,7 @@
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="{{ route('inspektur.sertifikat.index') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
                     </li>
-                    <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
+                    <!-- <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li> -->
                     <!-- <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="#"><i class="fas fa-user me-2"></i> Profile</a>
                     </li> -->

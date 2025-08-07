@@ -15,6 +15,7 @@ use App\Http\Controllers\InspekturController;
 use App\Http\Controllers\Inspektur\BidangController;
 use App\Http\Controllers\Inspektur\SertifikatController as InspekturSertifikatController;
 use App\Http\Controllers\User\SertifikatController as UserSertifikatController;
+use App\Http\Controllers\Auth\ForgotDirectController;
 
 // Halaman utama
 Route::get('/', function () {
@@ -108,12 +109,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Manajemen Pengguna
     Route::prefix('admin/users')->name('admin.users.')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('index');
-        Route::post('/', [UserController::class, 'store'])->name('store');
-        Route::get('{user}', [UserController::class, 'show'])->name('show');
-        Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit');
-        Route::put('{user}', [UserController::class, 'update'])->name('update'); 
-        Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
+        Route::get('/', [AdminController::class, 'userList'])->name('index');
+        Route::post('/', [AdminController::class, 'createUser'])->name('store');
+        Route::get('{user}', [AdminController::class, 'showUser'])->name('show');
+        Route::get('{user}/edit', [AdminController::class, 'editUser'])->name('edit');
+        Route::put('{user}', [AdminController::class, 'updateUser'])->name('update'); 
+        Route::delete('{user}', [AdminController::class, 'destroyUser'])->name('destroy');
     });
 
 });
@@ -126,3 +127,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+Route::get('/forgot-password-direct', [ForgotDirectController::class, 'showForm'])->name('password.forgot.direct');
+Route::post('/forgot-password-direct', [ForgotDirectController::class, 'resetPassword'])->name('password.reset.direct');

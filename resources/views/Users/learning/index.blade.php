@@ -31,7 +31,7 @@
         </div>
     </form>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center" id="learning-path-list">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-start" id="learning-path-list">
         @php
             $userLevel = strtolower(Auth::user()->skill_level ?? '');
             $userSkill = strtolower(Auth::user()->skill ?? '');

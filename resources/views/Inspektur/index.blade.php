@@ -74,7 +74,7 @@
 </div>
 
 <div class="row mb-4 dashboard-mobile-card-spacing">
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
         <div class="card h-100 mb-3 mb-md-0">
             <div class="card-header bg-white">
                 <h5 class="mb-0">Recent Activity</h5>
@@ -125,7 +125,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="col-md-4">
         <div class="card h-100 mb-3 mb-md-0">
             <div class="card-header bg-white">

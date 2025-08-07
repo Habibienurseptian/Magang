@@ -38,11 +38,11 @@
                 @yield('content')
             </main>
         </div>
-        <footer class="bg-white border-top py-3 mt-4">
+        <!-- <footer class="bg-white border-top py-3 mt-4">
             <div class="container-fluid text-end small text-muted">
                 &copy; {{ date('Y') }} PelaonApp. All rights reserved.
             </div>
-        </footer>
+        </footer> -->
     </div>
 
     {{-- JS --}}

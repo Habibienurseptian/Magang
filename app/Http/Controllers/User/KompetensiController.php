@@ -47,7 +47,7 @@ class KompetensiController extends Controller
                 if (preg_match('/(\d+)\/(\d+)/', $history->score, $m)) {
                     $benar = (int)$m[1];
                     $total = (int)$m[2];
-                    if ($total > 0 && round($benar/$total*100) >= 70) {
+                    if ($total > 0 && round($benar/$total*100) >= $kompetensi->passing_grade) {
                         $isPassed = true;
                     }
                 }
@@ -71,7 +71,7 @@ class KompetensiController extends Controller
             if (preg_match('/(\d+)\/(\d+)/', $history->score, $m)) {
                 $benar = (int)$m[1];
                 $total = (int)$m[2];
-                if ($total > 0 && round($benar/$total*100) >= 70) {
+                if ($total > 0 && round($benar/$total*100) >= $kompetensi->passing_grade) {
                     $isPassed = true;
                 }
             }
@@ -95,7 +95,7 @@ class KompetensiController extends Controller
             if (preg_match('/(\d+)\/(\d+)/', $history->score, $m)) {
                 $benar = (int)$m[1];
                 $total = (int)$m[2];
-                if ($total > 0 && round($benar/$total*100) >= 70) {
+                if ($total > 0 && round($benar/$total*100) >= $kompetensi->passing_grade) {
                     $isPassed = true;
                 }
             }

@@ -17,8 +17,12 @@
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label for="nik" class="form-label">NIK</label>
-                        <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="nik" value="{{ old('nik', $user->nik) }}" required pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
+                        <label for="nik" class="form-label">NIK
+                            @if(old('role', $user->role) !== 'user')
+                                <small class="text-muted">(Opsional)</small>
+                            @endif
+                        </label>
+                        <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" id="nik" value="{{ old('nik', $user->nik) }}" pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)" @if(old('role', $user->role) === 'user') required @endif placeholder="@if(old('role', $user->role) !=='user') Boleh dikosongkan @endif">
                         @error('nik')
                             <div class="invalid-feedback">
                                 @php
@@ -29,7 +33,7 @@
                                 @elseif(str_contains($msg, 'unique'))
                                     NIK sudah terdaftar, gunakan NIK lain.
                                 @else
-                                    NIK sudah terdaftar
+                                    NIK harus diisi
                                 @endif
                             </div>
                         @enderror
@@ -46,16 +50,27 @@
                                name="email" id="email" value="{{ old('email', $user->email) }}" required>
                         @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
+
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Nomor Telepon</label>
+                        <input type="text" class="form-control @error('phone') is-invalid @enderror"
+                            name="phone" id="phone" value="{{ old('phone', $user->phone) }}"
+                            pattern="[0-9]{10,15}" inputmode="numeric"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                            required>
+                        @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
                 </div>
 
                 <div class="row g-3 mt-2">
                     <div class="col-md-6">
                         <label for="role" class="form-label">Role</label>
-                        <select name="role" id="role" class="form-select @error('role') is-invalid @enderror" required>
+                        <select name="role_display" id="role" class="form-select" disabled>
                             <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
                             <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="inspektur" {{ old('role', $user->role) == 'inspektur' ? 'selected' : '' }}>Inspektur</option>
                         </select>
-                        @error('role') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <input type="hidden" name="role" value="{{ old('role', $user->role) }}">
                     </div>
 
                     <div class="col-md-6">

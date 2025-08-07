@@ -29,8 +29,8 @@
                     </div>
                 @endif
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email atau NIK</label>
-                    <input type="text" class="form-control" id="email" name="email" required autofocus placeholder="Masukkan email atau NIK">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required autofocus placeholder="Masukkan Email">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
@@ -48,7 +48,7 @@
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
             <div class="text-end mt-3">
-                <a href="#" class="small">Lupa password?</a>
+                <a href="{{ route('password.forgot.direct') }}" class="small">Lupa Password?</a>
             </div>
         </div>
     </div>

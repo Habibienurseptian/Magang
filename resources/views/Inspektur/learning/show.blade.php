@@ -10,6 +10,30 @@
                 @endif
                 <div class="card-body">
                     <h3 class="card-title mb-3">{{ $learning->title }}</h3>
+                    @php
+                        function extractYoutubeId($url) {
+                            $pattern = '%(?:youtube\.com/(?:.*v=|v/|embed/)|youtu\.be/)([^"&?/ ]{11})%i';
+                            if (preg_match($pattern, $url, $matches)) {
+                                return $matches[1];
+                            }
+                            return null;
+                        }
+
+                        $videoId = extractYoutubeId($learning->youtube_url);
+                    @endphp
+
+                    @if ($videoId)
+                        <div class="mb-3">
+                            <!-- <label class="form-label fw-bold">Video</label><br> -->
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    @else
+                        <p class="text-danger">Video tidak valid atau tidak dapat diputar.</p>
+                    @endif
+
+
                     <div class="mb-3 d-flex flex-wrap gap-2 align-items-center">
                         <span class="badge bg-primary rounded-pill px-3 py-2" style="font-size:1.05rem;min-width:80px;"><i class="fas fa-tag me-1"></i> {{ $learning->skill->name ?? '-' }}</span>
                         @php

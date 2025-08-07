@@ -8,32 +8,6 @@ use App\Models\Learning;
 
 class LearningController extends Controller
 {
-    public function edit($id)
-    {
-        $learning = Learning::findOrFail($id);
-        $skills = \App\Models\Skill::orderBy('name')->get();
-        return view('inspektur.learning.edit', compact('learning', 'skills'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'title' => 'required',
-            'skill_id' => 'required|exists:skills,id',
-            'level' => 'required',
-            'description' => 'required',
-            'image' => 'nullable|url',
-        ]);
-        $learning = Learning::findOrFail($id);
-        $learning->update([
-            'title' => $request->title,
-            'skill_id' => $request->skill_id,
-            'level' => $request->level,
-            'description' => $request->description,
-            'image' => $request->image ?? 'https://via.placeholder.com/400',
-        ]);
-        return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path berhasil diupdate.');
-    }
     public function index()
     {
         $category = request('category', 'all');
@@ -62,6 +36,7 @@ class LearningController extends Controller
             'level' => 'required',
             'description' => 'required',
             'image' => 'nullable|url',
+            'youtube_url' => 'nullable|url',
         ]);
 
         Learning::create([
@@ -69,7 +44,8 @@ class LearningController extends Controller
             'skill_id' => $request->skill_id,
             'level' => $request->level,
             'description' => $request->description,
-            'image' => $request->image ?? 'https://via.placeholder.com/400', // default gambar
+            'image' => $request->image ?? 'https://via.placeholder.com/400',
+            'youtube_url' => $request->youtube_url,
         ]);
 
         return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path berhasil ditambahkan.');
@@ -85,5 +61,34 @@ class LearningController extends Controller
     {
         Learning::findOrFail($id)->delete();
         return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path dihapus.');
+    }
+
+    public function edit($id)
+    {
+        $learning = Learning::findOrFail($id);
+        $skills = \App\Models\Skill::orderBy('name')->get();
+        return view('inspektur.learning.edit', compact('learning', 'skills'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required',
+            'skill_id' => 'required|exists:skills,id',
+            'level' => 'required',
+            'description' => 'required',
+            'image' => 'nullable|url',
+            'youtube_url' => 'nullable|url',
+        ]);
+        $learning = Learning::findOrFail($id);
+        $learning->update([
+            'title' => $request->title,
+            'skill_id' => $request->skill_id,
+            'level' => $request->level,
+            'description' => $request->description,
+            'image' => $request->image ?? 'https://via.placeholder.com/400',
+            'youtube_url' =>$request->youtube_url,
+        ]);
+        return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path berhasil diupdate.');
     }
 }

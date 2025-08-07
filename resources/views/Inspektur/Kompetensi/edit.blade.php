@@ -38,6 +38,10 @@
                         <label class="form-label">Durasi (menit)</label>
                         <input type="number" name="duration" class="form-control" min="1" value="{{ old('duration', $kompetensi->duration) }}" required>
                     </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Passing Grade (%)</label>
+                        <input type="number" name="passing_grade" class="form-control" min="0" max="100" value="{{ old('passing_grade', $kompetensi->passing_grade) }}" required>
+                    </div>
                     <div class="col-12">
                         <label class="form-label">Deskripsi</label>
                         <textarea name="description" class="form-control" rows="2" required>{{ old('description', $kompetensi->description) }}</textarea>

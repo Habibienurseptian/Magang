@@ -11,30 +11,23 @@ class LoginController extends Controller
     // Tampilkan form login
     public function showLoginForm()
     {
-        return view('auth.login'); // Sesuaikan dengan lokasi file blade kamu
+        return view('auth.login');
     }
 
-    // Proses login
+    // Proses login hanya dengan email dan password
     public function login(Request $request)
     {
         // Validasi input
         $request->validate([
-            'email' => ['required'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        $login = $request->input('email');
-        $password = $request->input('password');
-
-        // Cek apakah input berupa email
-        if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
-            $credentials = ['email' => $login, 'password' => $password];
-        } else {
-            $credentials = ['nik' => $login, 'password' => $password];
-        }
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
+
             $user = Auth::user();
             if ($user->role === 'admin') {
                 return redirect()->intended('/admin/dashboard')->with('success', 'Selamat datang, Admin!');
@@ -45,8 +38,8 @@ class LoginController extends Controller
             }
         }
 
-        // Kalau gagal login
-        return back()->with('error', 'Email/NIK atau password salah!')->withInput();
+        // Gagal login
+        return back()->with('error', 'Email atau password salah!')->withInput();
     }
 
     // Proses logout
