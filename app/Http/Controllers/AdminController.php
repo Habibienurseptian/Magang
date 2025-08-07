@@ -9,6 +9,7 @@ use App\Models\Learning;
 use App\Models\Competency;
 use App\Models\UserCompetencyHistory;
 use Illuminate\Validation\Rule;
+use App\Models\Skill;
 
 class AdminController extends Controller
 {
@@ -26,6 +27,7 @@ class AdminController extends Controller
             'tahunAkademik' => '2025/2026',
             'totalUser' => User::count(),
             'totalAdmin' => User::where('role', 'admin')->count(),
+            'bidangCount' => Skill::count(),
             'usersList' => User::latest()->take(10)->get()
         ];
 
@@ -59,7 +61,6 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|string|digits_between:10,15',
             'role' => 'required|in:user,admin,inspektur',
-            'password' => 'required|string|min:6',
         ];
 
         if ($request->role === 'user') {
@@ -68,19 +69,33 @@ class AdminController extends Controller
 
         $validated = $request->validate($rules);
 
+        $generatedPassword = \Str::random(8);
+
         $user = new User([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
-            'password' => bcrypt($validated['password']),
+            'password' => bcrypt($generatedPassword),
             'role' => $validated['role'],
             'nik' => $validated['nik'] ?? null,
         ]);
-
         $user->save();
 
-        return redirect()->route('admin.users.index')->with('success', 'User berhasil ditambahkan.');
+        $message = "*Akun Anda berhasil dibuat!*\n\n"
+            . "Email: {$user->email}\n"
+            . "Password: {$generatedPassword}\n\n"
+            . "Silakan login ke sistem dan segera ubah password Anda.";
+
+        $rawPhone = preg_replace('/[^0-9]/', '', $user->phone);
+        $waNumber = '62' . ltrim($rawPhone, '0');
+        $waMessage = urlencode($message);
+        $waUrl = "https://wa.me/{$waNumber}?text={$waMessage}";
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Akun berhasil ditambahkan. Klik untuk kirim password via WhatsApp.')
+            ->with('whatsapp_url', $waUrl);
     }
+
 
     public function editUser(User $user)
     {
@@ -94,10 +109,10 @@ class AdminController extends Controller
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
             'phone' => 'required|string|digits_between:10,15',
             'role' => 'required|in:user,admin,inspektur',
-            'password' => 'nullable|string|min:6',
+            'password' => 'nullable|string|min:8',
         ];
 
-        // Validasi NIK kondisional
+        // Validasi NIK
         if ($request->role === 'user') {
             $rules['nik'] = ['required', 'digits:16', Rule::unique('users')->ignore($user->id)];
         } else {
@@ -123,7 +138,7 @@ class AdminController extends Controller
     }
 
 
-    public function deleteUser(User $user)
+    public function destroyUser(User $user)
     {
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'User berhasil dihapus.');

@@ -11,6 +11,7 @@ class BidangController extends Controller
     public function index()
     {
         $skills = Skill::orderBy('name')->get();
+        $bidangCount = $skills->count();
         return view('inspektur.Bidang.index', compact('skills'));
     }
 

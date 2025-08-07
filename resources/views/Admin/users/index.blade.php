@@ -5,8 +5,13 @@
     <h4 class="fw-bold mb-4">Manajemen Pengguna</h4>
 
     {{-- Notifikasi sukses --}}
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    @if(session('whatsapp_url'))
+        <div class="alert alert-success d-flex justify-content-between align-items-center">
+            {{ session('success') }}
+            <a href="{{ session('whatsapp_url') }}" target="_blank" class="btn btn-success">
+                Kirim Password ke WhatsApp <i class="fab fa-whatsapp ms-1"></i>
+            </a>
+        </div>
     @endif
 
     <!-- Tombol trigger modal -->
@@ -60,7 +65,7 @@
                                             <label for="phone_{{ $role }}" class="form-label">No. Telepon / WA</label>
                                             <input type="text" class="form-control" id="phone_{{ $role }}" name="phone" required pattern="[0-9]{10,15}" inputmode="numeric">
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label for="password_{{ $role }}" class="form-label">Password</label>
                                             <div class="input-group">
                                                 <input type="password" class="form-control" id="password_{{ $role }}" name="password" required>
@@ -68,10 +73,10 @@
                                                     <i class="fas fa-eye"></i>
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="mt-3 text-end">
-                                        <button type="submit" class="btn btn-success">Buat Akun {{ ucfirst($role) }}</button>
+                                        <button type="submit" class="btn btn-primary">Buat Akun {{ ucfirst($role) }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -81,7 +86,6 @@
             </div>
         </div>
     </div>
-
 
 
     {{-- Form Filter Pencarian --}}

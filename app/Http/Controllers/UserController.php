@@ -72,10 +72,11 @@ class UserController extends Controller
             'total_user' => User::count(),
             'learning_path_aktif' => Learning::count(),
             'uji_kompetensi_aktif' => $ujiKompetensiAktif,
-            'sertifikat_diterbitkan' => 3, // Dummy
+            'sertifikat_diterbitkan' => 3,
             'kompetensi_total' => $kompetensi_total,
             'kompetensi_selesai' => $kompetensi_selesai,
             'progress_kompetensi' => $progress_kompetensi,
+            'bidang_keahlian' => Skill::count(),
         ];
 
         $recentActivities = [];

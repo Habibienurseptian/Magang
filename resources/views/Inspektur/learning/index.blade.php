@@ -6,7 +6,7 @@
 <div class="container py-4">
     <h2 class="mb-4 text-center">Kelola Learning Path</h2>
 
-    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahLearning">
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahLearning">
         Tambah Learning Path
     </button>
 
@@ -57,7 +57,7 @@
                                 <textarea name="description" class="form-control" rows="2" required></textarea>
                             </div>
                             <div class="col-12 text-end">
-                                <button type="submit" class="btn btn-success">Tambah</button>
+                                <button type="submit" class="btn btn-primary">Tambah</button>
                             </div>
                         </div>
                     </form>

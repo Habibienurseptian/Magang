@@ -8,6 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/btn.css') }}">
+    <!-- Jika menggunakan .png -->
+    <link rel="icon" href="{{ asset('images/logo1.png') }}" type="image/png">
+
+    <!-- Jika ingin dukungan Apple -->
+    <link rel="apple-touch-icon" href="{{ asset('images/logo1.png') }}">
     @stack('styles')
 </head>
 <body>

@@ -22,7 +22,7 @@
                                     elseif (strtolower($kompetensi->level ?? '') == 'ahli') $levelClass .= ' learning-badge-level-ahli';
                                 @endphp
                                 <span class="badge kompetensi-badge-level rounded-pill d-flex align-items-center {{ $levelClass }}" style="font-size:1.05rem;">
-                                    <i class="fas fa-signal me-1"></i> Level: {{ $kompetensi->level ?? '-' }}
+                                    <i class="fas fa-signal me-1"></i> {{ $kompetensi->level ?? '-' }}
                                 </span>
                             </div>
                         </div>

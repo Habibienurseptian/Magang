@@ -141,7 +141,8 @@
                     <li><i class="fas fa-user-shield me-2 text-danger"></i> Total Admin: <b>{{ $totalAdmin ?? 0 }}</b></li>
                     <li><i class="fas fa-route me-2 text-warning"></i> Learning Path Aktif: <b>{{ $learningCount ?? 0 }}</b></li>
                     <li><i class="fas fa-clipboard-check me-2 text-info"></i> Uji Kompetensi Aktif: <b>{{ $kompetensiCount ?? 0 }}</b></li>
-                    <li><i class="fas fa-certificate me-2 text-secondary"></i> Sertifikat Diterbitkan: <b>{{ $sertifikatCount ?? 0 }}</b></li>
+                    <li><i class="fas fa-briefcase me-2 text-danger-emphasis"></i> Bidang Keahlian: <b>{{ $bidangCount ?? 0 }}</b></li>
+                    <!-- <li><i class="fas fa-certificate me-2 text-secondary"></i> Sertifikat Diterbitkan: <b>{{ $sertifikatCount ?? 0 }}</b></li> -->
                 </ul>
                 <hr>
                 <p class="mb-0 small text-muted">Selamat datang di dashboard PelaonApp. Pantau perkembangan pembelajaran, uji kompetensi, dan raih sertifikat terbaikmu!</p>

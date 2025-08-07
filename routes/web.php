@@ -101,6 +101,10 @@ Route::middleware(['auth', 'role:inspektur'])->group(function () {
         Route::put('{soal}', [SoalController::class, 'update'])->name('update');
         Route::delete('{soal}', [SoalController::class, 'destroy'])->name('destroy');
     });
+
+    Route::get('/inspektur/profile', [\App\Http\Controllers\Inspektur\ProfileController::class, 'index'])->name('inspektur.profile.index');
+    Route::get('/inspektur/profile/edit', [\App\Http\Controllers\Inspektur\ProfileController::class, 'edit'])->name('inspektur.profile.edit');
+    Route::post('/inspektur/profile/update', [\App\Http\Controllers\Inspektur\ProfileController::class, 'update'])->name('inspektur.profile.update');
 });
 
 // Dashboard Admin

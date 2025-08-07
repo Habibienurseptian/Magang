@@ -7,6 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <!-- Jika menggunakan .png -->
+    <link rel="icon" href="{{ asset('images/logo1.png') }}" type="image/png">
+
+    <!-- Jika ingin dukungan Apple -->
+    <link rel="apple-touch-icon" href="{{ asset('images/logo1.png') }}">
 </head>
 <body>
     <div class="w-100 min-vh-100 d-flex align-items-center justify-content-center" style="background: none;">

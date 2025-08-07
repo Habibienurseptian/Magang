@@ -47,7 +47,7 @@
                     </select>
                 </div>
                 <div class="text-end">
-                    <button type="submit" class="btn btn-success">Tambah Soal</button>
+                    <button type="submit" class="btn btn-primary">Tambah Soal</button>
                 </div>
             </form>
         </div>

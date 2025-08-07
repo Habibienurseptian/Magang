@@ -33,9 +33,9 @@
                 <a class="nav-link" href="{{ route('inspektur.sertifikat.index') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
             </li>
             <li><hr class="my-3 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-user me-2"></i> Profile</a>
-            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('inspektur.profile.index') }}"><i class="fas fa-user me-2"></i> Profile</a>
+            </li>
         @else
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.users') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
@@ -108,10 +108,10 @@
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="{{ route('inspektur.sertifikat.index') }}"><i class="fas fa-certificate me-2"></i> Sertifikat</a>
                     </li>
-                    <!-- <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li> -->
-                    <!-- <li class="nav-item mb-2">
-                        <a class="nav-link text-white" href="#"><i class="fas fa-user me-2"></i> Profile</a>
-                    </li> -->
+                    <li><hr class="my-2 text-white" style="border-top: 2px solid #fff; opacity:1;"></li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white" href="{{ route('inspektur.profile.index') }}"><i class="fas fa-user me-2"></i> Profile</a>
+                    </li>
                 @else
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white" href="{{ route('dashboard.users') }}"><i class="fas fa-home me-2"></i> Dashboard</a>

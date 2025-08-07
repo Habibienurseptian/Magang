@@ -18,7 +18,7 @@
                         <input type="text" name="name" class="form-control" placeholder="Contoh: Penjahit, Web Developer, dll" required>
                     </div>
                     <div class="col-md-4 text-end">
-                        <button type="submit" class="btn btn-success px-4"><i class="fa fa-plus me-1"></i> Tambah</button>
+                        <button type="submit" class="btn btn-primary px-4"><i class="fa fa-plus me-1"></i> Tambah</button>
                     </div>
                 </div>
             </form>

@@ -120,6 +120,7 @@
                     <li><i class="fas fa-user me-2 text-secondary"></i> User: <b>{{ $info['total_peserta'] ?? '0' }}</b></li>
                     <li><i class="fas fa-route me-2 text-warning"></i> Learning Path Aktif: <b>{{ $info['learning_path_aktif'] ?? '0' }}</b></li>
                     <li><i class="fas fa-clipboard-check me-2 text-info"></i> Uji Kompetensi Aktif: <b>{{ $info['uji_kompetensi_aktif'] ?? '0' }}</b></li>
+                    <li><i class="fas fa-briefcase me-2 text-danger-emphasis"></i> Bidang Keahlian: <b>{{ $info['bidang_keahlian'] ?? 0 }}</b></li>
                 </ul>
                 <hr>
                 <p class="mb-0 small text-muted">Selamat datang di dashboard PelaonApp. Pantau perkembangan pembelajaran, uji kompetensi, dan raih sertifikat terbaikmu!</p>
