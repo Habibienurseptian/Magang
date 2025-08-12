@@ -71,7 +71,7 @@ class UserController extends Controller
             'total_peserta' => User::where('role', 'user')->count(),
             'total_user' => User::count(),
             'learning_path_aktif' => Learning::count(),
-            'uji_kompetensi_aktif' => $ujiKompetensiAktif,
+            'uji_kompetensi_aktif' => Competency::count(),
             'sertifikat_diterbitkan' => 3,
             'kompetensi_total' => $kompetensi_total,
             'kompetensi_selesai' => $kompetensi_selesai,

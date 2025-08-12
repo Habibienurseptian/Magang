@@ -43,9 +43,9 @@
                                     <td>
                                         @if($user->certificate_url)
                                             <a href="{{ $user->certificate_url }}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i> Lihat</a>
-                                            <a href="{{ route('inspektur.sertifikat.download', $user->id) }}" class="btn btn-sm btn-outline-success"><i class="fa fa-download"></i> Download</a>
+                                            <a href="{{ route('instruktur.sertifikat.download', $user->id) }}" class="btn btn-sm btn-outline-success"><i class="fa fa-download"></i> Download</a>
                                         @else
-                                            <a href="{{ route('inspektur.sertifikat.generate', $user->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Terbitkan</a>
+                                            <a href="{{ route('instruktur.sertifikat.generate', $user->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Terbitkan</a>
                                         @endif
                                     </td>
                                 </tr>

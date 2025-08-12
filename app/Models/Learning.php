@@ -10,10 +10,15 @@ class Learning extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'skill_id', 'category', 'level', 'description', 'image', 'youtube_url'
+        'title', 'competency_id','skill_id', 'category', 'level', 'description', 'image', 'youtube_url'
     ];
     public function skill()
     {
         return $this->belongsTo(Skill::class);
+    }
+
+    public function competency()
+    {
+        return $this->belongsTo(Competency::class);
     }
 }

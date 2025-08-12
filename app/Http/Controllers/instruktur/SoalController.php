@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Inspektur;
+namespace App\Http\Controllers\instruktur;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class SoalController extends Controller
     {
         $competency = Competency::findOrFail($competencyId);
         $soals = $competency->soals()->latest()->get();
-        return view('inspektur.kompetensi.soal.index', compact('competency', 'soals'));
+        return view('instruktur.kompetensi.soal.index', compact('competency', 'soals'));
     }
 
     // Simpan soal baru
@@ -39,7 +39,7 @@ class SoalController extends Controller
     {
         $competency = Competency::findOrFail($competencyId);
         $soal = $competency->soals()->findOrFail($soalId);
-        return view('inspektur.kompetensi.soal.edit', compact('competency', 'soal'));
+        return view('instruktur.kompetensi.soal.edit', compact('competency', 'soal'));
     }
 
     // Update soal
@@ -56,7 +56,7 @@ class SoalController extends Controller
         $competency = Competency::findOrFail($competencyId);
         $soal = $competency->soals()->findOrFail($soalId);
         $soal->update($request->only(['question','option_a','option_b','option_c','option_d','answer_key']));
-        return redirect()->route('inspektur.kompetensi.soal.index', $competencyId)->with('success', 'Soal berhasil diupdate.');
+        return redirect()->route('instruktur.kompetensi.soal.index', $competencyId)->with('success', 'Soal berhasil diupdate.');
     }
 
     // Hapus soal

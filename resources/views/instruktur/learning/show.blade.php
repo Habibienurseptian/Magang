@@ -45,7 +45,7 @@
                         <span class="badge rounded-pill px-3 py-2 {{ $levelClass }}" style="font-size:1.05rem;min-width:80px;"><i class="fas fa-signal me-1"></i>{{ $learning->level ?? '-' }}</span>
                     </div>
                     <p class="card-text">{!! nl2br(e($learning->description)) !!}</p>
-                    <a href="{{ route('inspektur.learning.index') }}" class="btn btn-secondary mt-3"><i class="fas fa-arrow-left me-1"></i> Kembali</a>
+                    <a href="{{ route('instruktur.learning.index') }}" class="btn btn-secondary mt-3"><i class="fas fa-arrow-left me-1"></i> Kembali</a>
                 </div>
             </div>
         </div>

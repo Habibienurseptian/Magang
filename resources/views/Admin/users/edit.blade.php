@@ -68,7 +68,7 @@
                         <select name="role_display" id="role" class="form-select" disabled>
                             <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
                             <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="inspektur" {{ old('role', $user->role) == 'inspektur' ? 'selected' : '' }}>Inspektur</option>
+                            <option value="instruktur" {{ old('role', $user->role) == 'instruktur' ? 'selected' : '' }}>Instruktur</option>
                         </select>
                         <input type="hidden" name="role" value="{{ old('role', $user->role) }}">
                     </div>

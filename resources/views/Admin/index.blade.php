@@ -96,19 +96,19 @@
                         <li class="list-group-item text-muted">Tidak ada admin baru.</li>
                     @endif
 
-                    <li class="list-group-item bg-light fw-bold">Inspektur</li>
+                    <li class="list-group-item bg-light fw-bold">instruktur</li>
                     @php $found = false; @endphp
                     @foreach($usersList ?? [] as $user)
-                        @if($user->role === 'inspektur')
+                        @if($user->role === 'instruktur')
                             @php $found = true; @endphp
                             <li class="list-group-item">
                                 <i class="fas fa-user-tie text-primary me-2"></i>
-                                <b>{{ $user->name }}</b> <span class="badge bg-primary">Inspektur</span>
+                                <b>{{ $user->name }}</b> <span class="badge bg-primary">instruktur</span>
                             </li>
                         @endif
                     @endforeach
                     @if(!$found)
-                        <li class="list-group-item text-muted">Tidak ada inspektur baru.</li>
+                        <li class="list-group-item text-muted">Tidak ada instruktur baru.</li>
                     @endif
 
                     <li class="list-group-item bg-light fw-bold">User</li>

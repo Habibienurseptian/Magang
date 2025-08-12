@@ -6,14 +6,14 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\KompetensiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Inspektur\LearningController as InspekturLearningController;
+use App\Http\Controllers\instruktur\LearningController as instrukturLearningController;
 use App\Http\Controllers\User\LearningController as UserLearningController;
-use App\Http\Controllers\Inspektur\CompetencyController;
-use App\Http\Controllers\Inspektur\SoalController;
+use App\Http\Controllers\instruktur\CompetencyController;
+use App\Http\Controllers\instruktur\SoalController;
 use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\InspekturController;
-use App\Http\Controllers\Inspektur\BidangController;
-use App\Http\Controllers\Inspektur\SertifikatController as InspekturSertifikatController;
+use App\Http\Controllers\instrukturController;
+use App\Http\Controllers\instruktur\BidangController;
+use App\Http\Controllers\instruktur\SertifikatController as instrukturSertifikatController;
 use App\Http\Controllers\User\SertifikatController as UserSertifikatController;
 use App\Http\Controllers\Auth\ForgotDirectController;
 
@@ -34,10 +34,17 @@ Route::middleware(['auth', 'role:user', 'force.skill'])->group(function () {
     // Learning Path & Uji Kompetensi untuk user
     Route::get('/learning-path', [UserLearningController::class, 'index'])->name('users.learning.index');
     Route::get('/learning-path/{id}', [UserLearningController::class, 'show'])->name('users.learning.show');
-    Route::get('/uji-kompetensi', [\App\Http\Controllers\User\KompetensiController::class, 'index'])->name('users.kompetensi.index');
-    Route::get('/uji-kompetensi/{id}', [\App\Http\Controllers\User\KompetensiController::class, 'show'])->name('users.kompetensi.show');
-    Route::get('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'exam'])->name('users.kompetensi.exam');
-    Route::post('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'submitExam'])->name('users.kompetensi.exam.submit');
+
+    // Route::get('/uji-kompetensi', [\App\Http\Controllers\User\KompetensiController::class, 'index'])->name('users.kompetensi.index');
+    Route::get('/uji-kompetensi/{id}{learning_id?}', [\App\Http\Controllers\User\KompetensiController::class, 'show'])->name('users.kompetensi.show');
+    // Route::get('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'exam'])->name('users.kompetensi.exam');
+    // Route::post('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'submitExam'])->name('users.kompetensi.exam.submit');
+
+    Route::get('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'exam'])
+        ->name('users.kompetensi.exam');
+    Route::post('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'submitExam'])
+        ->name('users.kompetensi.exam.submit');
+
 
     Route::get('/sertifikat', [App\Http\Controllers\User\SertifikatController::class, 'index'])
         ->name('user.sertifikat');
@@ -53,40 +60,40 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 
-// Dashboard Inspektur
-Route::middleware(['auth', 'role:inspektur'])->group(function () {
-    Route::get('/inspektur/dashboard', [App\Http\Controllers\InspekturController::class, 'index'])->name('dashboard.inspektur');
+// Dashboard instruktur
+Route::middleware(['auth', 'role:instruktur'])->group(function () {
+    Route::get('/instruktur/dashboard', [App\Http\Controllers\instrukturController::class, 'index'])->name('dashboard.instruktur');
 
-    // Learning Skill untuk Inspektur
-    Route::get('/inspektur/learning', [App\Http\Controllers\Inspektur\LearningController::class, 'index'])->name('inspektur.learning.index');
-    Route::post('/inspektur/learning', [App\Http\Controllers\Inspektur\LearningController::class, 'store'])->name('inspektur.learning.store');
-    Route::get('/inspektur/learning/{id}', [App\Http\Controllers\Inspektur\LearningController::class, 'show'])->name('inspektur.learning.show');
-    Route::get('/inspektur/learning/{id}/edit', [App\Http\Controllers\Inspektur\LearningController::class, 'edit'])->name('inspektur.learning.edit');
-    Route::put('/inspektur/learning/{id}', [App\Http\Controllers\Inspektur\LearningController::class, 'update'])->name('inspektur.learning.update');
-    Route::delete('/inspektur/learning/{id}', [App\Http\Controllers\Inspektur\LearningController::class, 'destroy'])->name('inspektur.learning.destroy');
+    // Learning Skill untuk instruktur
+    Route::get('/instruktur/learning', [App\Http\Controllers\instruktur\LearningController::class, 'index'])->name('instruktur.learning.index');
+    Route::post('/instruktur/learning', [App\Http\Controllers\instruktur\LearningController::class, 'store'])->name('instruktur.learning.store');
+    Route::get('/instruktur/learning/{id}', [App\Http\Controllers\instruktur\LearningController::class, 'show'])->name('instruktur.learning.show');
+    Route::get('/instruktur/learning/{id}/edit', [App\Http\Controllers\instruktur\LearningController::class, 'edit'])->name('instruktur.learning.edit');
+    Route::put('/instruktur/learning/{id}', [App\Http\Controllers\instruktur\LearningController::class, 'update'])->name('instruktur.learning.update');
+    Route::delete('/instruktur/learning/{id}', [App\Http\Controllers\instruktur\LearningController::class, 'destroy'])->name('instruktur.learning.destroy');
 
-    // Bidang Keahlian untuk Inspektur
-    Route::get('/inspektur/bidang', [\App\Http\Controllers\Inspektur\BidangController::class, 'index'])->name('inspektur.bidang.index');
-    Route::post('/inspektur/bidang', [\App\Http\Controllers\Inspektur\BidangController::class, 'store'])->name('inspektur.bidang.store');
-    Route::delete('/inspektur/bidang/{id}', [\App\Http\Controllers\Inspektur\BidangController::class, 'destroy'])->name('inspektur.bidang.destroy');
+    // Bidang Keahlian untuk instruktur
+    Route::get('/instruktur/bidang', [\App\Http\Controllers\instruktur\BidangController::class, 'index'])->name('instruktur.bidang.index');
+    Route::post('/instruktur/bidang', [\App\Http\Controllers\instruktur\BidangController::class, 'store'])->name('instruktur.bidang.store');
+    Route::delete('/instruktur/bidang/{id}', [\App\Http\Controllers\instruktur\BidangController::class, 'destroy'])->name('instruktur.bidang.destroy');
 
-    // Uji Kompetensi untuk Inspektur
-    Route::get('/inspektur/kompetensi', [App\Http\Controllers\Inspektur\CompetencyController::class, 'index'])->name('inspektur.kompetensi.index');
-    Route::post('/inspektur/kompetensi', [App\Http\Controllers\Inspektur\CompetencyController::class, 'store'])->name('inspektur.kompetensi.store');
-    Route::get('/inspektur/kompetensi/{id}/edit', [App\Http\Controllers\Inspektur\CompetencyController::class, 'edit'])->name('inspektur.kompetensi.edit');
-    Route::put('/inspektur/kompetensi/{id}', [App\Http\Controllers\Inspektur\CompetencyController::class, 'update'])->name('inspektur.kompetensi.update');
-    Route::patch('/inspektur/kompetensi/{id}/toggle', [App\Http\Controllers\Inspektur\CompetencyController::class, 'toggle'])->name('inspektur.kompetensi.toggle');
-    Route::delete('/inspektur/kompetensi/{id}', [App\Http\Controllers\Inspektur\CompetencyController::class, 'destroy'])->name('inspektur.kompetensi.destroy');
+    // Uji Kompetensi untuk instruktur
+    Route::get('/instruktur/kompetensi', [App\Http\Controllers\instruktur\CompetencyController::class, 'index'])->name('instruktur.kompetensi.index');
+    Route::post('/instruktur/kompetensi', [App\Http\Controllers\instruktur\CompetencyController::class, 'store'])->name('instruktur.kompetensi.store');
+    Route::get('/instruktur/kompetensi/{id}/edit', [App\Http\Controllers\instruktur\CompetencyController::class, 'edit'])->name('instruktur.kompetensi.edit');
+    Route::put('/instruktur/kompetensi/{id}', [App\Http\Controllers\instruktur\CompetencyController::class, 'update'])->name('instruktur.kompetensi.update');
+    Route::patch('/instruktur/kompetensi/{id}/toggle', [App\Http\Controllers\instruktur\CompetencyController::class, 'toggle'])->name('instruktur.kompetensi.toggle');
+    Route::delete('/instruktur/kompetensi/{id}', [App\Http\Controllers\instruktur\CompetencyController::class, 'destroy'])->name('instruktur.kompetensi.destroy');
 
-    // Sertifikat untuk Inspektur
-    Route::prefix('inspektur/sertifikat')->name('inspektur.sertifikat.')->group(function () {
-        Route::get('/', [App\Http\Controllers\Inspektur\SertifikatController::class, 'index'])->name('index');
-        Route::get('/{user}/generate', [App\Http\Controllers\Inspektur\SertifikatController::class, 'generate'])->name('generate');
-        Route::get('/{user}/download', [App\Http\Controllers\Inspektur\SertifikatController::class, 'download'])->name('download');
+    // Sertifikat untuk instruktur
+    Route::prefix('instruktur/sertifikat')->name('instruktur.sertifikat.')->group(function () {
+        Route::get('/', [App\Http\Controllers\instruktur\SertifikatController::class, 'index'])->name('index');
+        Route::get('/{user}/generate', [App\Http\Controllers\instruktur\SertifikatController::class, 'generate'])->name('generate');
+        Route::get('/{user}/download', [App\Http\Controllers\instruktur\SertifikatController::class, 'download'])->name('download');
     });
 
     // Soal Uji Kompetensi (nested resource)
-    Route::prefix('inspektur/kompetensi/{competency}/soal')->name('inspektur.competency.soal.')->group(function () {
+    Route::prefix('instruktur/kompetensi/{competency}/soal')->name('instruktur.kompetensi.soal.')->group(function () {
         Route::get('/', [SoalController::class, 'index'])->name('index');
         Route::post('/', [SoalController::class, 'store'])->name('store');
         Route::get('{soal}/edit', [SoalController::class, 'edit'])->name('edit');
@@ -94,17 +101,17 @@ Route::middleware(['auth', 'role:inspektur'])->group(function () {
         Route::delete('{soal}', [SoalController::class, 'destroy'])->name('destroy');
     });
     // Alias agar route lama tetap bisa dipakai
-    Route::prefix('inspektur/kompetensi/{competency}/soal')->name('inspektur.kompetensi.soal.')->group(function () {
-        Route::get('/', [SoalController::class, 'index'])->name('index');
-        Route::post('/', [SoalController::class, 'store'])->name('store');
-        Route::get('{soal}/edit', [SoalController::class, 'edit'])->name('edit');
-        Route::put('{soal}', [SoalController::class, 'update'])->name('update');
-        Route::delete('{soal}', [SoalController::class, 'destroy'])->name('destroy');
-    });
+    // Route::prefix('instruktur/kompetensi/{competency}/soal')->name('instruktur.kompetensi.soal.')->group(function () {
+    //     Route::get('/', [SoalController::class, 'index'])->name('index');
+    //     Route::post('/', [SoalController::class, 'store'])->name('store');
+    //     Route::get('{soal}/edit', [SoalController::class, 'edit'])->name('edit');
+    //     Route::put('{soal}', [SoalController::class, 'update'])->name('update');
+    //     Route::delete('{soal}', [SoalController::class, 'destroy'])->name('destroy');
+    // });
 
-    Route::get('/inspektur/profile', [\App\Http\Controllers\Inspektur\ProfileController::class, 'index'])->name('inspektur.profile.index');
-    Route::get('/inspektur/profile/edit', [\App\Http\Controllers\Inspektur\ProfileController::class, 'edit'])->name('inspektur.profile.edit');
-    Route::post('/inspektur/profile/update', [\App\Http\Controllers\Inspektur\ProfileController::class, 'update'])->name('inspektur.profile.update');
+    Route::get('/instruktur/profile', [\App\Http\Controllers\instruktur\ProfileController::class, 'index'])->name('instruktur.profile.index');
+    Route::get('/instruktur/profile/edit', [\App\Http\Controllers\instruktur\ProfileController::class, 'edit'])->name('instruktur.profile.edit');
+    Route::post('/instruktur/profile/update', [\App\Http\Controllers\instruktur\ProfileController::class, 'update'])->name('instruktur.profile.update');
 });
 
 // Dashboard Admin

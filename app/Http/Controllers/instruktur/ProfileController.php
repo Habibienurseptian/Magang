@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Inspektur;
+namespace App\Http\Controllers\instruktur;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('inspektur.profile.index', compact('user'));
+        return view('instruktur.profile.index', compact('user'));
     }
 
     // Form edit profil
@@ -21,7 +21,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $skills = \App\Models\Skill::all();
-        return view('inspektur.profile.edit', compact('user', 'skills'));
+        return view('instruktur.profile.edit', compact('user', 'skills'));
     }
 
     // Proses update profil
@@ -43,6 +43,6 @@ class ProfileController extends Controller
             $user->password = Hash::make($request->password);
         }
         $user->save();
-        return redirect()->route('inspektur.profile.index')->with('success', 'Profil berhasil diperbarui.');
+        return redirect()->route('instruktur.profile.index')->with('success', 'Profil berhasil diperbarui.');
     }
 }

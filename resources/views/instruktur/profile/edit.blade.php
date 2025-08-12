@@ -18,7 +18,7 @@
                         </ul>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('inspektur.profile.update') }}">
+                <form method="POST" action="{{ route('instruktur.profile.update') }}">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Nama Lengkap</label>
@@ -69,7 +69,7 @@
                         <input type="password" name="password_confirmation" class="form-control" autocomplete="new-password" placeholder="Ulangi password baru">
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                        <a href="{{ route('inspektur.profile.index') }}" class="btn btn-outline-secondary rounded-pill px-4"><i class="fa fa-arrow-left me-1"></i> Batal</a>
+                        <a href="{{ route('instruktur.profile.index') }}" class="btn btn-outline-secondary rounded-pill px-4"><i class="fa fa-arrow-left me-1"></i> Batal</a>
                         <button type="submit" class="btn btn-primary rounded-pill px-4"><i class="fa fa-save me-1"></i> Simpan Perubahan</button>
                     </div>
                 </form>

@@ -43,38 +43,57 @@
                 $kompetensiLevel = strtolower($kompetensi->level ?? '');
                 $kompetensiSkill = strtolower($kompetensi->skill->name ?? '');
                 $canAccess = $userLevel === $kompetensiLevel && $userSkill === $kompetensiSkill;
+
+                $levelClass = 'learning-badge-level badge-sm';
+                if ($kompetensiLevel == 'pemula') $levelClass .= ' learning-badge-level-pemula';
+                elseif ($kompetensiLevel == 'menengah') $levelClass .= ' learning-badge-level-menengah';
+                elseif ($kompetensiLevel == 'ahli') $levelClass .= ' learning-badge-level-ahli';
             @endphp
             <div class="col" data-skill="{{ $kompetensi->skill ? strtolower($kompetensi->skill->name) : '-' }}">
                 <div class="card h-100 shadow border-0 kompetensi-modern-card position-relative overflow-hidden">
                     <div class="card-body d-flex flex-column">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <h5 class="card-title fw-bold mb-0">{{ $kompetensi->title }}</h5>
-                            <span class="badge kompetensi-badge-kategori ms-2 d-flex align-items-center" style="background:linear-gradient(90deg,#4f8cff 0%,#6fd6ff 100%);color:#fff;font-size:0.95rem;">
-                                <i class="fas fa-tag me-1"></i> {{ $kompetensi->skill ? $kompetensi->skill->name : '-' }}
+
+                            <span class="badge kompetensi-badge-kategori ms-2 d-flex align-items-center {{ $levelClass }}"
+                                style="font-size:0.95rem;">
+                                <i class="fas fa-layer-group me-1"></i>{{ $kompetensi->level ?? '-' }}
                             </span>
                         </div>
+
                         <div class="mb-2">
-                            @php
-                                $levelClass = 'learning-badge-level badge-sm';
-                                if ($kompetensiLevel == 'pemula') $levelClass .= ' learning-badge-level-pemula';
-                                elseif ($kompetensiLevel == 'menengah') $levelClass .= ' learning-badge-level-menengah';
-                                elseif ($kompetensiLevel == 'ahli') $levelClass .= ' learning-badge-level-ahli';
-                            @endphp
-                            <span class="badge px-2 py-1 me-1 {{ $levelClass }}" style="font-size:0.85rem;min-width:60px;border-radius:0.375rem;">Level: {{ $kompetensi->level ?? '-' }}</span>
+                            <span class="badge px-2 py-1 me-1 bg-primary text-white"
+                                style="font-size:0.85rem;min-width:60px;border-radius:0.375rem;">
+                                <i class="fas fa-tag me-1"></i> {{ $kompetensi->skill->name ?? '-' }}
+                            </span>
                         </div>
-                        <p class="card-text text-secondary mb-3" style="min-height:60px;">{{ $kompetensi->description }}<br><span class="badge bg-light text-dark mt-2"><i class="far fa-clock me-1"></i>Durasi: {{ $kompetensi->duration }} menit</span></p>
+
+                        <p class="card-text text-secondary mb-3" style="min-height:60px;">
+                            {{ $kompetensi->description }}<br>
+                            <span class="badge bg-light text-dark mt-2">
+                                <i class="far fa-clock me-1"></i>Durasi: {{ $kompetensi->duration }} menit
+                            </span>
+                        </p>
+
                         @if($kompetensi->is_available)
                             <span class="badge bg-success mb-2 w-50">Tersedia</span>
+
                             @if(!empty($isPassedArr[$kompetensi->id]) && $isPassedArr[$kompetensi->id])
                                 <div class="mb-2">
                                     <span class="badge bg-info text-dark w-100">Skor Terakhir: <b>{{ $scoreArr[$kompetensi->id] }}</b></span>
                                 </div>
-                                <button class="btn btn-outline-success mt-auto w-100" disabled><i class="fas fa-check-circle me-1"></i> Sudah Lulus</button>
+                                <button class="btn btn-outline-success mt-auto w-100" disabled>
+                                    <i class="fas fa-check-circle me-1"></i> Sudah Lulus
+                                </button>
                             @else
                                 @if($canAccess)
-                                    <a href="{{ route('users.kompetensi.show', $kompetensi->id) }}" class="btn kompetensi-gradient-btn mt-auto fw-semibold w-100"><i class="fas fa-play-circle me-1"></i> Mulai Uji</a>
+                                    <a href="{{ route('users.kompetensi.show', $kompetensi->id) }}" class="btn kompetensi-gradient-btn mt-auto fw-semibold w-100">
+                                        <i class="fas fa-play-circle me-1"></i> Mulai Uji
+                                    </a>
                                 @else
-                                    <button class="btn btn-outline-secondary mt-auto w-100" disabled>Tidak Bisa Diakses</button>
+                                    <button class="btn btn-outline-secondary mt-auto w-100" disabled>
+                                        Tidak Bisa Diakses
+                                    </button>
                                 @endif
                             @endif
                         @else
@@ -85,11 +104,12 @@
                 </div>
             </div>
         @empty
-        <div class="col">
-            <div class="alert alert-warning w-100 text-center">Belum ada uji kompetensi tersedia.</div>
-        </div>
+            <div class="col">
+                <div class="alert alert-warning w-100 text-center">Belum ada uji kompetensi tersedia.</div>
+            </div>
         @endforelse
     </div>
+
     <div class="d-flex justify-content-center mt-4">
         {{ $kompetensis->links('vendor.pagination.custom') }}
     </div>

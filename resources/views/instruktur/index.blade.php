@@ -148,19 +148,19 @@
                         <li class="list-group-item text-muted">Tidak ada admin baru.</li>
                     @endif
 
-                    <li class="list-group-item bg-light fw-bold">Inspektur</li>
+                    <li class="list-group-item bg-light fw-bold">Instruktur</li>
                     @php $found = false; @endphp
                     @foreach($recentUsers as $user)
-                        @if($user->role === 'inspektur')
+                        @if($user->role === 'instruktur')
                             @php $found = true; @endphp
                             <li class="list-group-item">
                                 <i class="fas fa-user-tie text-primary me-2"></i>
-                                <b>{{ $user->name }}</b> <span class="badge bg-primary">Inspektur</span>
+                                <b>{{ $user->name }}</b> <span class="badge bg-primary">Instruktur</span>
                             </li>
                         @endif
                     @endforeach
                     @if(!$found)
-                        <li class="list-group-item text-muted">Tidak ada inspektur baru.</li>
+                        <li class="list-group-item text-muted">Tidak ada instruktur baru.</li>
                     @endif
 
                     <li class="list-group-item bg-light fw-bold">User</li>
@@ -190,7 +190,7 @@
                 <ul class="list-unstyled mb-0">
                     <li><i class="fas fa-calendar-alt me-2 text-primary"></i> Tahun: <b>2025/2026</b></li>
                     <li><i class="fas fa-users me-2 text-success"></i> Total User: <b>{{ $totalUser ?? 0 }}</b></li>
-                    <li><i class="fas fa-user-tie me-2 text-primary"></i> Total Inspektur: <b>{{ $inspekturCount ?? 0 }}</b></li>
+                    <li><i class="fas fa-user-tie me-2 text-primary"></i> Total Instruktur: <b>{{ $instrukturCount ?? 0 }}</b></li>
                     <li><i class="fas fa-route me-2 text-warning"></i> Learning Path Aktif: <b>{{ $learningCount ?? 0 }}</b></li>
                     <li><i class="fas fa-clipboard-check me-2 text-info"></i> Uji Kompetensi Aktif: <b>{{ $kompetensiCount ?? 0 }}</b></li>
                     <li><i class="fas fa-briefcase me-2 text-danger-emphasis"></i> Bidang Keahlian: <b>{{ $bidangCount ?? 0 }}</b></li>

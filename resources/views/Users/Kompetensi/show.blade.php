@@ -52,12 +52,15 @@
                         @endif
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                        <a href="{{ route('users.kompetensi.index') }}" class="btn btn-outline-secondary rounded-pill px-4"><i class="fa fa-arrow-left me-1"></i> Kembali</a>
+                        <a href="{{ route('users.learning.show', $learning->id) }}" class="btn btn-outline-secondary rounded-pill px-4"><i class="fa fa-arrow-left me-1"></i> Kembali</a>
                         @if($kompetensi->is_available)
-                            @if(!empty($isPassed) && $isPassed)
+                            @if($isPassed)
                                 <button class="btn btn-outline-success btn-lg rounded-pill px-4" disabled>Sudah Lulus</button>
                             @else
-                                <a href="{{ route('users.kompetensi.exam', $kompetensi->id) }}" class="btn kompetensi-gradient-btn btn-lg rounded-pill px-4 fw-semibold"><i class="fas fa-play-circle me-1"></i> Mulai</a>
+                                <a href="{{ route('users.kompetensi.exam', $kompetensi->id) }}" 
+                                class="btn kompetensi-gradient-btn btn-lg rounded-pill px-4 fw-semibold">
+                                <i class="fas fa-play-circle me-1"></i> Mulai
+                                </a>
                             @endif
                         @else
                             <button class="btn btn-outline-secondary btn-lg rounded-pill px-4" disabled>Belum Bisa Diakses</button>

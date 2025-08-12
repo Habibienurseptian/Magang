@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Inspektur;
+namespace App\Http\Controllers\instruktur;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Learning;
+use App\Models\Competency;
 
 class LearningController extends Controller
 {
@@ -24,50 +25,59 @@ class LearningController extends Controller
         }
         $learnings = $query->paginate(8);
         $skills = \App\Models\Skill::orderBy('name')->get();
-        return view('inspektur.learning.index', compact('learnings', 'skills'));
+        $competencies = \App\Models\Competency::orderBy('title')->get();
+        return view('instruktur.learning.index', compact('learnings', 'skills', 'competencies'));
     }
 
     public function store(Request $request)
     {
-
         $request->validate([
             'title' => 'required',
             'skill_id' => 'required|exists:skills,id',
             'level' => 'required',
             'description' => 'required',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
             'youtube_url' => 'nullable|url',
+            'competency_id' => 'required|exists:competencies,id',
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('learnings', 'public');
+        }
 
         Learning::create([
             'title' => $request->title,
             'skill_id' => $request->skill_id,
             'level' => $request->level,
             'description' => $request->description,
-            'image' => $request->image ?? 'https://via.placeholder.com/400',
+            'image' => $imagePath ? '/storage/' . $imagePath : 'https://via.placeholder.com/400',
             'youtube_url' => $request->youtube_url,
+            'competency_id' => $request->competency_id,
         ]);
 
-        return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path berhasil ditambahkan.');
+        return redirect()->route('instruktur.learning.index')->with('success', 'Learning Path berhasil ditambahkan.');
     }
+
 
     public function show($id)
     {
         $learning = Learning::findOrFail($id);
-        return view('inspektur.learning.show', compact('learning'));
+        return view('instruktur.learning.show', compact('learning'));
     }
 
     public function destroy($id)
     {
         Learning::findOrFail($id)->delete();
-        return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path dihapus.');
+        return redirect()->route('instruktur.learning.index')->with('success', 'Learning Path dihapus.');
     }
 
     public function edit($id)
     {
         $learning = Learning::findOrFail($id);
         $skills = \App\Models\Skill::orderBy('name')->get();
-        return view('inspektur.learning.edit', compact('learning', 'skills'));
+        $competencies = \App\Models\Competency::orderBy('title')->get();
+        return view('instruktur.learning.edit', compact('learning', 'skills', 'competencies'));
     }
 
     public function update(Request $request, $id)
@@ -77,18 +87,31 @@ class LearningController extends Controller
             'skill_id' => 'required|exists:skills,id',
             'level' => 'required',
             'description' => 'required',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
             'youtube_url' => 'nullable|url',
+            'competency_id' => 'required|exists:competencies,id',
+
         ]);
+
         $learning = Learning::findOrFail($id);
+
+        $imagePath = $learning->image;
+        if ($request->hasFile('image')) {
+            $imagePath = '/storage/' . $request->file('image')->store('learnings', 'public');
+        }
+
         $learning->update([
             'title' => $request->title,
             'skill_id' => $request->skill_id,
             'level' => $request->level,
             'description' => $request->description,
-            'image' => $request->image ?? 'https://via.placeholder.com/400',
-            'youtube_url' =>$request->youtube_url,
+            'image' => $imagePath,
+            'youtube_url' => $request->youtube_url,
+            'competency_id' => $request->competency_id,
         ]);
-        return redirect()->route('inspektur.learning.index')->with('success', 'Learning Path berhasil diupdate.');
+
+        return redirect()->route('instruktur.learning.index')->with('success', 'Learning Path berhasil diupdate.');
     }
+
+
 }

@@ -81,37 +81,44 @@
                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <script>
                     document.addEventListener('DOMContentLoaded', function() {
-                        // Timer
-                        // Timer tetap berjalan walau reload
                         let timerDisplay = document.getElementById('timer');
                         let form = document.getElementById('exam-form');
                         const examKey = 'exam_start_{{ $kompetensi->id }}';
                         const examDuration = {{ $kompetensi->duration }} * 60; // detik
-                        // Selalu reset timer setiap kali halaman dibuka
-                        localStorage.removeItem(examKey);
-                        let startTimestamp = Date.now();
-                        localStorage.setItem(examKey, startTimestamp);
+
+                        // Ambil atau buat waktu mulai ujian
+                        let startTimestamp = localStorage.getItem(examKey);
+                        if (!startTimestamp) {
+                            startTimestamp = Date.now();
+                            localStorage.setItem(examKey, startTimestamp);
+                        } else {
+                            startTimestamp = parseInt(startTimestamp);
+                        }
+
                         function getRemaining() {
                             const now = Date.now();
                             const elapsed = Math.floor((now - startTimestamp) / 1000);
                             return examDuration - elapsed;
                         }
+
                         function updateTimer() {
                             let remain = getRemaining();
                             if (remain <= 0) {
                                 timerDisplay.textContent = 'Waktu Habis';
                                 window.removeEventListener('beforeunload', beforeUnloadHandler);
                                 localStorage.removeItem(examKey);
-                                form.submit();
+                                form.submit(); // Auto submit
                                 return;
                             }
                             let minutes = Math.floor(remain / 60);
                             let seconds = remain % 60;
                             timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
                         }
+
                         updateTimer();
                         let interval = setInterval(updateTimer, 1000);
-                        // SweetAlert konfirmasi submit
+
+                        // SweetAlert konfirmasi submit manual
                         document.getElementById('btn-submit-jawaban').addEventListener('click', function(e) {
                             e.preventDefault();
                             Swal.fire({
@@ -130,27 +137,25 @@
                                 }
                             });
                         });
-                        // Hapus waktu mulai dari localStorage jika submit karena waktu habis atau manual
+
+                        // Bersihkan localStorage kalau form disubmit
                         form.addEventListener('submit', function() {
                             localStorage.removeItem(examKey);
                         });
-                        // Cegah tombol kembali
-                        history.pushState(null, null, location.href);
-                        window.onpopstate = function() {
-                            history.go(1);
-                        };
-                        // Mode silent: cegah keluar/refresh/tab close
-                        // Handler agar bisa dihapus saat submit
+
+                        // Cegah keluar dari halaman (kecuali submit)
                         function beforeUnloadHandler(e) {
                             e.preventDefault();
                             e.returnValue = '';
                         }
                         window.addEventListener('beforeunload', beforeUnloadHandler);
+
                         // Cegah klik kanan
                         document.addEventListener('contextmenu', function(e) {
                             e.preventDefault();
                         });
-                        // Cegah shortcut tertentu (F12, Ctrl+Shift+I, Ctrl+U, dll)
+
+                        // Cegah shortcut devtools & view source
                         document.addEventListener('keydown', function(e) {
                             if (
                                 e.key === 'F12' ||
@@ -163,6 +168,7 @@
                                 e.stopPropagation();
                             }
                         });
+
                         // (Opsional) Minta fullscreen
                         if (document.documentElement.requestFullscreen) {
                             document.documentElement.requestFullscreen();

@@ -19,7 +19,7 @@ class ForgotDirectController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:8|confirmed',
         ]);
 
         $user = User::where('email', $request->email)->first();

@@ -31,7 +31,7 @@
                                 $role = Auth::user()->role;
                                 $roleColor = 'bg-secondary';
                                 if($role === 'admin') $roleColor = 'bg-danger';
-                                elseif($role === 'inspektur') $roleColor = 'bg-primary';
+                                elseif($role === 'instruktur') $roleColor = 'bg-primary';
                             @endphp
                             <span class="badge {{ $roleColor }} text-white mt-1" style="font-size:0.85em; text-transform:capitalize;">{{ $role }}</span>
                         @endif

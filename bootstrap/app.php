@@ -7,6 +7,7 @@ use Illuminate\Auth\Middleware\Authenticate;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Middleware\ForceSkill;
 use App\Http\Middleware\UserOnline;
+use App\Http\Middleware\CheckCompetencyIsOpen;
 
 
 
@@ -22,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => RoleMiddleware::class,
             'force.skill' => ForceSkill::class,
             'user.online' => UserOnline::class,
+            'competency.open' => CheckCompetencyIsOpen::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

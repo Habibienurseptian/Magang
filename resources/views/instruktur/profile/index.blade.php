@@ -16,8 +16,8 @@
                     <span class="text-muted mb-2"><i class="fa fa-envelope me-1"></i> {{ Auth::user()->email }}</span>
                     <span class="text-muted mb-2"><i class="fa fa-phone me-1"></i> Telepon: {{ Auth::user()->phone ?? '-' }}</span>
                     <!-- <span class="text-muted mb-2"><i class="fa fa-id-card me-1"></i> NIK: {{ Auth::user()->nik }}</span> -->
-                    <span class="badge bg-primary mb-3" style="font-size:1rem;">Inspektur</span>
-                    <a href="{{ route('inspektur.profile.edit') }}" class="btn btn-outline-primary rounded-pill px-4 mb-2"><i class="fa fa-edit me-1"></i> Edit Profil</a>
+                    <span class="badge bg-primary mb-3" style="font-size:1rem;">Instruktur</span>
+                    <a href="{{ route('instruktur.profile.edit') }}" class="btn btn-outline-primary rounded-pill px-4 mb-2"><i class="fa fa-edit me-1"></i> Edit Profil</a>
                 </div>
                 <!-- Bidang Keahlian / Role Keahlian -->
                 <!-- <div class="mt-3 mb-2 w-100">

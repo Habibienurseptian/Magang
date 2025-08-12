@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Inspektur;
+namespace App\Http\Controllers\instruktur;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,32 +11,53 @@ use PDF;
 
 class SertifikatController extends Controller
 {
-    // Tampilkan daftar user yang sudah menyelesaikan uji kompetensi
     public function index()
-    {
-        $completedUsers = User::whereHas('competencyHistories', function($q) {
-            $q->whereNotNull('completed_at');
-        })
-        ->with(['competencyHistories' => function($q) {
-            $q->whereNotNull('completed_at')->latest()->with('competency');
+{
+    $completedUsers = User::with(['competencyHistories' => function($q) {
+            $q->whereNotNull('completed_at')
+              ->latest()
+              ->with('competency');
         }])
         ->get()
+        ->filter(function($user) {
+            $history = $user->competencyHistories->first();
+
+            if (!$history || !$history->competency) {
+                return false;
+            }
+
+            $isPassed = false;
+
+            // Ambil skor dan hitung persentase
+            if ($history->score && preg_match('/(\d+)\/(\d+)/', $history->score, $m)) {
+                $benar = (int)$m[1];
+                $total = (int)$m[2];
+                if ($total > 0 && round($benar / $total * 100) >= $history->competency->passing_grade) {
+                    $isPassed = true;
+                }
+            }
+
+            return $isPassed;
+        })
         ->map(function($user) {
             $history = $user->competencyHistories->first();
-            $user->kompetensi_name = $history ? $history->competency->title ?? '-' : '-';
-            $user->completed_at = $history ? $history->completed_at : null;
+            $user->kompetensi_name = $history->competency->title ?? '-';
+            $user->completed_at = $history->completed_at;
 
-            // Ambil sertifikat jika sudah ada
+            // Ambil sertifikat jika ada
             $certificate = Certificate::where('user_id', $user->id)
-                ->where('competency_id', optional($history->competency)->id)
+                ->where('competency_id', $history->competency->id)
                 ->first();
 
             $user->certificate_url = $certificate ? $certificate->certificate_url : null;
-            return $user;
-        });
 
-        return view('Inspektur.Sertifikat.index', compact('completedUsers'));
-    }
+            return $user;
+        })
+        ->values();
+
+    return view('instruktur.Sertifikat.index', compact('completedUsers'));
+}
+
 
     // Generate sertifikat untuk user
     public function generate($userId)
@@ -51,7 +72,7 @@ class SertifikatController extends Controller
         }
 
         // Generate PDF sertifikat
-       $pdf = PDF::loadView('Inspektur.Sertifikat.certificate', [
+       $pdf = PDF::loadView('instruktur.Sertifikat.certificate', [
             'user' => $user,
             'kompetensi' => $history->competency,
             'completed_at' => $history->completed_at,

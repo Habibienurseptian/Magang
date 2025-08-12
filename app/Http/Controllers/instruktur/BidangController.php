@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Inspektur;
+namespace App\Http\Controllers\instruktur;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class BidangController extends Controller
     {
         $skills = Skill::orderBy('name')->get();
         $bidangCount = $skills->count();
-        return view('inspektur.Bidang.index', compact('skills'));
+        return view('instruktur.Bidang.index', compact('skills'));
     }
 
     public function store(Request $request)
@@ -21,13 +21,13 @@ class BidangController extends Controller
             'name' => 'required|string|max:100|unique:skills,name',
         ]);
         Skill::create(['name' => $request->name]);
-        return redirect()->route('inspektur.bidang.index')->with('success', 'Bidang keahlian berhasil ditambahkan.');
+        return redirect()->route('instruktur.bidang.index')->with('success', 'Bidang keahlian berhasil ditambahkan.');
     }
 
     public function destroy($id)
     {
         $skill = Skill::findOrFail($id);
         $skill->delete();
-        return redirect()->route('inspektur.bidang.index')->with('success', 'Bidang keahlian berhasil dihapus.');
+        return redirect()->route('instruktur.bidang.index')->with('success', 'Bidang keahlian berhasil dihapus.');
     }
 }

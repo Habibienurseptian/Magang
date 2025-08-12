@@ -60,7 +60,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|string|digits_between:10,15',
-            'role' => 'required|in:user,admin,inspektur',
+            'role' => 'required|in:user,admin,instruktur',
         ];
 
         if ($request->role === 'user') {
@@ -108,7 +108,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
             'phone' => 'required|string|digits_between:10,15',
-            'role' => 'required|in:user,admin,inspektur',
+            'role' => 'required|in:user,admin,instruktur',
             'password' => 'nullable|string|min:8',
         ];
 

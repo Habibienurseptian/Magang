@@ -26,4 +26,8 @@ class Competency extends Model
     {
         return $this->hasMany(Soal::class, 'competency_id');
     }
+    public function learnings()
+    {
+        return $this->hasMany(Learning::class , 'competency_id');
+    }
 }

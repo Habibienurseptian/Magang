@@ -20,7 +20,7 @@
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalTambahAkun" tabindex="-1" aria-labelledby="modalTambahAkunLabel" aria-hidden="true">
+   <div class="modal fade" id="modalTambahAkun" tabindex="-1" aria-labelledby="modalTambahAkunLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -36,45 +36,49 @@
                             <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-form" type="button" role="tab" aria-controls="admin-form" aria-selected="false">Admin</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="inspektur-tab" data-bs-toggle="tab" data-bs-target="#inspektur-form" type="button" role="tab" aria-controls="inspektur-form" aria-selected="false">Inspektur</button>
+                            <button class="nav-link" id="instruktur-tab" data-bs-toggle="tab" data-bs-target="#instruktur-form" type="button" role="tab" aria-controls="instruktur-form" aria-selected="false">Instruktur</button>
                         </li>
                     </ul>
 
                     <div class="tab-content" id="formTabContent">
-                        @foreach (['user', 'admin', 'inspektur'] as $role)
+                        @foreach (['user', 'admin', 'instruktur'] as $role)
                             <div class="tab-pane fade {{ $role === 'user' ? 'show active' : '' }}" id="{{ $role }}-form" role="tabpanel" aria-labelledby="{{ $role }}-tab">
                                 <form method="POST" action="{{ route('admin.users.store') }}">
                                     @csrf
                                     <input type="hidden" name="role" value="{{ $role }}">
-                                    <div class="row g-3">
-                                        @if($role === 'user')
-                                            <div class="col-md-6">
-                                                <label for="nik_{{ $role }}" class="form-label">NIK</label>
-                                                <input type="text" class="form-control" id="nik_{{ $role }}" name="nik" required pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
-                                            </div>
-                                        @endif
-                                        <div class="col-md-6">
-                                            <label for="name_{{ $role }}" class="form-label">Nama Lengkap</label>
-                                            <input type="text" class="form-control" id="name_{{ $role }}" name="name" required>
+
+                                    @if($role === 'user')
+                                        <div class="mb-3">
+                                            <label for="nik_{{ $role }}" class="form-label">NIK</label>
+                                            <input type="text" class="form-control" id="nik_{{ $role }}" name="nik" required pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="email_{{ $role }}" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email_{{ $role }}" name="email" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="phone_{{ $role }}" class="form-label">No. Telepon / WA</label>
-                                            <input type="text" class="form-control" id="phone_{{ $role }}" name="phone" required pattern="[0-9]{10,15}" inputmode="numeric">
-                                        </div>
-                                        <!-- <div class="col-md-6">
-                                            <label for="password_{{ $role }}" class="form-label">Password</label>
-                                            <div class="input-group">
-                                                <input type="password" class="form-control" id="password_{{ $role }}" name="password" required>
-                                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_{{ $role }}', this)">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div> -->
+                                    @endif
+
+                                    <div class="mb-3">
+                                        <label for="name_{{ $role }}" class="form-label">Nama Lengkap</label>
+                                        <input type="text" class="form-control" id="name_{{ $role }}" name="name" required>
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label for="email_{{ $role }}" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email_{{ $role }}" name="email" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="phone_{{ $role }}" class="form-label">No. Telepon / WA</label>
+                                        <input type="text" class="form-control" id="phone_{{ $role }}" name="phone" required pattern="[0-9]{10,15}" inputmode="numeric">
+                                    </div>
+
+                                    <!-- <div class="mb-3">
+                                        <label for="password_{{ $role }}" class="form-label">Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="password_{{ $role }}" name="password" required>
+                                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_{{ $role }}', this)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div> -->
+
                                     <div class="mt-3 text-end">
                                         <button type="submit" class="btn btn-primary">Buat Akun {{ ucfirst($role) }}</button>
                                     </div>
@@ -86,6 +90,7 @@
             </div>
         </div>
     </div>
+
 
 
     {{-- Form Filter Pencarian --}}

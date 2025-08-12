@@ -8,7 +8,7 @@
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-white fw-bold">Form Edit Uji Kompetensi</div>
         <div class="card-body">
-            <form method="POST" action="{{ route('inspektur.kompetensi.update', $kompetensi->id) }}">
+            <form method="POST" action="{{ route('instruktur.kompetensi.update', $kompetensi->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="row g-3">
@@ -47,7 +47,7 @@
                         <textarea name="description" class="form-control" rows="2" required>{{ old('description', $kompetensi->description) }}</textarea>
                     </div>
                     <div class="col-12 text-end">
-                        <a href="{{ route('inspektur.kompetensi.index') }}" class="btn btn-secondary me-2"><i class="fa fa-arrow-left me-1"></i> Batal</a>
+                        <a href="{{ route('instruktur.kompetensi.index') }}" class="btn btn-secondary me-2"><i class="fa fa-arrow-left me-1"></i> Batal</a>
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </div>
