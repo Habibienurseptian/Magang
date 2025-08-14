@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    use App\Helpers\AesHelper;
+@endphp
+
 @section('page_title', 'Learning Path')
 
 @section('content')
@@ -68,7 +72,7 @@
                             {{ \Illuminate\Support\Str::limit($learning->description, 90, '...') }}
                         </p>
                         @if($canAccess)
-                            <a href="{{ route('users.learning.show', $learning->id) }}" class="btn btn-gradient-primary mt-auto rounded-pill px-4 py-2 shadow-sm" style="font-weight:600;letter-spacing:.01em;font-size:1.04rem;transition:background .18s, color .18s;">Mulai Belajar <i class="fa fa-arrow-right ms-1"></i></a>
+                            <a href="{{ route('users.learning.show', AesHelper::encryptId($learning->id)) }}" class="btn btn-gradient-primary mt-auto rounded-pill px-4 py-2 shadow-sm" style="font-weight:600;letter-spacing:.01em;font-size:1.04rem;transition:background .18s, color .18s;">Mulai Belajar <i class="fa fa-arrow-right ms-1"></i></a>
                         @else
                             <button class="btn btn-outline-secondary mt-auto rounded-pill px-4 py-2 shadow-sm" style="font-weight:600;letter-spacing:.01em;font-size:1.04rem;" disabled>Tidak Bisa Diakses</button>
                         @endif

@@ -1,6 +1,10 @@
 
 @extends('layouts.app')
 
+@php
+    use App\Helpers\AesHelper;
+@endphp
+
 @section('page_title', 'Detail Uji Kompetensi')
 
 @section('content')
@@ -52,12 +56,12 @@
                         @endif
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                        <a href="{{ route('users.learning.show', $learning->id) }}" class="btn btn-outline-secondary rounded-pill px-4"><i class="fa fa-arrow-left me-1"></i> Kembali</a>
+                        <a href="{{ route('users.learning.show', AesHelper::encryptId($learning->id)) }}" class="btn btn-outline-secondary rounded-pill px-4"><i class="fa fa-arrow-left me-1"></i> Kembali</a>
                         @if($kompetensi->is_available)
                             @if($isPassed)
                                 <button class="btn btn-outline-success btn-lg rounded-pill px-4" disabled>Sudah Lulus</button>
                             @else
-                                <a href="{{ route('users.kompetensi.exam', $kompetensi->id) }}" 
+                                <a href="{{ route('users.kompetensi.exam', AesHelper::encryptId($kompetensi->id)) }}" 
                                 class="btn kompetensi-gradient-btn btn-lg rounded-pill px-4 fw-semibold">
                                 <i class="fas fa-play-circle me-1"></i> Mulai
                                 </a>

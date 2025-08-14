@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    use App\Helpers\AesHelper;
+@endphp
+
 @section('page_title', 'Ujian Kompetensi')
 
 @section('content')
@@ -33,7 +37,7 @@
                     <div class="kompetensi-timer-box mb-4 text-center">
                         <span class="fw-semibold text-dark">Sisa Waktu:</span> <span id="timer" class="fw-bold kompetensi-timer-text">{{ $kompetensi->duration }}:00</span>
                     </div>
-                    <form method="POST" action="{{ route('users.kompetensi.exam.submit', $kompetensi->id) }}" id="exam-form">
+                    <form method="POST" action="{{ route('users.kompetensi.exam.submit', AesHelper::encryptId($kompetensi->id)) }}" id="exam-form">
                         @csrf
                         @foreach($soals as $i => $soal)
                         <div class="mb-4">
@@ -80,100 +84,86 @@
                     <!-- SweetAlert2 CDN -->
                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        let timerDisplay = document.getElementById('timer');
-                        let form = document.getElementById('exam-form');
-                        const examKey = 'exam_start_{{ $kompetensi->id }}';
-                        const examDuration = {{ $kompetensi->duration }} * 60; // detik
+                        document.addEventListener('DOMContentLoaded', function() {
+                            let timerDisplay = document.getElementById('timer');
+                            let form = document.getElementById('exam-form');
+                            const examDuration = {{ $kompetensi->duration }} * 60; // detik
 
-                        // Ambil atau buat waktu mulai ujian
-                        let startTimestamp = localStorage.getItem(examKey);
-                        if (!startTimestamp) {
-                            startTimestamp = Date.now();
-                            localStorage.setItem(examKey, startTimestamp);
-                        } else {
-                            startTimestamp = parseInt(startTimestamp);
-                        }
+                            // Set waktu mulai baru setiap load halaman
+                            let startTimestamp = Date.now();
 
-                        function getRemaining() {
-                            const now = Date.now();
-                            const elapsed = Math.floor((now - startTimestamp) / 1000);
-                            return examDuration - elapsed;
-                        }
-
-                        function updateTimer() {
-                            let remain = getRemaining();
-                            if (remain <= 0) {
-                                timerDisplay.textContent = 'Waktu Habis';
-                                window.removeEventListener('beforeunload', beforeUnloadHandler);
-                                localStorage.removeItem(examKey);
-                                form.submit(); // Auto submit
-                                return;
+                            function getRemaining() {
+                                const now = Date.now();
+                                const elapsed = Math.floor((now - startTimestamp) / 1000);
+                                return examDuration - elapsed;
                             }
-                            let minutes = Math.floor(remain / 60);
-                            let seconds = remain % 60;
-                            timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                        }
 
-                        updateTimer();
-                        let interval = setInterval(updateTimer, 1000);
-
-                        // SweetAlert konfirmasi submit manual
-                        document.getElementById('btn-submit-jawaban').addEventListener('click', function(e) {
-                            e.preventDefault();
-                            Swal.fire({
-                                title: 'Kumpulkan Jawaban?',
-                                text: 'Pastikan semua jawaban sudah benar. Jawaban tidak bisa diubah setelah dikumpulkan!',
-                                icon: 'question',
-                                showCancelButton: true,
-                                confirmButtonText: 'Ya, Kumpulkan!',
-                                cancelButtonText: 'Batal',
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.isConfirmed) {
+                            function updateTimer() {
+                                let remain = getRemaining();
+                                if (remain <= 0) {
+                                    timerDisplay.textContent = 'Waktu Habis';
                                     window.removeEventListener('beforeunload', beforeUnloadHandler);
-                                    localStorage.removeItem(examKey);
-                                    form.submit();
+                                    form.submit(); // Auto submit
+                                    return;
+                                }
+                                let minutes = Math.floor(remain / 60);
+                                let seconds = remain % 60;
+                                timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                            }
+
+                            updateTimer();
+                            let interval = setInterval(updateTimer, 1000);
+
+                            // SweetAlert konfirmasi submit manual
+                            document.getElementById('btn-submit-jawaban').addEventListener('click', function(e) {
+                                e.preventDefault();
+                                Swal.fire({
+                                    title: 'Kumpulkan Jawaban?',
+                                    text: 'Pastikan semua jawaban sudah benar. Jawaban tidak bisa diubah setelah dikumpulkan!',
+                                    icon: 'question',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Ya, Kumpulkan!',
+                                    cancelButtonText: 'Batal',
+                                    reverseButtons: true
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.removeEventListener('beforeunload', beforeUnloadHandler);
+                                        form.submit();
+                                    }
+                                });
+                            });
+
+                            // Cegah keluar dari halaman (kecuali submit)
+                            function beforeUnloadHandler(e) {
+                                e.preventDefault();
+                                e.returnValue = '';
+                            }
+                            window.addEventListener('beforeunload', beforeUnloadHandler);
+
+                            // Cegah klik kanan
+                            document.addEventListener('contextmenu', function(e) {
+                                e.preventDefault();
+                            });
+
+                            // Cegah shortcut devtools & view source
+                            document.addEventListener('keydown', function(e) {
+                                if (
+                                    e.key === 'F12' ||
+                                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+                                    (e.ctrlKey && e.key === 'U') ||
+                                    (e.ctrlKey && e.key === 'S') ||
+                                    (e.metaKey && e.key === 'S')
+                                ) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
                                 }
                             });
-                        });
 
-                        // Bersihkan localStorage kalau form disubmit
-                        form.addEventListener('submit', function() {
-                            localStorage.removeItem(examKey);
-                        });
-
-                        // Cegah keluar dari halaman (kecuali submit)
-                        function beforeUnloadHandler(e) {
-                            e.preventDefault();
-                            e.returnValue = '';
-                        }
-                        window.addEventListener('beforeunload', beforeUnloadHandler);
-
-                        // Cegah klik kanan
-                        document.addEventListener('contextmenu', function(e) {
-                            e.preventDefault();
-                        });
-
-                        // Cegah shortcut devtools & view source
-                        document.addEventListener('keydown', function(e) {
-                            if (
-                                e.key === 'F12' ||
-                                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
-                                (e.ctrlKey && e.key === 'U') ||
-                                (e.ctrlKey && e.key === 'S') ||
-                                (e.metaKey && e.key === 'S')
-                            ) {
-                                e.preventDefault();
-                                e.stopPropagation();
+                            // Opsional: Minta fullscreen
+                            if (document.documentElement.requestFullscreen) {
+                                document.documentElement.requestFullscreen();
                             }
                         });
-
-                        // (Opsional) Minta fullscreen
-                        if (document.documentElement.requestFullscreen) {
-                            document.documentElement.requestFullscreen();
-                        }
-                    });
                     </script>
                 </div>
             </div>

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    use App\Helpers\AesHelper;
+@endphp
+
 @section('page_title', 'Hasil Ujian Kompetensi')
 
 @section('content')
@@ -27,7 +31,7 @@
                     <div class="mb-4">
                         <span class="fs-5">Skor Anda: <b>{{ round($score/$total*100) }}%</b></span>
                     </div>
-                    <a href="{{ route('users.learning.show', $learning->id) }}" class="btn kompetensi-gradient-btn rounded-pill px-4 fw-semibold"><i class="fa fa-arrow-left me-1"></i> Kembali ke Daftar Uji Kompetensi</a>
+                    <a href="{{ route('users.learning.show', AesHelper::encryptId($learning->id)) }}" class="btn kompetensi-gradient-btn rounded-pill px-4 fw-semibold"><i class="fa fa-arrow-left me-1"></i> Kembali ke Daftar Uji Kompetensi</a>
                 </div>
             </div>
         </div>

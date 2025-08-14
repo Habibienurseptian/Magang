@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Learning;
 use App\Models\Competency;
 use App\Models\Skill;
+use App\Helpers\AesHelper;
 
 class LearningController extends Controller
 {
     public function index()
     {
+
         $skill = request('skill', 'all');
         $search = request('search');
 
@@ -42,14 +44,26 @@ class LearningController extends Controller
         return view('users.learning.index', compact('learnings', 'skills'));
     }
 
-    public function show($id)
+    public function show($encId)
     {
+        try {
+            $id = AesHelper::decryptId($encId);
+        } catch (\Throwable $e) {
+            abort(404, 'ID tidak valid');
+        }
+
         $learning = Learning::findOrFail($id);
         return view('users.learning.show', compact('learning'));
     }
 
-    public function exam($id)
+    public function exam($encId)
     {
+        try {
+            $id = AesHelper::decryptId($encId);
+        } catch (\Throwable $e) {
+            abort(404, 'ID tidak valid');
+        }
+
         $kompetensi = Competency::findOrFail($id);
         return view('users.kompetensi.show', compact('kompetensi'));
     }

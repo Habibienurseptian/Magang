@@ -33,16 +33,16 @@ Route::middleware(['auth', 'role:user', 'force.skill'])->group(function () {
 
     // Learning Path & Uji Kompetensi untuk user
     Route::get('/learning-path', [UserLearningController::class, 'index'])->name('users.learning.index');
-    Route::get('/learning-path/{id}', [UserLearningController::class, 'show'])->name('users.learning.show');
+    Route::get('/learning-path/{encId}', [UserLearningController::class, 'show'])->name('users.learning.show');
 
     // Route::get('/uji-kompetensi', [\App\Http\Controllers\User\KompetensiController::class, 'index'])->name('users.kompetensi.index');
-    Route::get('/uji-kompetensi/{id}{learning_id?}', [\App\Http\Controllers\User\KompetensiController::class, 'show'])->name('users.kompetensi.show');
+    Route::get('/uji-kompetensi/{encId}{learning_endId?}', [\App\Http\Controllers\User\KompetensiController::class, 'show'])->name('users.kompetensi.show');
     // Route::get('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'exam'])->name('users.kompetensi.exam');
     // Route::post('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'submitExam'])->name('users.kompetensi.exam.submit');
 
-    Route::get('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'exam'])
+    Route::get('/uji-kompetensi/{encId}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'exam'])
         ->name('users.kompetensi.exam');
-    Route::post('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'submitExam'])
+    Route::post('/uji-kompetensi/{encId}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'submitExam'])
         ->name('users.kompetensi.exam.submit');
 
 

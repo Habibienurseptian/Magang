@@ -1,5 +1,11 @@
 @extends('layouts.app')
+
+@php
+    use App\Helpers\AesHelper;
+@endphp
+
 @section('page_title', $learning->title ?? 'Detail Learning Path')
+
 
 @section('content')
 <div class="container py-4">
@@ -37,7 +43,7 @@
 
                         <!-- Tombol Lanjut ke Uji Kompetensi -->
                         <div class="mb-3 text-center">
-                            <a href="{{ route('users.kompetensi.show', $learning->competency->id) }}"
+                            <a href="{{ route('users.kompetensi.show', AesHelper::encryptId($learning->competency->id)) }}"
                                id="btn-exam"
                                class="btn btn-primary d-none">
                                 <i class="fas fa-check-circle me-1"></i> Lanjut ke Uji Kompetensi

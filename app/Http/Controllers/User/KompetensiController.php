@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Competency;
 use App\Models\Learning;
 use App\MOdels\UserCompetencyHistory;
+use App\Helpers\AesHelper;
 
 class KompetensiController extends Controller
 {
@@ -59,8 +60,15 @@ class KompetensiController extends Controller
         return view('Users.Kompetensi.index', compact('kompetensis', 'skill_id', 'skills', 'isPassedArr', 'scoreArr'));
     }
 
-    public function show($id, $learningId = null)
+    public function show($encId, $learningId = null)
     {
+
+        try {
+            $id = AesHelper::decryptId($encId);
+        } catch (\Throwable $e) {
+            abort(404, 'ID ujian tidak valid');
+        }
+
         $kompetensi = Competency::with('learnings')->findOrFail($id);
 
         // Cari learning yang sesuai
@@ -91,9 +99,18 @@ class KompetensiController extends Controller
     }
 
 
-    public function exam($id)
+    public function exam($encId)
     {
+        try {
+            $id = AesHelper::decryptId($encId);
+        } catch (\Throwable $e) {
+            abort(404, 'ID ujian tidak valid');
+        }
+
         $kompetensi = Competency::with('learnings')->findOrFail($id);
+
+        // Hapus data ujian lama supaya selalu mulai baru
+        session()->forget("exam_data_{$id}");
 
         // Cek kalau user sudah lulus
         $history = \App\Models\UserCompetencyHistory::where('user_id', auth()->id())
@@ -112,17 +129,32 @@ class KompetensiController extends Controller
             }
         }
 
+        // Ambil soal acak & simpan di session
         $soals = $kompetensi->soals()->inRandomOrder()->get();
         if ($soals->count() == 0) {
             return redirect()->back()->with('error', 'Ujian tidak dapat dibuka karena belum ada soal.');
         }
 
+        session()->put("exam_data_{$id}", [
+            'started_at' => now(),
+            'soals' => $soals->pluck('id')->toArray()
+        ]);
+
         return view('Users.Kompetensi.exam', compact('kompetensi', 'soals'));
     }
 
 
-    public function submitExam($id, \Illuminate\Http\Request $request, $learningId = null)
+
+
+    public function submitExam($encId, \Illuminate\Http\Request $request, $learningId = null)
     {
+
+        try {
+            $id = AesHelper::decryptId($encId);
+        } catch (\Throwable $e) {
+            abort(404, 'ID ujian tidak valid');
+        }
+
         $kompetensi = Competency::with('learnings')->findOrFail($id);
 
         // Proteksi: kalau sudah lulus, stop
