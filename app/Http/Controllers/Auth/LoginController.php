@@ -30,11 +30,11 @@ class LoginController extends Controller
 
             $user = Auth::user();
             if ($user->role === 'admin') {
-                return redirect()->intended('/admin/dashboard')->with('success', 'Selamat datang, Admin!');
+                return redirect()->intended('/admin/dashboard')->with('success', 'Selamat datang, Admin ' . $user->name . '!');
             } elseif ($user->role === 'instruktur') {
-                return redirect()->intended('/instruktur/dashboard')->with('success', 'Selamat datang, instruktur!');
+                return redirect()->intended('/instruktur/dashboard')->with('success', 'Selamat datang, instruktur ' . $user->name . '!');
             } else {
-                return redirect()->intended('/users/dashboard')->with('success', 'Berhasil login!');
+                return redirect()->intended('/users/dashboard')->with('success', 'Selamat datang, ' . $user->name . '!');
             }
         }
 

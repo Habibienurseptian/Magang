@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <h4 class="fw-bold mb-4">Manajemen Pengguna</h4>
 
-    {{-- Notifikasi sukses --}}
+    <!-- {{-- Notifikasi sukses --}}
     @if(session('whatsapp_url'))
         <div class="alert alert-success d-flex justify-content-between align-items-center">
             {{ session('success') }}
@@ -12,7 +12,7 @@
                 Kirim Password ke WhatsApp <i class="fab fa-whatsapp ms-1"></i>
             </a>
         </div>
-    @endif
+    @endif -->
 
     <!-- Tombol trigger modal -->
     <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahAkun">
@@ -20,7 +20,7 @@
     </button>
 
     <!-- Modal -->
-   <div class="modal fade" id="modalTambahAkun" tabindex="-1" aria-labelledby="modalTambahAkunLabel" aria-hidden="true">
+    <div class="modal fade" id="modalTambahAkun" tabindex="-1" aria-labelledby="modalTambahAkunLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,6 +28,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
+
+                    {{-- Tab menu --}}
                     <ul class="nav nav-tabs mb-3" id="formTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="user-tab" data-bs-toggle="tab" data-bs-target="#user-form" type="button" role="tab" aria-controls="user-form" aria-selected="true">User</button>
@@ -40,49 +42,50 @@
                         </li>
                     </ul>
 
+                    {{-- Isi tab form --}}
                     <div class="tab-content" id="formTabContent">
                         @foreach (['user', 'admin', 'instruktur'] as $role)
                             <div class="tab-pane fade {{ $role === 'user' ? 'show active' : '' }}" id="{{ $role }}-form" role="tabpanel" aria-labelledby="{{ $role }}-tab">
+                                
                                 <form method="POST" action="{{ route('admin.users.store') }}">
                                     @csrf
                                     <input type="hidden" name="role" value="{{ $role }}">
 
+                                    {{-- NIK hanya untuk user --}}
                                     @if($role === 'user')
                                         <div class="mb-3">
                                             <label for="nik_{{ $role }}" class="form-label">NIK</label>
-                                            <input type="text" class="form-control" id="nik_{{ $role }}" name="nik" required pattern="[0-9]{16}" inputmode="numeric" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
+                                            <input type="text" class="form-control" id="nik_{{ $role }}" name="nik"
+                                                required pattern="[0-9]{16}" inputmode="numeric" maxlength="16"
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,16)">
                                         </div>
                                     @endif
 
+                                    {{-- Nama --}}
                                     <div class="mb-3">
                                         <label for="name_{{ $role }}" class="form-label">Nama Lengkap</label>
                                         <input type="text" class="form-control" id="name_{{ $role }}" name="name" required>
                                     </div>
 
+                                    {{-- Email --}}
                                     <div class="mb-3">
                                         <label for="email_{{ $role }}" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="email_{{ $role }}" name="email" required>
                                     </div>
 
+                                    {{-- No HP / WA --}}
                                     <div class="mb-3">
                                         <label for="phone_{{ $role }}" class="form-label">No. Telepon / WA</label>
-                                        <input type="text" class="form-control" id="phone_{{ $role }}" name="phone" required pattern="[0-9]{10,15}" inputmode="numeric">
+                                        <input type="text" class="form-control" id="phone_{{ $role }}" name="phone"
+                                            required pattern="[0-9]{10,15}" inputmode="numeric"
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,15)">
                                     </div>
-
-                                    <!-- <div class="mb-3">
-                                        <label for="password_{{ $role }}" class="form-label">Password</label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" id="password_{{ $role }}" name="password" required>
-                                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_{{ $role }}', this)">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </div>
-                                    </div> -->
 
                                     <div class="mt-3 text-end">
                                         <button type="submit" class="btn btn-primary">Buat Akun {{ ucfirst($role) }}</button>
                                     </div>
                                 </form>
+
                             </div>
                         @endforeach
                     </div>
@@ -90,6 +93,7 @@
             </div>
         </div>
     </div>
+
 
 
 
@@ -139,7 +143,7 @@
                                             <a href="{{ route('admin.users.edit', $user->id) }}" class="aksi-btn aksi-btn-warning" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                                            <form id="delete-form-{{ $user->id }}" action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="aksi-btn aksi-btn-danger" title="Hapus" type="submit"><i class="fas fa-trash-alt"></i></button>
@@ -159,6 +163,8 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {{-- Show/Hide Password (multi form) --}}
 <script>
     function togglePassword(inputId, btn) {
@@ -174,5 +180,50 @@
             icon.classList.add('fa-eye');
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                icon: 'success',
+                title: '{{ session('success') }}'
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                icon: 'error',
+                title: '{{ session('error') }}'
+            });
+        @endif
+    });
+
+    function confirmDelete(userId) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data user ini akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika user mengklik "Ya, Hapus!", submit form
+                document.getElementById('delete-form-' + userId).submit();
+            }
+        });
+    }
+
 </script>
 @endsection

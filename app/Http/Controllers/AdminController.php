@@ -10,6 +10,7 @@ use App\Models\Competency;
 use App\Models\UserCompetencyHistory;
 use Illuminate\Validation\Rule;
 use App\Models\Skill;
+use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
 {
@@ -81,20 +82,41 @@ class AdminController extends Controller
         ]);
         $user->save();
 
+        // Normalisasi nomor HP -> format internasional 62
+        $rawPhone = preg_replace('/[^0-9]/', '', $user->phone);
+        if (substr($rawPhone, 0, 1) === '0') {
+            $waNumber = '62' . substr($rawPhone, 1);
+        } elseif (substr($rawPhone, 0, 2) === '62') {
+            $waNumber = $rawPhone;
+        } else {
+            $waNumber = '62' . $rawPhone;
+        }
+
+        // Format pesan
         $message = "*Akun Anda berhasil dibuat!*\n\n"
             . "Email: {$user->email}\n"
             . "Password: {$generatedPassword}\n\n"
             . "Silakan login ke sistem dan segera ubah password Anda.";
 
-        $rawPhone = preg_replace('/[^0-9]/', '', $user->phone);
-        $waNumber = '62' . ltrim($rawPhone, '0');
-        $waMessage = urlencode($message);
-        $waUrl = "https://wa.me/{$waNumber}?text={$waMessage}";
+        // Kirim pesan via Fonnte
+        $response = Http::withHeaders([
+            'Authorization' => env('FONNTE_API_KEY'),
+        ])->asForm()->post('https://api.fonnte.com/send', [
+            'target' => $waNumber,
+            'message' => $message,
+        ]);
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Akun berhasil ditambahkan. Klik untuk kirim password via WhatsApp.')
-            ->with('whatsapp_url', $waUrl);
+        // Debug respon API
+        $result = $response->json();
+        if (!empty($result['status']) && $result['status'] === true) {
+            return redirect()->route('admin.users.index')
+                ->with('success', 'Akun berhasil dibuat dan password sudah dikirim via WhatsApp.');
+        } else {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Akun berhasil dibuat, tapi gagal kirim pesan WA. Alasan: ' . ($result['reason'] ?? 'Tidak diketahui'));
+        }
     }
+
 
 
     public function editUser(User $user)

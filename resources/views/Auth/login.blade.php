@@ -6,11 +6,11 @@
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
-    <!-- Jika menggunakan .png -->
     <link rel="icon" href="{{ asset('images/logo1.png') }}" type="image/png">
-
-    <!-- Jika ingin dukungan Apple -->
     <link rel="apple-touch-icon" href="{{ asset('images/logo1.png') }}">
 </head>
 <body>
@@ -23,16 +23,6 @@
             </div>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                @if(session('success'))
-                    <div class="alert alert-success text-center py-2 mb-3">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if(session('error'))
-                    <div class="alert alert-danger text-center py-2 mb-3">
-                        {{ session('error') }}
-                    </div>
-                @endif
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" required autofocus placeholder="Masukkan Email">
@@ -57,20 +47,49 @@
             </div>
         </div>
     </div>
-<script>
-function togglePassword() {
-    const pwd = document.getElementById('password');
-    const icon = document.getElementById('togglePasswordIcon');
-    if (pwd.type === 'password') {
-        pwd.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-    } else {
-        pwd.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-    }
-}
-</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        // Fungsi untuk toggle password
+        function togglePassword() {
+            const pwd = document.getElementById('password');
+            const icon = document.getElementById('togglePasswordIcon');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Tampilkan notifikasi pop-up dari session
+        @if(session('success'))
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                icon: 'success',
+                title: '{{ session('success') }}'
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                icon: 'error',
+                title: '{{ session('error') }}'
+            });
+        @endif
+    </script>
 </body>
 </html>
