@@ -34,6 +34,8 @@ Route::middleware(['auth', 'role:user', 'force.skill'])->group(function () {
     // Learning Path & Uji Kompetensi untuk user
     Route::get('/learning-path', [UserLearningController::class, 'index'])->name('users.learning.index');
     Route::get('/learning-path/{encId}', [UserLearningController::class, 'show'])->name('users.learning.show');
+    Route::post('/learning-path/{encId}/update-status', [UserLearningController::class, 'updateStatus'])
+        ->name('users.learning.updateStatus');
 
     // Route::get('/uji-kompetensi', [\App\Http\Controllers\User\KompetensiController::class, 'index'])->name('users.kompetensi.index');
     Route::get('/uji-kompetensi/{encId}{learning_endId?}', [\App\Http\Controllers\User\KompetensiController::class, 'show'])->name('users.kompetensi.show');
@@ -51,6 +53,7 @@ Route::middleware(['auth', 'role:user', 'force.skill'])->group(function () {
 
     Route::get('/sertifikat/{id}/download', [App\Http\Controllers\User\SertifikatController::class, 'download'])
         ->name('users.sertifikat.download');
+
 });
 
 // Skill selection routes (no force.skill middleware)

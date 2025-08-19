@@ -78,41 +78,87 @@
         </div>
     </div>
 </div>
+
+
+<!-- Animate.css for button effect -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- YouTube Iframe API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        let watchSeconds = 0;
+        let timer = null;
+        let statusUpdated = false;
+
+        // Ambil batas menonton dari server (dalam detik)
+        let watchLimitSeconds = {{ (int)($learning->watch_limit_minutes ?? 0) }} * 60;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytplayer', {
+                playerVars: {
+                    rel: 0,
+                    autoplay: 0,
+                    modestbranding: 1,
+                    enablejsapi: 1
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                if (!timer) {
+                    timer = setInterval(function () {
+                        watchSeconds++;
+                        console.log("Menonton: " + watchSeconds + " detik");
+
+                        if ((watchLimitSeconds === 0 || watchSeconds >= watchLimitSeconds) && !statusUpdated) {
+                            statusUpdated = true;
+                            updateWatchingStatus();
+                            showExamButton();
+                        }
+                    }, 1000);
+                }
+            } else {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        const encId = @json($encId);
+
+        function updateWatchingStatus() {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch(`/learning-path/${encId}/update-status`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    status: 'menonton'
+                })
+            })
+            .then(res => res.json())
+            .then(data => console.log("Status berhasil diupdate:", data))
+            .catch(err => console.error("Gagal update status:", err));
+        }
+
+        function showExamButton() {
+            const btn = document.getElementById('btn-exam');
+            if (btn) {
+                btn.classList.remove('d-none');
+                btn.classList.add('animate__animated', 'animate__fadeInUp');
+            }
+        }
+    </script>
 @endsection
 
-@push('scripts')
-<!-- Animate.css for button effect -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-<!-- YouTube Iframe API -->
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-    let player;
-
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('ytplayer', {
-            playerVars: {
-                rel: 0,
-                autoplay: 0,
-                modestbranding: 1
-            },
-            events: {
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
-
-    function onPlayerStateChange(event) {
-        if (event.data === YT.PlayerState.ENDED) {
-            // Sembunyikan video player saat selesai
-            const iframeWrapper = document.getElementById('video-wrapper');
-            if (iframeWrapper) iframeWrapper.style.display = 'none';
-
-            // Tampilkan tombol ujian dengan animasi
-            const btn = document.getElementById('btn-exam');
-            btn.classList.remove('d-none');
-            btn.classList.add('animate__animated', 'animate__fadeInUp');
-        }
-    }
-</script>
-@endpush

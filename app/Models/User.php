@@ -32,4 +32,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserCompetencyHistory::class, 'user_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'learning_user')
+                    ->withPivot('status')
+                    ->withTimestamps();
+    }
+    
 }

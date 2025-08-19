@@ -30,4 +30,5 @@ class Competency extends Model
     {
         return $this->hasMany(Learning::class , 'competency_id');
     }
+    
 }

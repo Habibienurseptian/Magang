@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Learning;
 use App\Models\Competency;
 use App\Models\Skill;
+use App\Models\LearningStatus;
 use App\Helpers\AesHelper;
+use Illuminate\Http\Request;
+
 
 class LearningController extends Controller
 {
@@ -49,11 +52,15 @@ class LearningController extends Controller
         try {
             $id = AesHelper::decryptId($encId);
         } catch (\Throwable $e) {
-            abort(404, 'ID tidak valid');
+            abort(404);
         }
 
         $learning = Learning::findOrFail($id);
-        return view('users.learning.show', compact('learning'));
+
+        return view('users.learning.show', [
+            'learning' => $learning,
+            'encId' => $encId // ini dikirim ke view
+        ]);
     }
 
     public function exam($encId)
@@ -67,4 +74,40 @@ class LearningController extends Controller
         $kompetensi = Competency::findOrFail($id);
         return view('users.kompetensi.show', compact('kompetensi'));
     }
+
+    public function updateStatus(Request $request, $encId)
+    {
+        try {
+            $id = AesHelper::decryptId($encId);
+        } catch (\Throwable $e) {
+            abort(404, 'ID tidak valid');
+        }
+
+        $userId = auth()->id();
+        if (!$userId) {
+            return response()->json(['success' => false, 'message' => 'Harus login'], 401);
+        }
+
+        $learning = Learning::findOrFail($id);
+        $status = $request->input('status', 'menonton');
+
+        $record = LearningStatus::updateOrCreate(
+            [
+                'user_id' => $userId,
+                'learning_id' => $learning->id
+            ],
+            [
+                'status' => $status,
+                'updated_at' => now()
+            ]
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil disimpan',
+            'data' => $record
+        ]);
+    }
+
+
 }

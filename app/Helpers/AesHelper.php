@@ -6,10 +6,7 @@ class AesHelper
 {
     private static function key(): string
     {
-        // Ambil key dari .env
         $key = env('AES_SECRET_KEY');
-
-        // Pastikan 32 byte (AES-256), kalau kurang tambahkan null padding
         return substr(hash('sha256', $key, true), 0, 32);
     }
 
@@ -25,10 +22,10 @@ class AesHelper
 
     public static function encryptId(int|string $id): string
     {
-        // Tambahkan random string biar tiap encrypt beda
         $payload = json_encode([
             'id' => (string) $id,
             'rand' => bin2hex(random_bytes(5)),
+            'time' => time()
         ]);
 
         $ivLen = openssl_cipher_iv_length('AES-256-CBC');
@@ -42,7 +39,6 @@ class AesHelper
             $iv
         );
 
-        // Simpan IV + cipher
         return self::b64urlEncode($iv . $cipherText);
     }
 
@@ -63,7 +59,7 @@ class AesHelper
         );
 
         if ($payload === false) {
-            return null; // gagal decrypt
+            return null;
         }
 
         $json = json_decode($payload, true);

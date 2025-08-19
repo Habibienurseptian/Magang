@@ -67,6 +67,12 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">Batas Menonton (menit)</label>
+                            <input type="number" name="watch_limit_minutes" class="form-control" min="1" placeholder="Contoh: 2">
+                            <!-- <small class="text-muted">Setelah waktu ini (menit) tercapai, status menonton akan muncul.</small> -->
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">Deskripsi</label>
                             <textarea name="description" class="form-control" rows="3" required></textarea>
                         </div>

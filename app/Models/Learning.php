@@ -10,7 +10,7 @@ class Learning extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'competency_id','skill_id', 'category', 'level', 'description', 'image', 'youtube_url'
+        'title', 'competency_id','skill_id', 'category', 'level', 'description', 'image', 'youtube_url', 'watch_limit_minutes',
     ];
     public function skill()
     {
