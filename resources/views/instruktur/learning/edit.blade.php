@@ -73,8 +73,11 @@
 
                 <div class="mb-3">
                     <label class="form-label">Deskripsi</label>
-                    <textarea name="description" class="form-control" rows="3" required>{{ old('description', $learning->description) }}</textarea>
+                    <textarea id="editor" name="description" class="form-control" rows="5">
+                        {{ old('description', $learning->description) }}
+                    </textarea>
                 </div>
+
 
                 <div class="text-end">
                     <a href="{{ route('instruktur.learning.index') }}" class="btn btn-secondary me-2"><i class="fa fa-arrow-left me-1"></i> Batal</a>
@@ -85,4 +88,29 @@
         </div>
     </div>
 </div>
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/classic/ckeditor.js"></script>
+
+<script>
+ClassicEditor
+    .create(document.querySelector('#editor'), {
+        ckfinder: {
+            uploadUrl: "{{ route('ckeditor.upload') }}?_token={{ csrf_token() }}"
+        },
+        simpleUpload: {
+            uploadUrl: "{{ route('ckeditor.upload') }}",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        },
+        mediaEmbed: {
+            previewsInData: true
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+</script>
+
 @endsection

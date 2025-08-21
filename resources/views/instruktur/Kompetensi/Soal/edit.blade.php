@@ -9,13 +9,27 @@
     <div class="card">
         <div class="card-header bg-white fw-bold">Edit Soal</div>
         <div class="card-body">
-            <form method="POST" action="{{ route('instruktur.kompetensi.soal.update', [$competency->id, $soal->id]) }}">
+            <form method="POST" action="{{ route('instruktur.kompetensi.soal.update', [$competency->id, $soal->id]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+
                 <div class="mb-3">
                     <label class="form-label">Pertanyaan</label>
                     <textarea name="question" class="form-control" rows="2" required>{{ old('question', $soal->question) }}</textarea>
                 </div>
+
+                <!-- 🔹 Gambar Soal -->
+                <div class="mb-3">
+                    <label class="form-label">Gambar (opsional)</label>
+                    @if($soal->image)
+                        <div class="mb-2">
+                            <img src="{{ asset('storage/'.$soal->image) }}" alt="gambar soal" class="img-thumbnail" style="max-width: 200px;">
+                        </div>
+                    @endif
+                    <input type="file" name="image" class="form-control" accept="image/*">
+                    <small class="text-muted">Biarkan kosong jika tidak ingin mengganti gambar.</small>
+                </div>
+
                 <div class="row g-2 mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Pilihan A</label>
@@ -34,6 +48,7 @@
                         <input type="text" name="option_d" class="form-control" value="{{ old('option_d', $soal->option_d) }}" required>
                     </div>
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">Kunci Jawaban</label>
                     <select name="answer_key" class="form-select" required>
@@ -43,6 +58,7 @@
                         <option value="d" {{ old('answer_key', $soal->answer_key) == 'd' ? 'selected' : '' }}>D</option>
                     </select>
                 </div>
+
                 <div class="text-end">
                     <a href="{{ route('instruktur.kompetensi.soal.index', $competency->id) }}" class="btn btn-secondary">Batal</a>
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>

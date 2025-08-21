@@ -74,9 +74,9 @@
 
                         <div class="mb-3">
                             <label class="form-label">Deskripsi</label>
-                            <textarea name="description" class="form-control" rows="3" required></textarea>
+                            <textarea id="editor" name="description" class="form-control" rows="5"></textarea>
                         </div>
-
+                        
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>
@@ -113,16 +113,16 @@
                     <th>Level</th>
                     <th>Kompetensi</th>
                     <th class="d-none d-md-table-cell">Gambar</th>
-                    <th class="d-none d-md-table-cell">Deskripsi</th>
+                    <!-- <th class="d-none d-md-table-cell">Deskripsi</th> -->
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($learnings as $learning)
                     <tr>
-                        <td style="word-break:break-word">{{ $learning->title }}</td>
+                        <td style="white-space:normal; overflow-wrap:break-word;">{{ $learning->title }}</td>
 
-                        <td>{{ $learning->skill->name ?? '-' }}</td>
+                        <td style="white-space:normal; overflow-wrap:break-word;">{{ $learning->skill->name ?? '-' }}</td>
 
                         <td>
                             @php
@@ -142,17 +142,21 @@
                             </span>
                         </td>
                             
-                        <td>
+                        <td style="white-space:normal; overflow-wrap:break-word;">
                             {{ $learning->competency->title ?? '-' }}
                         </td>
 
                         <td class="d-none d-md-table-cell">
-                            <img src="{{ $learning->image }}" alt="Gambar" style="width:100px;max-width:100%;">
+                            @if ($learning->image)
+                                <img src="{{ asset('storage/' . $learning->image) }}" 
+                                    alt="Gambar" 
+                                    style="width:100px;max-width:100%;">
+                            @endif
                         </td>
 
-                        <td class="desc-td d-none d-md-table-cell" style="max-width:220px; word-break:break-word;">
-                            {!! \Illuminate\Support\Str::limit(nl2br(e($learning->description)), 60, '...') !!}
-                        </td>
+                        <!-- <td class="desc-td d-none d-md-table-cell" style="max-width:220px; word-break:break-word;">
+                            {{ \Illuminate\Support\Str::limit(strip_tags($learning->description), 60, '...') }}
+                        </td> -->
 
                         <td>
                             <div class="d-flex flex-wrap gap-2 align-items-center">
@@ -198,4 +202,31 @@
         {{ $learnings->appends(request()->except('page'))->onEachSide(1)->links('vendor.pagination.custom') }}
     </div>
 </div>
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/classic/ckeditor.js"></script>
+
+<script>
+ClassicEditor
+    .create(document.querySelector('#editor'), {
+        ckfinder: {
+            // fallback biar gak error adapter
+            uploadUrl: "{{ route('ckeditor.upload') }}?_token={{ csrf_token() }}"
+        },
+        simpleUpload: {
+            uploadUrl: "{{ route('ckeditor.upload') }}",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        },
+        mediaEmbed: {
+            previewsInData: true
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+</script>
+
+
 @endsection

@@ -197,7 +197,7 @@
 
             <div class="footer-section">
                 <div class="footer">
-                    <span class="company-name">Pelaon</span> &mdash; {{ date('Y') }}
+                    <span class="company-name">SIPELON</span> &mdash; {{ date('Y') }}
                 </div>
             </div>
         </div>

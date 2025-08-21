@@ -2,7 +2,7 @@
 <nav class="col-lg-2 d-none d-lg-block sidebar py-4 position-fixed bg-dark text-white" style="height:100vh;z-index:1040;">
         <div class="text-center mb-4">
             <img src="{{ asset('images/logo1.png') }}" alt="Logo MyApp" style="height: 60px;">
-            <h4 class="mt-2">PelaonApp</h4>
+            <h4 class="mt-2">SIPELON</h4>
         </div>
     <ul class="nav flex-column">
         @if(Auth::user() && Auth::user()->role === 'admin')
@@ -63,7 +63,7 @@
 <nav class="navbar navbar-dark bg-dark d-lg-none">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="{{ asset('images/logo1.png') }}" alt="Logo" style="height: 30px;">PelaonApp
+            <img src="{{ asset('images/logo1.png') }}" alt="Logo" style="height: 30px;">SIPELON
         </a>
         <button class="navbar-toggler" type="button" id="sidebarToggle" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -74,7 +74,7 @@
     <div id="mobileSidebar" class="mobile-sidebar bg-dark text-white position-fixed top-0 start-0 vh-100" style="z-index:1050;transform:translateX(-100%);transition:transform 0.3s cubic-bezier(.4,0,.2,1);min-width:220px;max-width:85vw;">
         <div class="d-flex flex-column h-100">
             <div class="d-flex align-items-center justify-content-between p-3 border-bottom border-secondary">
-                <span class="fw-bold"><img src="{{ asset('images/logo1.png') }}" alt="Logo" style="height: 30px;">PelaonApp</span>
+                <span class="fw-bold"><img src="{{ asset('images/logo1.png') }}" alt="Logo" style="height: 30px;">SIPELON</span>
                 <button class="btn btn-link text-white fs-3 p-0" id="sidebarClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
             </div>
             <ul class="navbar-nav px-3 mt-3">

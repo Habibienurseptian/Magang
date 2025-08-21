@@ -6,8 +6,11 @@
         <div class="col-lg-8">
             <div class="card shadow mb-4">
                 @if($learning->image)
-                    <img src="{{ $learning->image }}" class="card-img-top" alt="{{ $learning->title }}">
+                    <img src="{{ asset('storage/' . $learning->image) }}" 
+                        class="card-img-top" 
+                        alt="{{ $learning->title }}">
                 @endif
+
                 <div class="card-body">
                     <h3 class="card-title mb-3">{{ $learning->title }}</h3>
                     @php
@@ -44,7 +47,21 @@
                         @endphp
                         <span class="badge rounded-pill px-3 py-2 {{ $levelClass }}" style="font-size:1.05rem;min-width:80px;"><i class="fas fa-signal me-1"></i>{{ $learning->level ?? '-' }}</span>
                     </div>
-                    <p class="card-text">{!! nl2br(e($learning->description)) !!}</p>
+                    <div class="card-text">
+                        {!! preg_replace(
+                            '/<img(.*?)>/i',
+                            '<img class="img-fluid rounded shadow-sm my-2"$1>',
+                            str_replace(
+                                ['<table', '<blockquote'],
+                                [
+                                    '<table class="table table-bordered table-sm"',
+                                    '<blockquote class="blockquote"'
+                                ],
+                                $learning->description
+                            )
+                        ) !!}
+                    </div>
+
                     <a href="{{ route('instruktur.learning.index') }}" class="btn btn-secondary mt-3"><i class="fas fa-arrow-left me-1"></i> Kembali</a>
                 </div>
             </div>

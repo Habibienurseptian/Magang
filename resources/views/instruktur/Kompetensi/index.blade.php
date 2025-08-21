@@ -89,15 +89,15 @@
                 <th>Durasi</th>
                 <th>Passing Grade</th>
                 <th>Status</th>
-                <th>Deskripsi</th>
+                <!-- <th>Deskripsi</th> -->
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @forelse($competencies as $kompetensi)
                 <tr>
-                    <td>{{ $kompetensi->title }}</td>
-                    <td>{{ $kompetensi->skill ? $kompetensi->skill->name : '-' }}</td>
+                    <td style="white-space:normal; overflow-wrap:break-word;">{{ $kompetensi->title }}</td>
+                    <td style="white-space:normal; overflow-wrap:break-word;">{{ $kompetensi->skill ? $kompetensi->skill->name : '-' }}</td>
                     <td>
                         @php
                             $levelClass = 'learning-badge-level badge-sm';
@@ -116,7 +116,7 @@
                             <span class="badge bg-secondary">Tidak Tersedia</span>
                         @endif
                     </td>
-                    <td class="desc-td" style="max-width:220px;word-break:break-word;">{!! \Illuminate\Support\Str::limit(nl2br(e($kompetensi->description)), 30, '...') !!}</td>
+                    <!-- <td class="desc-td" style="max-width:220px;word-break:break-word;">{!! \Illuminate\Support\Str::limit(nl2br(e($kompetensi->description)), 30, '...') !!}</td> -->
                     <td class="d-flex flex-wrap gap-1">
                         <a href="{{ route('instruktur.kompetensi.soal.index', $kompetensi->id) }}" class="btn btn-info btn-sm btn-action" title="Kelola Soal"><i class="fa fa-tasks"></i></a>
                         @php $jumlahSoal = $kompetensi->soals_count ?? ($kompetensi->soals->count() ?? 0); @endphp

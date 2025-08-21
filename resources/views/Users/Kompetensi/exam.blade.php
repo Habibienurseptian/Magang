@@ -47,6 +47,18 @@
                                         <span class="badge kompetensi-badge-nomor me-2">{{ $i+1 }}</span>
                                         <span class="fw-semibold" style="font-size:1.08rem;">{{ $soal->question }}</span>
                                     </div>
+
+                                    {{-- tampilkan gambar jika ada --}}
+                                    @if($soal->image)
+                                        <div class="mb-3 text-center">
+                                            <img src="{{ asset('storage/' . $soal->image) }}" 
+                                                alt="Gambar Soal {{ $i+1 }}" 
+                                                class="img-fluid rounded shadow-sm" 
+                                                style="max-height: 250px; object-fit: contain;">
+                                        </div>
+                                    @endif
+
+
                                     <div class="row g-2">
                                         <div class="col-md-6">
                                             <label class="kompetensi-radio-wrap w-100">
@@ -77,6 +89,7 @@
                             </div>
                         </div>
                         @endforeach
+
                         <div class="d-flex justify-content-end align-items-center mt-4">
                             <button type="submit" class="btn kompetensi-gradient-btn btn-lg rounded-pill px-4 fw-semibold" id="btn-submit-jawaban"><i class="fa fa-paper-plane me-1"></i> Kumpulkan Jawaban</button>
                         </div>

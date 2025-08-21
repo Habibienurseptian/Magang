@@ -16,6 +16,7 @@ use App\Http\Controllers\instruktur\BidangController;
 use App\Http\Controllers\instruktur\SertifikatController as instrukturSertifikatController;
 use App\Http\Controllers\User\SertifikatController as UserSertifikatController;
 use App\Http\Controllers\Auth\ForgotDirectController;
+use App\Http\Controllers\CKEditorController;
 
 // Halaman utama
 Route::get('/', function () {
@@ -112,6 +113,8 @@ Route::middleware(['auth', 'role:instruktur'])->group(function () {
     //     Route::delete('{soal}', [SoalController::class, 'destroy'])->name('destroy');
     // });
 
+    Route::post('/ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
+
     Route::get('/instruktur/profile', [\App\Http\Controllers\instruktur\ProfileController::class, 'index'])->name('instruktur.profile.index');
     Route::get('/instruktur/profile/edit', [\App\Http\Controllers\instruktur\ProfileController::class, 'edit'])->name('instruktur.profile.edit');
     Route::post('/instruktur/profile/update', [\App\Http\Controllers\instruktur\ProfileController::class, 'update'])->name('instruktur.profile.update');
@@ -144,3 +147,4 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 Route::get('/forgot-password-direct', [ForgotDirectController::class, 'showForm'])->name('password.forgot.direct');
 Route::post('/forgot-password-direct', [ForgotDirectController::class, 'resetPassword'])->name('password.reset.direct');
+

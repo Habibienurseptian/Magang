@@ -19,7 +19,7 @@ class SoalController extends Controller
     }
 
     // Simpan soal baru
-    public function store(Request $request, $competencyId)
+   public function store(Request $request, $competencyId)
     {
         $request->validate([
             'question' => 'required',
@@ -28,11 +28,21 @@ class SoalController extends Controller
             'option_c' => 'required',
             'option_d' => 'required',
             'answer_key' => 'required|in:a,b,c,d',
+            'image'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        $data = $request->only(['question','option_a','option_b','option_c','option_d','answer_key']);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('soal_images', 'public');
+        }
+
         $competency = Competency::findOrFail($competencyId);
-        $competency->soals()->create($request->only(['question','option_a','option_b','option_c','option_d','answer_key']));
+        $competency->soals()->create($data);
+
         return redirect()->back()->with('success', 'Soal berhasil ditambahkan.');
     }
+
 
     // Tampilkan form edit soal
     public function edit($competencyId, $soalId)
@@ -52,12 +62,24 @@ class SoalController extends Controller
             'option_c' => 'required',
             'option_d' => 'required',
             'answer_key' => 'required|in:a,b,c,d',
+            'image'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
         $competency = Competency::findOrFail($competencyId);
         $soal = $competency->soals()->findOrFail($soalId);
-        $soal->update($request->only(['question','option_a','option_b','option_c','option_d','answer_key']));
-        return redirect()->route('instruktur.kompetensi.soal.index', $competencyId)->with('success', 'Soal berhasil diupdate.');
+
+        $data = $request->only(['question','option_a','option_b','option_c','option_d','answer_key']);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('soal_images', 'public');
+        }
+
+        $soal->update($data);
+
+        return redirect()->route('instruktur.kompetensi.soal.index', $competencyId)
+                        ->with('success', 'Soal berhasil diupdate.');
     }
+
 
     // Hapus soal
     public function destroy($competencyId, $soalId)

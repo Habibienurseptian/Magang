@@ -12,6 +12,7 @@ class Soal extends Model
     protected $fillable = [
         'kompetensi_id',
         'question',
+        'image',
         'option_a',
         'option_b',
         'option_c',

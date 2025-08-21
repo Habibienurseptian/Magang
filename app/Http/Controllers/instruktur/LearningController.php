@@ -58,7 +58,7 @@ class LearningController extends Controller
             'skill_id' => $request->skill_id,
             'level' => $request->level,
             'description' => $request->description,
-            'image' => $imagePath ? '/storage/' . $imagePath : 'https://via.placeholder.com/400',
+            'image' => $imagePath,
             'youtube_url' => $request->youtube_url,
             'competency_id' => $request->competency_id,
             'watch_limit_minutes' => $request->watch_limit_minutes ?? 0,
@@ -122,13 +122,13 @@ class LearningController extends Controller
 
         $imagePath = $learning->image;
         if ($request->hasFile('image')) {
-            $imagePath = '/storage/' . $request->file('image')->store('learnings', 'public');
+            $imagePath = $request->file('image')->store('learnings', 'public');
         }
 
         $learning->update([
             'title' => $request->title,
             'skill_id' => $request->skill_id,
-            'level' => $request->level,
+            'level' => $request->level, 
             'description' => $request->description,
             'image' => $imagePath,
             'youtube_url' => $request->youtube_url,

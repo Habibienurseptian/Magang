@@ -12,8 +12,14 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow mb-4">
-                @if($learning->image)
-                    <img src="{{ $learning->image }}" class="card-img-top" alt="{{ $learning->title }}">
+                @if ($learning->image)
+                    <img src="{{ asset('storage/' . $learning->image) }}" 
+                        class="card-img-top" 
+                        alt="{{ $learning->title }}">
+                @else
+                    <img src="https://via.placeholder.com/400x200?text=No+Image" 
+                        class="card-img-top" 
+                        alt="No Image">
                 @endif
                 <div class="card-body">
                     <h3 class="card-title mb-3">{{ $learning->title }}</h3>
@@ -68,7 +74,30 @@
                         </span>
                     </div>
 
-                    <p class="card-text">{!! nl2br(e($learning->description)) !!}</p>
+                    <div class="card-text">
+                        {!! preg_replace(
+                            [
+                                // Tambahkan class ke <img>
+                                '/<img(.*?)>/i',
+                                // Tambahkan responsive embed ke iframe (YouTube, dll)
+                                '/<iframe(.*?)<\/iframe>/i'
+                            ],
+                            [
+                                '<img class="img-fluid rounded shadow-sm my-2"$1>',
+                                '<div class="ratio ratio-16x9"><iframe$1</iframe></div>'
+                            ],
+                            str_replace(
+                                ['<table', '<blockquote'],
+                                [
+                                    '<table class="table table-bordered table-sm table-striped align-middle"',
+                                    '<blockquote class="blockquote ps-3 border-start border-3"'
+                                ],
+                                $learning->description
+                            )
+                        ) !!}
+                    </div>
+
+
 
                     <a href="{{ route('users.learning.index') }}" class="btn btn-secondary mt-3">
                         <i class="fas fa-arrow-left me-1"></i> Kembali

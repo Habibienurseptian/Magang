@@ -49,8 +49,9 @@
             <div class="col mb-4">
                 <div class="card modern-card h-100 border-0 shadow-lg position-relative" style="border-radius:1.5rem;overflow:hidden;transition:box-shadow .22s, transform .22s;">
                     <div class="position-relative">
-                        <img src="{{ $learning->image ?? 'https://via.placeholder.com/400' }}"
-                             class="card-img-top img-fluid modern-img" style="object-fit:cover;max-height:190px;transition:transform .22s, filter .22s;filter:brightness(0.97);" alt="{{ $learning->title }}">
+                        <img src="{{ $learning->image ? asset('storage/' . $learning->image) : 'https://via.placeholder.com/400' }}"
+                            alt="{{ $learning->title }}"
+                            class="img-fluid rounded shadow-sm">
                         @php
                             $levelClass = 'learning-badge-level';
                             if ($learningLevel == 'pemula') $levelClass .= ' learning-badge-level-pemula';
@@ -68,8 +69,16 @@
                                 <i class="fa fa-lightbulb me-1"></i> {{ $learning->skill->name ?? '-' }}
                             </span>
                         </div>
-                        <p class="card-text text-secondary mb-3" style="font-size:1.01rem;min-height:56px;">
-                            {{ \Illuminate\Support\Str::limit($learning->description, 90, '...') }}
+                        <p class="card-text text-secondary mb-3">
+                            {!! Str::limit(
+                                str_replace(
+                                    ['<table', '<blockquote'],
+                                    ['<table class="table table-bordered table-sm"', '<blockquote class="blockquote"'],
+                                    $learning->description
+                                ),
+                                15,
+                                '...'
+                            ) !!}
                         </p>
                         @if($canAccess)
                             <a href="{{ route('users.learning.show', AesHelper::encryptId($learning->id)) }}" class="btn btn-gradient-primary mt-auto rounded-pill px-4 py-2 shadow-sm" style="font-weight:600;letter-spacing:.01em;font-size:1.04rem;transition:background .18s, color .18s;">Mulai Belajar <i class="fa fa-arrow-right ms-1"></i></a>
