@@ -12,7 +12,7 @@
                         <i class="fas fa-route fa-lg"></i>
                     </div>
                     <div class="flex-grow-1">
-                        <div class="fw-bold fs-5 mb-0">{{ $info['learning_path_aktif'] ?? '0' }}</div>
+                        <div class="fw-bold fs-5 mb-0">{{ $info['learning_path'] ?? '0' }}</div>
                         <small class="text-muted">Learning Path Tersedia</small>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                         <i class="fas fa-clipboard-check fa-lg"></i>
                     </div>
                     <div class="flex-grow-1">
-                        <div class="fw-bold fs-5 mb-0">{{ $info['uji_kompetensi_aktif'] ?? '0' }}</div>
+                        <div class="fw-bold fs-5 mb-0">{{ $info['uji_kompetensi'] ?? '0' }}</div>
                         <small class="text-muted">Uji Kompetensi Tersedia</small>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="carousel-item active">
                         <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80" class="d-block w-100" style="height:220px;object-fit:cover;" alt="Banner 1">
                         <div class="carousel-caption d-none d-md-block text-start">
-                            <h4 class="fw-bold text-shadow">Selamat Datang di PelaonApp</h4>
+                            <h4 class="fw-bold text-shadow">Selamat Datang di SIPELON</h4>
                             <p class="mb-0 text-shadow">Platform pembelajaran dan sertifikasi modern untuk generasi digital.</p>
                         </div>
                     </div>
@@ -117,13 +117,13 @@
                 <ul class="list-unstyled mb-0">
                     <li><i class="fas fa-calendar-alt me-2 text-primary"></i> Tahun: <b>{{ $info['tahun_akademik'] ?? '2025/2026' }}</b></li>
                     <li><i class="fas fa-users me-2 text-success"></i> Total User: <b>{{ $info['total_user'] ?? '0' }}</b></li>
-                    <li><i class="fas fa-user me-2 text-secondary"></i> User: <b>{{ $info['total_peserta'] ?? '0' }}</b></li>
-                    <li><i class="fas fa-route me-2 text-warning"></i> Learning Path Aktif: <b>{{ $info['learning_path_aktif'] ?? '0' }}</b></li>
-                    <li><i class="fas fa-clipboard-check me-2 text-info"></i> Uji Kompetensi Aktif: <b>{{ $info['uji_kompetensi_aktif'] ?? '0' }}</b></li>
+                    <li><i class="fas fa-user me-2 text-secondary"></i> Peserta: <b>{{ $info['total_peserta'] ?? '0' }}</b></li>
+                    <li><i class="fas fa-route me-2 text-warning"></i> Learning Path : <b>{{ $info['learning_path'] ?? '0' }}</b></li>
+                    <li><i class="fas fa-clipboard-check me-2 text-info"></i> Uji Kompetensi : <b>{{ $info['uji_kompetensi'] ?? '0' }}</b></li>
                     <li><i class="fas fa-briefcase me-2 text-danger-emphasis"></i> Bidang Keahlian: <b>{{ $info['bidang_keahlian'] ?? 0 }}</b></li>
                 </ul>
                 <hr>
-                <p class="mb-0 small text-muted">Selamat datang di dashboard PelaonApp. Pantau perkembangan pembelajaran, uji kompetensi, dan raih sertifikat terbaikmu!</p>
+                <p class="mb-0 small text-muted">Selamat datang di dashboard SIPELON. Pantau perkembangan pembelajaran, uji kompetensi, dan raih sertifikat terbaikmu!</p>
             </div>
         </div>
         </div>

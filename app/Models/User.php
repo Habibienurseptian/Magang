@@ -40,4 +40,9 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
     
+    public function learningStatuses()
+    {
+        return $this->hasMany(LearningStatus::class);
+    }
+    
 }

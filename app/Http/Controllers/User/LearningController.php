@@ -52,16 +52,26 @@ class LearningController extends Controller
         try {
             $id = AesHelper::decryptId($encId);
         } catch (\Throwable $e) {
-            abort(404);
+            abort(404, 'ID tidak valid');
         }
 
-        $learning = Learning::findOrFail($id);
+        $learning = Learning::with('competency')->findOrFail($id);
+
+        // cek status user
+        $status = \App\Models\LearningStatus::where('user_id', auth()->id())
+            ->where('learning_id', $learning->id)
+            ->first();
+
+        $hasWatched = $status && $status->status === 'menonton';
 
         return view('users.learning.show', [
-            'learning' => $learning,
-            'encId' => $encId // ini dikirim ke view
+            'learning'   => $learning,
+            'encId'      => $encId,
+            'hasWatched' => $hasWatched
         ]);
     }
+
+
 
     public function exam($encId)
     {
