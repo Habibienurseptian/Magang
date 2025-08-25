@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="text-center mb-5">
-                    <h1 class="fw-bold mb-3" style="font-size:2.5rem;letter-spacing:1px;">Selamat Datang di <span class="text-gradient">PelaonApp</span></h1>
+                    <h1 class="fw-bold mb-3" style="font-size:2.5rem;letter-spacing:1px;">Selamat Datang di <span class="text-gradient">SIPELON</span></h1>
                     <p class="lead text-muted">Platform pembelajaran, uji kompetensi, dan sertifikasi modern untuk generasi digital.</p>
                 </div>
                 <div class="row g-4 mb-4">
@@ -38,7 +38,7 @@
                                     </span>
                                 </div>
                                 <h5 class="card-title fw-bold">Uji Test</h5>
-                                <p class="card-text small">Uji kemampuanmu dan dapatkan sertifikat resmi dari PelaonApp.</p>
+                                <p class="card-text small">Uji kemampuanmu dan dapatkan sertifikat resmi dari SIPELON.</p>
                             </div>
                         </div>
                     </div>
@@ -66,9 +66,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <span class="fw-bold text-gradient">PelaonApp</span> &copy; {{ date('Y') }} &mdash; All rights reserved.<br>
+                    <span class="fw-bold text-gradient">SIPELON</span> &copy; {{ date('Y') }} &mdash; All rights reserved.<br>
                     <small class="text-muted">Contact: 
-                        <a href="mailto:support@pelaonpp.com" class="text-decoration-none text-gradient">support@pelaonapp.com</a>
+                        <a href="mailto:support@sipelon.com" class="text-decoration-none text-gradient">support@sipelon.com</a>
                     </small>
                 </div>
             </div>
@@ -77,7 +77,7 @@
     <style>
         @media (max-width: 576px) {
             .content-padding {
-                padding-bottom: 100px; /* Sesuaikan dengan tinggi footer */
+                padding-bottom: 100px;
             }
         }
         @media (max-width: 575.98px) {

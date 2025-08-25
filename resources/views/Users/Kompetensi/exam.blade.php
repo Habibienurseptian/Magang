@@ -37,7 +37,7 @@
                     <div class="kompetensi-timer-box mb-4 text-center">
                         <span class="fw-semibold text-dark">Sisa Waktu:</span> <span id="timer" class="fw-bold kompetensi-timer-text">{{ $kompetensi->duration }}:00</span>
                     </div>
-                    <form method="POST" action="{{ route('users.kompetensi.exam.submit', AesHelper::encryptId($kompetensi->id)) }}" id="exam-form">
+                    <form method="POST" action="{{ route('users.kompetensi.exam.submit', AesHelper::encryptId($kompetensi->id, 'kompetensi')) }}" id="exam-form">
                         @csrf
                         @foreach($soals as $i => $soal)
                         <div class="mb-4">

@@ -64,7 +64,7 @@ class KompetensiController extends Controller
     {
 
         try {
-            $id = AesHelper::decryptId($encId);
+            $id = AesHelper::decryptId($encId, 'kompetensi');
         } catch (\Throwable $e) {
             abort(404, 'ID ujian tidak valid');
         }
@@ -102,7 +102,7 @@ class KompetensiController extends Controller
     public function exam($encId)
     {
         try {
-            $id = AesHelper::decryptId($encId);
+            $id = AesHelper::decryptId($encId, 'kompetensi');
         } catch (\Throwable $e) {
             abort(404, 'ID ujian tidak valid');
         }
@@ -144,13 +144,11 @@ class KompetensiController extends Controller
     }
 
 
-
-
     public function submitExam($encId, \Illuminate\Http\Request $request, $learningId = null)
     {
 
         try {
-            $id = AesHelper::decryptId($encId);
+            $id = AesHelper::decryptId($encId, 'kompetensi');
         } catch (\Throwable $e) {
             abort(404, 'ID ujian tidak valid');
         }

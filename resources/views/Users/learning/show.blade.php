@@ -49,7 +49,7 @@
 
                         <!-- Tombol Lanjut ke Uji Kompetensi -->
                         <div class="mb-3 text-center">
-                            <a href="{{ route('users.kompetensi.show', AesHelper::encryptId($learning->competency->id)) }}"
+                            <a href="{{ route('users.kompetensi.show', AesHelper::encryptId($learning->competency->id, 'kompetensi')) }}"
                             id="btn-exam"
                             class="btn btn-primary {{ $hasWatched ? '' : 'd-none' }}">
                                 <i class="fas fa-check-circle me-1"></i> Lanjut ke Uji Kompetensi
@@ -179,7 +179,7 @@
             .then(res => res.json())
             .then(data => {
                 console.log("Status berhasil diupdate:", data);
-                showExamButton(); // pastikan tombol muncul juga setelah update
+                showExamButton();
             })
             .catch(err => console.error("Gagal update status:", err));
         }

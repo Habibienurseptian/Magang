@@ -50,7 +50,7 @@ class LearningController extends Controller
     public function show($encId)
     {
         try {
-            $id = AesHelper::decryptId($encId);
+            $id = AesHelper::decryptId($encId, 'learning');
         } catch (\Throwable $e) {
             abort(404, 'ID tidak valid');
         }
@@ -76,7 +76,7 @@ class LearningController extends Controller
     public function exam($encId)
     {
         try {
-            $id = AesHelper::decryptId($encId);
+            $id = AesHelper::decryptId($encId, 'learning');
         } catch (\Throwable $e) {
             abort(404, 'ID tidak valid');
         }
@@ -88,7 +88,7 @@ class LearningController extends Controller
     public function updateStatus(Request $request, $encId)
     {
         try {
-            $id = AesHelper::decryptId($encId);
+            $id = AesHelper::decryptId($encId, 'learning');
         } catch (\Throwable $e) {
             abort(404, 'ID tidak valid');
         }

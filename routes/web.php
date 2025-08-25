@@ -38,11 +38,7 @@ Route::middleware(['auth', 'role:user', 'force.skill'])->group(function () {
     Route::post('/learning-path/{encId}/update-status', [UserLearningController::class, 'updateStatus'])
         ->name('users.learning.updateStatus');
 
-    // Route::get('/uji-kompetensi', [\App\Http\Controllers\User\KompetensiController::class, 'index'])->name('users.kompetensi.index');
     Route::get('/uji-kompetensi/{encId}{learning_endId?}', [\App\Http\Controllers\User\KompetensiController::class, 'show'])->name('users.kompetensi.show');
-    // Route::get('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'exam'])->name('users.kompetensi.exam');
-    // Route::post('/uji-kompetensi/{id}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'submitExam'])->name('users.kompetensi.exam.submit');
-
     Route::get('/uji-kompetensi/{encId}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'exam'])
         ->name('users.kompetensi.exam');
     Route::post('/uji-kompetensi/{encId}/mulai', [\App\Http\Controllers\User\KompetensiController::class, 'submitExam'])
@@ -104,14 +100,6 @@ Route::middleware(['auth', 'role:instruktur'])->group(function () {
         Route::put('{soal}', [SoalController::class, 'update'])->name('update');
         Route::delete('{soal}', [SoalController::class, 'destroy'])->name('destroy');
     });
-    // Alias agar route lama tetap bisa dipakai
-    // Route::prefix('instruktur/kompetensi/{competency}/soal')->name('instruktur.kompetensi.soal.')->group(function () {
-    //     Route::get('/', [SoalController::class, 'index'])->name('index');
-    //     Route::post('/', [SoalController::class, 'store'])->name('store');
-    //     Route::get('{soal}/edit', [SoalController::class, 'edit'])->name('edit');
-    //     Route::put('{soal}', [SoalController::class, 'update'])->name('update');
-    //     Route::delete('{soal}', [SoalController::class, 'destroy'])->name('destroy');
-    // });
 
     Route::post('/ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
 

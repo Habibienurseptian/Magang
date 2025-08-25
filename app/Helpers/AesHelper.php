@@ -20,12 +20,14 @@ class AesHelper
         return base64_decode(strtr($data, '-_', '+/'));
     }
 
-    public static function encryptId(int|string $id): string
+    // 🟢 tambahkan $type
+    public static function encryptId(int|string $id, string $type = 'default'): string
     {
         $payload = json_encode([
-            'id' => (string) $id,
+            'id'   => (string) $id,
+            'type' => $type,
             'rand' => bin2hex(random_bytes(5)),
-            'time' => time()
+            'time' => time(),
         ]);
 
         $ivLen = openssl_cipher_iv_length('AES-256-CBC');
@@ -42,7 +44,8 @@ class AesHelper
         return self::b64urlEncode($iv . $cipherText);
     }
 
-    public static function decryptId(string $hash): ?string
+    // 🟢 cek $type saat decrypt
+    public static function decryptId(string $hash, string $expectedType = 'default'): ?string
     {
         $data = self::b64urlDecode($hash);
 
@@ -63,6 +66,15 @@ class AesHelper
         }
 
         $json = json_decode($payload, true);
+        if (!is_array($json)) {
+            return null;
+        }
+
+        // validasi type
+        if (($json['type'] ?? null) !== $expectedType) {
+            return null;
+        }
+
         return $json['id'] ?? null;
     }
 }
