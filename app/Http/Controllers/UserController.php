@@ -45,27 +45,6 @@ class UserController extends Controller
         if ($user->skill_level) $kompetensiQuery->where('level', $user->skill_level);
         $kompetensi_total = $kompetensiQuery->count();
 
-        // Hitung kompetensi yang sudah diselesaikan
-        $kompetensi_selesai = UserCompetencyHistory::where('user_id', $user->id)
-            ->whereHas('competency', function($q) use ($hasIsAvailable, $skillId, $user) {
-                if ($hasIsAvailable) $q->where('is_available', true);
-                if ($skillId) $q->where('skill_id', $skillId);
-                if ($user->skill_level) $q->where('level', $user->skill_level);
-            })
-            ->get()
-            ->filter(function($history) {
-                if ($history->score && preg_match('/(\d+)\/(\d+)/', $history->score, $m)) {
-                    $benar = (int) $m[1];
-                    $total = (int) $m[2];
-                    return $total > 0 && round($benar / $total * 100) >= 70;
-                }
-                return false;
-            })
-            ->unique('competency_id')
-            ->count();
-
-        $progress_kompetensi = $kompetensi_total > 0 ? round($kompetensi_selesai / $kompetensi_total * 100) : 0;
-
         $info = [
             'tahun_akademik' => '2025/2026',
             'total_peserta' => User::where('role', 'user')->count(),
@@ -74,8 +53,6 @@ class UserController extends Controller
             'uji_kompetensi' => Competency::count(),
             'sertifikat_diterbitkan' => 3,
             'kompetensi_total' => $kompetensi_total,
-            'kompetensi_selesai' => $kompetensi_selesai,
-            'progress_kompetensi' => $progress_kompetensi,
             'bidang_keahlian' => Skill::count(),
         ];
 
